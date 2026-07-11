@@ -99,7 +99,7 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
           accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip,.rar"
           onChange={handleFileChange}
           required
-          className="w-full cursor-pointer rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 px-3.5 py-3 text-sm text-zinc-600 transition hover:border-indigo-300 hover:bg-indigo-50/30 file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-indigo-100 file:px-3.5 file:py-1.5 file:text-xs file:font-semibold file:text-indigo-700 hover:file:bg-indigo-200"
+          className="w-full cursor-pointer rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 px-3.5 py-3 text-sm text-zinc-600 transition hover:border-zinc-400 hover:bg-zinc-50 file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-zinc-100 file:px-3.5 file:py-1.5 file:text-xs file:font-semibold file:text-zinc-700 hover:file:bg-zinc-200"
         />
         <p className="mt-1.5 text-xs text-zinc-400">
           PDF, Word, PowerPoint, Excel, TXT, ZIP — max 50 MB

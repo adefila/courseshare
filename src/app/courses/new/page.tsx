@@ -10,7 +10,7 @@ export default async function NewCoursePage() {
   return (
     <div className="mx-auto w-full max-w-[1200px] px-6 py-12">
       <div className="mx-auto max-w-xl rounded-2xl border border-zinc-200 bg-white px-8 py-8 sm:px-12 sm:py-10">
-        <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
+        <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-zinc-700">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />

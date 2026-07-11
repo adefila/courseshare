@@ -44,7 +44,7 @@ export default async function CourseDetailPage({
         <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-start sm:justify-between sm:p-8">
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-indigo-50 px-3 py-1 text-[13px] font-semibold text-indigo-700">
+              <span className="rounded-full bg-zinc-100 px-3 py-1 text-[13px] font-semibold text-zinc-700">
                 {course.course_code}
               </span>
               <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-500">
@@ -85,7 +85,7 @@ export default async function CourseDetailPage({
       {/* Resources */}
       <div className="mb-4 flex items-center gap-2">
         <h2 className="text-lg font-semibold text-zinc-900">Resources</h2>
-        <span className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-indigo-600">
+        <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-semibold text-zinc-700">
           {resources?.length ?? 0}
         </span>
       </div>
@@ -95,7 +95,7 @@ export default async function CourseDetailPage({
         <p className="mt-8 text-center text-sm text-zinc-500">
           <Link
             href={`/login?redirectTo=/courses/${courseId}/upload`}
-            className="font-semibold text-indigo-600 hover:underline"
+            className="font-semibold text-zinc-900 hover:underline"
           >
             Sign in
           </Link>{" "}

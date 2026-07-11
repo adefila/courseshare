@@ -5,32 +5,16 @@ interface CourseCardProps {
   course: Course & { resource_count?: number };
 }
 
-// Deterministic accent per course code so cards vary but stay stable
-const ACCENTS = [
-  { badge: "bg-indigo-50 text-indigo-700" },
-  { badge: "bg-sky-50 text-sky-700" },
-  { badge: "bg-violet-50 text-violet-700" },
-  { badge: "bg-blue-50 text-blue-700" },
-  { badge: "bg-emerald-50 text-emerald-700" },
-];
-
-function accentFor(code: string) {
-  let h = 0;
-  for (const c of code) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return ACCENTS[h % ACCENTS.length];
-}
-
 export function CourseCard({ course }: CourseCardProps) {
   const count = course.resource_count ?? 0;
-  const accent = accentFor(course.course_code);
 
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-150 hover:border-indigo-200 hover:shadow-[0_4px_16px_rgba(79,70,229,0.08)]"
+      className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-150 hover:border-zinc-400"
     >
       <div className="mb-3 flex items-start justify-between gap-2">
-        <span className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${accent.badge}`}>
+        <span className="inline-block rounded-full bg-zinc-100 px-3 py-1 text-xs font-semibold text-zinc-700">
           {course.course_code}
         </span>
         <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500">
@@ -38,7 +22,7 @@ export function CourseCard({ course }: CourseCardProps) {
         </span>
       </div>
 
-      <h3 className="mb-1 font-semibold leading-snug text-zinc-900 transition-colors group-hover:text-indigo-700 line-clamp-2">
+      <h3 className="mb-1 font-semibold leading-snug text-zinc-900 line-clamp-2 transition-colors group-hover:text-black">
         {course.course_name}
       </h3>
       <p className="mb-3 flex items-center gap-1 text-[13px] text-zinc-500 line-clamp-1">
@@ -61,7 +45,7 @@ export function CourseCard({ course }: CourseCardProps) {
           </svg>
           {count} resource{count !== 1 ? "s" : ""}
         </span>
-        <span className="flex items-center gap-1 text-xs font-semibold text-indigo-600 opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="flex items-center gap-1 text-xs font-semibold text-zinc-900 opacity-0 transition-opacity group-hover:opacity-100">
           View
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7" />

@@ -19,9 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <footer className="border-t border-zinc-200 bg-white">
           <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-between gap-3 px-6 py-8 text-sm text-zinc-500 sm:flex-row">
-            <span className="font-semibold text-zinc-700">
-              Course<span className="text-indigo-600">Share</span>
-            </span>
+            <span className="font-semibold text-zinc-900">CourseShare</span>
             <p>Open source — for students, by students</p>
           </div>
         </footer>

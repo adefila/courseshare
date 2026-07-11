@@ -8,13 +8,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses = {
   primary:
-    "bg-indigo-600 text-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] hover:bg-indigo-700 active:scale-[0.98] disabled:bg-indigo-300",
+    "bg-zinc-900 text-white hover:bg-zinc-800 active:scale-[0.98] disabled:bg-zinc-400",
   secondary:
-    "bg-white text-zinc-700 border border-zinc-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:border-zinc-300 hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50",
+    "bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50",
   ghost:
     "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 disabled:opacity-50",
   danger:
-    "bg-red-600 text-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] hover:bg-red-700 active:scale-[0.98] disabled:opacity-50",
+    "bg-red-600 text-white hover:bg-red-700 active:scale-[0.98] disabled:opacity-50",
 };
 
 const sizeClasses = {
@@ -28,7 +28,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     <button
       ref={ref}
       className={cn(
-        "inline-flex items-center justify-center rounded-full font-semibold transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
+        "inline-flex items-center justify-center rounded-full font-semibold transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
         variantClasses[variant],
         sizeClasses[size],
         className
