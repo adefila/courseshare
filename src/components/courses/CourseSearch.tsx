@@ -56,7 +56,7 @@ export function CourseSearch({
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search courses or universities…"
-            className="w-full rounded-full border border-indigo-200 bg-indigo-50/40 py-3 pl-11 pr-20 text-sm text-zinc-800 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-full border border-indigo-200 bg-indigo-50/40 py-3 pl-11 pr-20 text-base text-zinc-800 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100 sm:text-sm"
           />
 
           <div className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-1">

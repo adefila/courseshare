@@ -192,7 +192,7 @@ function UniversityCombobox() {
         }}
         onBlur={() => setOpen(false)}
         placeholder="Search or type your university…"
-        className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+        className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-base text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 sm:text-sm"
       />
       {open && suggestions.length > 0 && (
         <ul className="absolute left-0 right-0 z-50 mt-1 max-h-52 overflow-auto rounded-xl border border-zinc-200 bg-white py-1 text-sm shadow-lg">
@@ -257,7 +257,7 @@ export function CourseForm() {
               id="semester"
               name="semester"
               required
-              className="w-full appearance-none rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 pr-9 text-sm text-zinc-900 transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+              className="w-full appearance-none rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 pr-9 text-base text-zinc-900 transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 sm:text-sm"
             >
               <option value="">Select…</option>
               <option value="1st Semester">1st Semester</option>
