@@ -48,7 +48,7 @@ function NavContent({
 
       {/* Nav links */}
       <nav className="flex-1 overflow-y-auto px-3 py-3">
-        <p className="mb-1 px-3 font-mono text-[10px] font-medium uppercase tracking-widest text-zinc-400">
+        <p className="mb-1 px-3 font-mono text-[10px] font-medium uppercase tracking-wide text-zinc-400">
           Library
         </p>
         <div className="space-y-0.5">

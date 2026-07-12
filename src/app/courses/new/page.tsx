@@ -53,8 +53,8 @@ export default async function NewCoursePage() {
   if (!user) redirect("/login?redirectTo=/courses/new");
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-6 py-8 pr-8 sm:pr-10">
-      <div className="mx-auto max-w-xl rounded-2xl border border-zinc-200 bg-white">
+    <div className="flex flex-1 items-center justify-center px-6 py-10">
+      <div className="w-full max-w-xl rounded-2xl border border-zinc-200 bg-white">
         <div className="flex h-40 items-center justify-center rounded-t-2xl border-b border-zinc-100 bg-zinc-50 px-6">
           <NewCourseIllustration />
         </div>

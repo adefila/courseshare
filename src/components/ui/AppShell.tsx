@@ -22,7 +22,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Sidebar />
       {/* Desktop offset + mobile top-bar spacing */}
       <div className="flex min-h-full flex-col pt-12 sm:pl-[220px] sm:pt-0">
-        <main className="flex-1">{children}</main>
+        <main className="flex flex-1 flex-col">{children}</main>
       </div>
     </>
   );
