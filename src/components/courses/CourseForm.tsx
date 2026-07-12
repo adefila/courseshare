@@ -66,17 +66,21 @@ export function CourseForm() {
           <label htmlFor="university" className="text-[13px] font-medium text-zinc-700">
             University *
           </label>
-          <input
-            id="university"
-            name="university"
-            list="university-list"
-            placeholder="University of Lagos"
-            required
-            className="rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 transition placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-          />
-          <datalist id="university-list">
-            {NIGERIAN_UNIVERSITIES.map((u) => <option key={u} value={u} />)}
-          </datalist>
+          <div className="relative">
+            <select
+              id="university"
+              name="university"
+              required
+              defaultValue=""
+              className="w-full appearance-none rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 pr-9 text-sm text-zinc-900 transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 disabled:bg-zinc-50"
+            >
+              <option value="" disabled>Select university…</option>
+              {NIGERIAN_UNIVERSITIES.map((u) => <option key={u} value={u}>{u}</option>)}
+            </select>
+            <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -89,7 +93,7 @@ export function CourseForm() {
               id="semester"
               name="semester"
               required
-              className="w-full appearance-none rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 pr-9 text-sm text-zinc-900 transition focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100"
+              className="w-full appearance-none rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 pr-9 text-sm text-zinc-900 transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
             >
               <option value="">Select…</option>
               <option value="1st Semester">1st Semester</option>

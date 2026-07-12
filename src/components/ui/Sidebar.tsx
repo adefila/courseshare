@@ -41,10 +41,7 @@ function NavContent({
           href="/courses"
           className="flex items-center gap-2 text-[15px] font-semibold tracking-tight text-zinc-900"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-          </svg>
+          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-indigo-600 text-white text-[11px] font-bold tracking-wide">CS</span>
           CourseShare
         </Link>
       </div>
@@ -65,7 +62,7 @@ function NavContent({
                 href={item.href}
                 className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
                   active
-                    ? "bg-zinc-100 font-medium text-zinc-900"
+                    ? "bg-indigo-50 font-medium text-indigo-700"
                     : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
                 }`}
               >
@@ -147,7 +144,7 @@ function NavContent({
             </Link>
             <Link
               href="/signup"
-              className="flex items-center justify-center rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+              className="flex items-center justify-center rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-500"
             >
               Sign up free
             </Link>
@@ -191,7 +188,8 @@ export function Sidebar() {
     <>
       {/* Mobile top bar */}
       <div className="fixed inset-x-0 top-0 z-50 flex h-12 items-center justify-between border-b border-zinc-200 bg-white px-4 sm:hidden">
-        <Link href="/courses" className="text-[15px] font-semibold text-zinc-900">
+        <Link href="/courses" className="flex items-center gap-2 text-[15px] font-semibold text-zinc-900">
+          <span className="flex h-5 w-5 items-center justify-center rounded bg-indigo-600 text-white text-[10px] font-bold">CS</span>
           CourseShare
         </Link>
         <button
