@@ -17,10 +17,9 @@ function getPageNumbers(current: number, total: number): (number | "…")[] {
   return pages;
 }
 
-function buildHref(p: number, q?: string, school?: string) {
+function buildHref(p: number, q?: string) {
   const params = new URLSearchParams();
   if (q) params.set("q", q);
-  if (school) params.set("school", school);
   if (p > 1) params.set("page", String(p));
   const s = params.toString();
   return `/courses${s ? `?${s}` : ""}`;
@@ -29,9 +28,9 @@ function buildHref(p: number, q?: string, school?: string) {
 export default async function CoursesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; school?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; page?: string }>;
 }) {
-  const { q, school, page: pageParam } = await searchParams;
+  const { q, page: pageParam } = await searchParams;
   const page = Math.max(1, parseInt(pageParam ?? "1", 10));
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
@@ -46,8 +45,10 @@ export default async function CoursesPage({
     )
     .order("created_at", { ascending: false });
 
-  if (q?.trim()) query = query.textSearch("fts", q.trim(), { type: "websearch" });
-  if (school?.trim()) query = query.eq("university", school.trim());
+  if (q?.trim()) {
+    const like = `%${q.trim()}%`;
+    query = query.or(`course_name.ilike.${like},course_code.ilike.${like},university.ilike.${like}`);
+  }
 
   const [
     { data: courses, count: totalCount, error: coursesError },
@@ -65,7 +66,7 @@ export default async function CoursesPage({
 
   const schools = [...new Set((universityRows ?? []).map((r) => r.university))];
   const totalPages = Math.ceil((totalCount ?? 0) / PAGE_SIZE);
-  const isFiltered = !!(q || school);
+  const isFiltered = !!q;
 
   const ids = (courses ?? []).map((c) => c.id);
 
@@ -112,7 +113,7 @@ export default async function CoursesPage({
           <h1 className="text-2xl font-semibold text-zinc-900">Browse Courses</h1>
           <p className="mt-0.5 text-sm text-zinc-500">
             {isFiltered
-              ? `${totalCount ?? 0} result${(totalCount ?? 0) !== 1 ? "s" : ""}${q ? ` for "${q}"` : ""}${school ? ` at ${school}` : ""}`
+              ? `${totalCount ?? 0} result${(totalCount ?? 0) !== 1 ? "s" : ""} for "${q}"`
               : `${totalCount ?? 0}+ courses across ${schools.length} universities`}
           </p>
         </div>
@@ -146,7 +147,7 @@ export default async function CoursesPage({
 
       {/* Search bar */}
       <Suspense>
-        <CourseSearch schools={schools} defaultQ={q} defaultSchool={school} />
+        <CourseSearch defaultQ={q} />
       </Suspense>
 
       {/* Results */}
@@ -176,7 +177,7 @@ export default async function CoursesPage({
               {/* Prev */}
               {page > 1 ? (
                 <Link
-                  href={buildHref(page - 1, q, school)}
+                  href={buildHref(page - 1, q)}
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-500 transition hover:border-indigo-300 hover:text-indigo-600"
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
@@ -196,7 +197,7 @@ export default async function CoursesPage({
                 ) : (
                   <Link
                     key={p}
-                    href={buildHref(p as number, q, school)}
+                    href={buildHref(p as number, q)}
                     className={`flex h-9 w-9 items-center justify-center rounded-lg border text-sm font-medium transition ${
                       p === page
                         ? "border-indigo-600 bg-indigo-600 text-white"
@@ -211,7 +212,7 @@ export default async function CoursesPage({
               {/* Next */}
               {page < totalPages ? (
                 <Link
-                  href={buildHref(page + 1, q, school)}
+                  href={buildHref(page + 1, q)}
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-500 transition hover:border-indigo-300 hover:text-indigo-600"
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>

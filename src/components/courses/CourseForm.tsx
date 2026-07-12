@@ -9,33 +9,160 @@ import { Textarea } from "@/components/ui/Textarea";
 const CURRENT_YEAR = new Date().getFullYear();
 
 const NIGERIAN_UNIVERSITIES = [
-  "Ahmadu Bello University (ABU)",
-  "American University of Nigeria (AUN)",
-  "Babcock University",
-  "Baze University",
-  "Bells University of Technology",
-  "Covenant University",
-  "Crawford University",
+  // Federal Universities
+  "Abubakar Tafawa Balewa University, Bauchi (ATBU)",
+  "Ahmadu Bello University, Zaria (ABU)",
+  "Federal University Birnin Kebbi (FUBK)",
+  "Federal University Dutse (FUD)",
+  "Federal University Dutsin-Ma (FUDMA)",
+  "Federal University Gashua",
+  "Federal University Gusau",
+  "Federal University Kashere (FUKASHERE)",
+  "Federal University Lafia (FULAFIA)",
+  "Federal University Lokoja (FULOKOJA)",
+  "Federal University Ndufu-Alike Ikwo (FUNAI)",
+  "Federal University of Agriculture, Abeokuta (FUNAAB)",
+  "Federal University of Agriculture, Makurdi (UAM)",
+  "Federal University of Health Sciences, Ila-Orangun",
+  "Federal University of Health Sciences, Otukpo",
+  "Federal University of Petroleum Resources, Effurun (FUPRE)",
   "Federal University of Technology, Akure (FUTA)",
+  "Federal University of Technology, Babura",
+  "Federal University of Technology, Ikot Abasi",
   "Federal University of Technology, Minna (FUTMINNA)",
   "Federal University of Technology, Owerri (FUTO)",
-  "Landmark University",
-  "Lagos State University (LASU)",
-  "Ladoke Akintola University of Technology (LAUTECH)",
-  "Nnamdi Azikiwe University (NAU)",
-  "Obafemi Awolowo University (OAU)",
-  "Pan-Atlantic University",
-  "Redeemer's University",
-  "Rivers State University",
+  "Federal University Otuoke",
+  "Federal University Oye-Ekiti (FUOYE)",
+  "Federal University Wukari",
+  "Michael Okpara University of Agriculture, Umudike (MOUAU)",
+  "Modibbo Adama University, Yola (MAU)",
+  "National Open University of Nigeria (NOUN)",
+  "Nigerian Defence Academy, Kaduna (NDA)",
+  "Nnamdi Azikiwe University, Awka (UNIZIK)",
+  "Obafemi Awolowo University, Ile-Ife (OAU)",
   "University of Abuja",
   "University of Benin (UNIBEN)",
+  "University of Calabar (UNICAL)",
   "University of Ibadan (UI)",
   "University of Ilorin (UNILORIN)",
   "University of Jos (UNIJOS)",
   "University of Lagos (UNILAG)",
+  "University of Maiduguri (UNIMAID)",
   "University of Nigeria, Nsukka (UNN)",
   "University of Port Harcourt (UNIPORT)",
-];
+  "University of Uyo (UNIUYO)",
+  "Usmanu Danfodiyo University, Sokoto (UDUS)",
+  // State Universities
+  "Abia State University, Uturu (ABSU)",
+  "Adamawa State University, Mubi",
+  "Adekunle Ajasin University, Akungba-Akoko (AAUA)",
+  "Akwa Ibom State University (AKSU)",
+  "Ambrose Alli University, Ekpoma (AAU)",
+  "Anambra State University (ANSU)",
+  "Benue State University, Makurdi (BSU)",
+  "Borno State University, Maiduguri",
+  "Cross River State University of Technology (CRUTECH)",
+  "Delta State University, Abraka (DELSU)",
+  "Ebonyi State University, Abakaliki (EBSU)",
+  "Ekiti State University (EKSU)",
+  "Enugu State University of Science and Technology (ESUT)",
+  "Gombe State University (GSU)",
+  "Ibrahim Badamasi Babangida University, Lapai (IBBU)",
+  "Ignatius Ajuru University of Education, Port Harcourt",
+  "Imo State University, Owerri (IMSU)",
+  "Kaduna State University (KASU)",
+  "Kano University of Science and Technology (KUST)",
+  "Kebbi State University of Science and Technology (KSUSTA)",
+  "Kogi State University (KSU)",
+  "Kwara State University, Malete (KWASU)",
+  "Lagos State University (LASU)",
+  "Ladoke Akintola University of Technology, Ogbomoso (LAUTECH)",
+  "Nasarawa State University, Keffi",
+  "Niger Delta University, Wilberforce Island (NDU)",
+  "Ondo State University of Science and Technology (OSUSTECH)",
+  "Osun State University (UNIOSUN)",
+  "Plateau State University, Bokkos",
+  "Rivers State University, Port Harcourt (RSU)",
+  "Sokoto State University",
+  "Tai Solarin University of Education (TASUED)",
+  "Taraba State University, Jalingo",
+  "Umar Musa Yar'adua University, Katsina (UMYU)",
+  "Yobe State University, Damaturu",
+  "Zamfara State University",
+  // Private Universities
+  "African University of Science and Technology, Abuja (AUST)",
+  "Achievers University, Owo",
+  "Adeleke University, Ede",
+  "Afe Babalola University, Ado-Ekiti (ABUAD)",
+  "Al-Hikmah University, Ilorin",
+  "Al-Qalam University, Katsina",
+  "American University of Nigeria, Yola (AUN)",
+  "Augustine University, Ilara-Epe",
+  "Babcock University, Ilishan-Remo",
+  "Baze University, Abuja",
+  "Bells University of Technology, Ota",
+  "Benson Idahosa University, Benin City",
+  "Bowen University, Iwo",
+  "Caleb University, Lagos",
+  "Chrisland University, Abeokuta",
+  "Covenant University, Ota",
+  "Crawford University, Igbesa",
+  "Crescent University, Abeokuta",
+  "Dominican University, Ibadan",
+  "Edwin Clark University, Kiagbodo",
+  "Elizade University, Ilara-Mokin",
+  "Fountain University, Osogbo",
+  "Godfrey Okoye University, Enugu",
+  "Hallmark University, Ijebu-Itele",
+  "Hezekiah University, Umudi",
+  "Igbinedion University, Okada",
+  "Joseph Ayo Babalola University, Ikeji-Arakeji (JABU)",
+  "Kings University, Ode-Omu",
+  "Kwararafa University, Wukari",
+  "Landmark University, Omu-Aran",
+  "Lead City University, Ibadan",
+  "Madonna University, Okija",
+  "McPherson University, Seriki-Sotayo",
+  "Mountain Top University, Lagos",
+  "Nile University of Nigeria, Abuja",
+  "Novena University, Ogume",
+  "Oduduwa University, Ipetumodu",
+  "Pan-Atlantic University, Lagos (PAU)",
+  "Redeemer's University, Ede",
+  "Renaissance University, Ugbawka",
+  "Rhema University, Aba",
+  "Ritman University, Ikot Ekpene",
+  "Salem University, Lokoja",
+  "Samuel Adegboyega University, Ogwa",
+  "Southwestern University, Oku-Owa",
+  "Spiritan University, Nneochi",
+  "Tansian University, Umunya",
+  "Veritas University, Abuja",
+  "Wesley University, Ondo",
+  "Western Delta University, Oghara",
+  // Polytechnics
+  "Yaba College of Technology (YABATECH)",
+  "Federal Polytechnic, Ado-Ekiti",
+  "Federal Polytechnic, Bida",
+  "Federal Polytechnic, Daura",
+  "Federal Polytechnic, Ede",
+  "Federal Polytechnic, Idah",
+  "Federal Polytechnic, Ile-Oluji",
+  "Federal Polytechnic, Ilaro",
+  "Federal Polytechnic, Mubi",
+  "Federal Polytechnic, Nasarawa",
+  "Federal Polytechnic, Nekede",
+  "Federal Polytechnic, Offa",
+  "Federal Polytechnic, Oko",
+  "Federal Polytechnic, Ukana",
+  "Auchi Polytechnic",
+  "Kaduna Polytechnic",
+  "Kano State Polytechnic",
+  "Kwara State Polytechnic",
+  "Lagos State Polytechnic (LASPOTECH)",
+  "Rivers State Polytechnic, Bori",
+  "The Polytechnic, Ibadan",
+].sort();
 
 export function CourseForm() {
   const [state, action, isPending] = useActionState(
@@ -66,21 +193,19 @@ export function CourseForm() {
           <label htmlFor="university" className="text-[13px] font-medium text-zinc-700">
             University *
           </label>
-          <div className="relative">
-            <select
-              id="university"
-              name="university"
-              required
-              defaultValue=""
-              className="w-full appearance-none rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 pr-9 text-sm text-zinc-900 transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 disabled:bg-zinc-50"
-            >
-              <option value="" disabled>Select university…</option>
-              {NIGERIAN_UNIVERSITIES.map((u) => <option key={u} value={u}>{u}</option>)}
-            </select>
-            <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </div>
+          <input
+            id="university"
+            name="university"
+            list="nigerian-universities"
+            required
+            placeholder="Search or type your university…"
+            className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+          />
+          <datalist id="nigerian-universities">
+            {NIGERIAN_UNIVERSITIES.map((u) => (
+              <option key={u} value={u} />
+            ))}
+          </datalist>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
