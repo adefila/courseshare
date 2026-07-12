@@ -73,17 +73,19 @@ export function CourseCard({ course }: CourseCardProps) {
       <div className="mt-auto flex items-center justify-between border-t border-zinc-100 pt-3">
         <div className="flex items-center gap-2">
           {creatorName && <Avatar name={creatorName} size={22} />}
-          <span className="text-xs text-zinc-500">
-            {creatorName
-              ? <span className="font-medium text-zinc-700">{creatorName}</span>
-              : null}
-            {creatorName ? " · " : ""}
-            {count} resource{count !== 1 ? "s" : ""}
-          </span>
+          <div className="flex items-center gap-1.5 text-xs">
+            {creatorName && (
+              <span className="font-medium text-zinc-700">
+                {creatorName.split(" ")[0]}
+              </span>
+            )}
+            <span className="text-zinc-300">·</span>
+            <span className="text-zinc-400">{count} {count !== 1 ? "resources" : "resource"}</span>
+          </div>
         </div>
-        <span className="flex items-center gap-1 text-xs font-semibold text-indigo-600 opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="flex items-center gap-1 text-xs font-medium text-indigo-500 opacity-0 transition-opacity group-hover:opacity-100">
           View
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </span>

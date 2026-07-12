@@ -52,7 +52,7 @@ export default function AccountPage() {
 
   return (
     <div className="mx-auto w-full max-w-[1200px] px-6 py-8 pr-8 sm:pr-10">
-      <h1 className="mb-1 text-2xl font-semibold tracking-tight text-zinc-900">Account</h1>
+      <h1 className="mb-1 text-2xl font-semibold text-zinc-900">Account</h1>
       <p className="mb-8 text-sm text-zinc-500">Manage your profile and password.</p>
 
       <div className="flex flex-col gap-6 max-w-xl">

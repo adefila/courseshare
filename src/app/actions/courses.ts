@@ -9,7 +9,7 @@ const courseSchema = z.object({
   course_name: z.string().min(2).max(120),
   course_code: z.string().min(1).max(30),
   university: z.string().min(2).max(120),
-  semester: z.enum(["Fall", "Spring", "Summer", "Winter"]),
+  semester: z.enum(["1st Semester", "2nd Semester", "Harmattan", "Rain"]),
   year: z.coerce.number().int().min(2000).max(2100),
   description: z.string().max(500).optional(),
 });

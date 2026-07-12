@@ -76,7 +76,7 @@ function LoginForm() {
 
         {/* Form */}
         <div className="px-5 py-7 sm:px-7">
-          <h1 className="mb-1 text-2xl font-medium tracking-tight text-zinc-900">
+          <h1 className="mb-1 text-2xl font-semibold text-zinc-900">
             Welcome back
           </h1>
           <p className="mb-7 text-sm text-zinc-500">

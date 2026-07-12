@@ -59,7 +59,7 @@ export default async function NewCoursePage() {
           <NewCourseIllustration />
         </div>
         <div className="px-8 py-8 sm:px-10">
-          <h1 className="mb-1 text-2xl font-semibold tracking-tight text-zinc-900">
+          <h1 className="mb-1 text-2xl font-semibold text-zinc-900">
             Create a course
           </h1>
           <p className="mb-8 text-sm text-zinc-500">

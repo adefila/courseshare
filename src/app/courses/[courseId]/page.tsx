@@ -58,7 +58,7 @@ export default async function CourseDetailPage({
                 {course.semester} {course.year}
               </span>
             </div>
-            <h1 className="mb-1.5 text-2xl font-normal text-zinc-900 sm:text-3xl">
+            <h1 className="mb-1.5 text-2xl font-semibold text-zinc-900 sm:text-3xl">
               {course.course_name}
             </h1>
             <p className="flex items-center gap-1.5 text-sm text-zinc-500">
