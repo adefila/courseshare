@@ -68,16 +68,16 @@ export default async function CoursesPage({
       {!isFiltered && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="text-3xl font-bold tracking-tight text-zinc-900">{enriched.length}+</p>
-            <p className="text-xs text-zinc-500 mt-1">Courses uploaded</p>
+            <p className="text-[64px] font-bold leading-none tracking-tight text-zinc-900">{enriched.length}+</p>
+            <p className="text-xs text-zinc-500 mt-2">Courses uploaded</p>
           </div>
           <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="text-3xl font-bold tracking-tight text-zinc-900">{schools.length}</p>
-            <p className="text-xs text-zinc-500 mt-1">Universities</p>
+            <p className="text-[64px] font-bold leading-none tracking-tight text-zinc-900">{schools.length}</p>
+            <p className="text-xs text-zinc-500 mt-2">Universities</p>
           </div>
           <div className="col-span-2 rounded-xl border border-zinc-200 bg-white px-5 py-4 sm:col-span-1">
-            <p className="text-3xl font-bold tracking-tight text-zinc-900">{(countRows ?? []).length}</p>
-            <p className="text-xs text-zinc-500 mt-1">Resources shared</p>
+            <p className="text-[64px] font-bold leading-none tracking-tight text-zinc-900">{(countRows ?? []).length}</p>
+            <p className="text-xs text-zinc-500 mt-2">Resources shared</p>
           </div>
         </div>
       )}
