@@ -4,7 +4,7 @@ import type { Course } from "@/types/database";
 interface CourseCardProps {
   course: Course & {
     resource_count?: number;
-    creator?: { display_name: string | null } | null;
+    contributors?: { name: string }[];
   };
 }
 
@@ -28,7 +28,7 @@ function Avatar({ name, size = 24 }: { name: string; size?: number }) {
 
   return (
     <span
-      className={`inline-flex shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${color}`}
+      className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white text-[10px] font-semibold ${color}`}
       style={{ width: size, height: size }}
     >
       {initials || "?"}
@@ -38,7 +38,7 @@ function Avatar({ name, size = 24 }: { name: string; size?: number }) {
 
 export function CourseCard({ course }: CourseCardProps) {
   const count = course.resource_count ?? 0;
-  const creatorName = course.creator?.display_name ?? null;
+  const contributors = course.contributors ?? [];
 
   return (
     <Link
@@ -72,12 +72,20 @@ export function CourseCard({ course }: CourseCardProps) {
 
       <div className="mt-auto flex items-center justify-between border-t border-zinc-100 pt-3">
         <div className="flex items-center gap-2">
-          {creatorName && <Avatar name={creatorName} size={22} />}
-          <span className="text-xs text-zinc-400">{count} {count !== 1 ? "resources" : "resource"}</span>
+          {contributors.length > 0 ? (
+            <div className="flex -space-x-1.5">
+              {contributors.slice(0, 4).map((c) => (
+                <Avatar key={c.name} name={c.name} size={22} />
+              ))}
+            </div>
+          ) : null}
+          <span className="text-xs text-zinc-400">
+            {count} {count !== 1 ? "resources" : "resource"}
+          </span>
         </div>
-        <span className="flex items-center gap-1 text-xs font-medium text-indigo-500 opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="flex items-center gap-1 text-xs font-semibold text-indigo-600 opacity-0 transition-opacity group-hover:opacity-100">
           View
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </span>
