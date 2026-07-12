@@ -85,7 +85,7 @@ export function ResourceList({ resources, courseId, userId }: ResourceListProps)
   }
 
   return (
-    <ul className="flex flex-col gap-3">
+    <ul className="list-stagger flex flex-col gap-3">
       {resources.map((resource) => (
         <ResourceRow key={resource.id} resource={resource} />
       ))}

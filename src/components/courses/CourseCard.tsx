@@ -43,7 +43,7 @@ export function CourseCard({ course }: CourseCardProps) {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-150 hover:border-indigo-200 hover:shadow-sm"
+      className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md"
     >
       <div className="mb-3 flex items-start justify-between gap-2">
         <span className="inline-block rounded-full bg-indigo-50 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-indigo-700">

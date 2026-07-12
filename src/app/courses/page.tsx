@@ -112,7 +112,7 @@ export default async function CoursesPage({
   return (
     <div className="mx-auto w-full max-w-[1200px] px-6 py-8 pr-8 sm:pr-10">
       {/* Page header */}
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="animate-fade-up mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-zinc-900">Browse Courses</h1>
           <p className="mt-0.5 text-sm text-zinc-500">
@@ -198,7 +198,7 @@ export default async function CoursesPage({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="cards-stagger grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {enriched.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}

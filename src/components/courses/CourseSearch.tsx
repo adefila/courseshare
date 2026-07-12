@@ -92,39 +92,45 @@ export function CourseSearch({
         </div>
       </form>
 
-      {/* Filter panel */}
-      {filterOpen && (
-        <div className="mt-2 flex flex-wrap items-center gap-2 rounded-2xl border border-indigo-100 bg-white px-4 py-3">
-          <span className="shrink-0 font-mono text-[10px] font-medium uppercase tracking-wide text-zinc-400">
-            Semester
-          </span>
-          <div className="flex flex-wrap gap-1.5">
-            {SEMESTERS.map((s) => (
+      {/* Filter panel — CSS grid height animation */}
+      <div
+        className={`grid transition-all duration-300 ease-out ${
+          filterOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="mt-2 flex flex-wrap items-center gap-2 rounded-2xl border border-indigo-100 bg-white px-4 py-3">
+            <span className="shrink-0 font-mono text-[10px] font-medium uppercase tracking-wide text-zinc-400">
+              Semester
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {SEMESTERS.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => handleSemesterClick(s)}
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition-all duration-150 ${
+                    semester === s
+                      ? "bg-indigo-600 text-white scale-105"
+                      : "border border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700"
+                  }`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+            {hasFilter && (
               <button
-                key={s}
                 type="button"
-                onClick={() => handleSemesterClick(s)}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition ${
-                  semester === s
-                    ? "bg-indigo-600 text-white"
-                    : "border border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700"
-                }`}
+                onClick={() => { setSemester(""); navigate(q, ""); }}
+                className="ml-auto text-[11px] text-zinc-400 transition-colors hover:text-zinc-600"
               >
-                {s}
+                Clear filter
               </button>
-            ))}
+            )}
           </div>
-          {hasFilter && (
-            <button
-              type="button"
-              onClick={() => { setSemester(""); navigate(q, ""); }}
-              className="ml-auto text-[11px] text-zinc-400 hover:text-zinc-600"
-            >
-              Clear filter
-            </button>
-          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
