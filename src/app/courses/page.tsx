@@ -131,15 +131,15 @@ export default async function CoursesPage({
       {!isFiltered && page === 1 && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="text-[64px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
+            <p className="font-mono text-[64px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
             <p className="mt-2 text-xs text-zinc-500">Courses uploaded</p>
           </div>
           <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="text-[64px] font-bold leading-none text-zinc-900">{schools.length}</p>
+            <p className="font-mono text-[64px] font-bold leading-none text-zinc-900">{schools.length}</p>
             <p className="mt-2 text-xs text-zinc-500">Universities</p>
           </div>
           <div className="col-span-2 rounded-xl border border-zinc-200 bg-white px-5 py-4 sm:col-span-1">
-            <p className="text-[64px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
+            <p className="font-mono text-[64px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
             <p className="mt-2 text-xs text-zinc-500">Resources shared</p>
           </div>
         </div>

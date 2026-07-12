@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useActionState } from "react";
 import { createCourse } from "@/app/actions/courses";
 import { Button } from "@/components/ui/Button";
@@ -164,6 +165,56 @@ const NIGERIAN_UNIVERSITIES = [
   "The Polytechnic, Ibadan",
 ].sort();
 
+function UniversityCombobox() {
+  const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const suggestions =
+    query.trim().length >= 1
+      ? NIGERIAN_UNIVERSITIES.filter((u) =>
+          u.toLowerCase().includes(query.toLowerCase())
+        ).slice(0, 8)
+      : [];
+
+  return (
+    <div className="relative">
+      <input
+        name="university"
+        required
+        value={query}
+        autoComplete="off"
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => {
+          if (query.trim().length >= 1) setOpen(true);
+        }}
+        onBlur={() => setOpen(false)}
+        placeholder="Search or type your university…"
+        className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+      />
+      {open && suggestions.length > 0 && (
+        <ul className="absolute left-0 right-0 z-50 mt-1 max-h-52 overflow-auto rounded-xl border border-zinc-200 bg-white py-1 text-sm shadow-lg">
+          {suggestions.map((u) => (
+            <li
+              key={u}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                setQuery(u);
+                setOpen(false);
+              }}
+              className="cursor-pointer px-3.5 py-2.5 text-zinc-700 hover:bg-indigo-50 hover:text-indigo-700"
+            >
+              {u}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export function CourseForm() {
   const [state, action, isPending] = useActionState(
     async (_prev: { error?: string } | null, formData: FormData) => {
@@ -193,19 +244,7 @@ export function CourseForm() {
           <label htmlFor="university" className="text-[13px] font-medium text-zinc-700">
             University *
           </label>
-          <input
-            id="university"
-            name="university"
-            list="nigerian-universities"
-            required
-            placeholder="Search or type your university…"
-            className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
-          />
-          <datalist id="nigerian-universities">
-            {NIGERIAN_UNIVERSITIES.map((u) => (
-              <option key={u} value={u} />
-            ))}
-          </datalist>
+          <UniversityCombobox />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">

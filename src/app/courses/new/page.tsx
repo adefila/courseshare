@@ -54,8 +54,8 @@ export default async function NewCoursePage() {
 
   return (
     <div className="mx-auto w-full max-w-[1200px] px-6 py-8 pr-8 sm:pr-10">
-      <div className="mx-auto max-w-xl overflow-hidden rounded-2xl border border-zinc-200 bg-white">
-        <div className="flex h-40 items-center justify-center border-b border-zinc-100 bg-zinc-50 px-6">
+      <div className="mx-auto max-w-xl rounded-2xl border border-zinc-200 bg-white">
+        <div className="flex h-40 items-center justify-center rounded-t-2xl border-b border-zinc-100 bg-zinc-50 px-6">
           <NewCourseIllustration />
         </div>
         <div className="px-8 py-8 sm:px-10">

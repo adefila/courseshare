@@ -46,10 +46,10 @@ export function CourseCard({ course }: CourseCardProps) {
       className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-150 hover:border-indigo-200 hover:shadow-sm"
     >
       <div className="mb-3 flex items-start justify-between gap-2">
-        <span className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+        <span className="inline-block rounded-full bg-indigo-50 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-indigo-700">
           {course.course_code}
         </span>
-        <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500">
+        <span className="rounded-full bg-zinc-100 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-500">
           {course.semester} {course.year}
         </span>
       </div>
