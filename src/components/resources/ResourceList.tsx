@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { formatBytes, formatDate } from "@/lib/utils";
-import { deleteResource } from "@/app/actions/resources";
 import { ReportButton } from "./ReportButton";
 import type { Resource } from "@/types/database";
 
@@ -88,15 +87,14 @@ export function ResourceList({ resources, courseId, userId }: ResourceListProps)
   return (
     <ul className="flex flex-col gap-3">
       {resources.map((resource) => (
-        <ResourceRow key={resource.id} resource={resource} courseId={courseId} userId={userId} />
+        <ResourceRow key={resource.id} resource={resource} />
       ))}
     </ul>
   );
 }
 
-function ResourceRow({ resource, courseId, userId }: { resource: Resource; courseId: string; userId?: string }) {
+function ResourceRow({ resource }: { resource: Resource }) {
   const [downloading, setDownloading] = useState(false);
-  const [deleting, startDeleting] = useTransition();
 
   async function handleDownload() {
     setDownloading(true);
@@ -113,15 +111,6 @@ function ResourceRow({ resource, courseId, userId }: { resource: Resource; cours
       setDownloading(false);
     }
   }
-
-  async function handleDelete() {
-    if (!confirm("Delete this resource? This cannot be undone.")) return;
-    startDeleting(async () => {
-      await deleteResource(resource.id, courseId);
-    });
-  }
-
-  const isOwner = userId === resource.uploaded_by;
 
   return (
     <li className="group flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition-all duration-150 hover:border-indigo-200">
@@ -142,26 +131,6 @@ function ResourceRow({ resource, courseId, userId }: { resource: Resource; cours
 
       {/* Actions */}
       <div className="flex shrink-0 items-center gap-2">
-        {isOwner && (
-          <button
-            onClick={handleDelete}
-            disabled={deleting}
-            title="Delete resource"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-400 transition hover:border-red-200 hover:bg-red-50 hover:text-red-500 disabled:opacity-40"
-          >
-            {deleting ? (
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
-                <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-              </svg>
-            ) : (
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" />
-                <path d="M10 11v6M14 11v6" />
-              </svg>
-            )}
-          </button>
-        )}
-
         <button
           onClick={handleDownload}
           disabled={downloading}
