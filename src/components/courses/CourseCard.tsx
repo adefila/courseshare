@@ -54,7 +54,7 @@ export function CourseCard({ course }: CourseCardProps) {
         </span>
       </div>
 
-      <h3 className="mb-1 font-semibold leading-snug text-zinc-900 line-clamp-2 transition-colors group-hover:text-indigo-700">
+      <h3 className="mb-1 font-medium leading-snug text-zinc-900 line-clamp-2 transition-colors group-hover:text-indigo-700">
         {course.course_name}
       </h3>
       <p className="mb-3 flex items-center gap-1 text-[13px] text-zinc-500 line-clamp-1">

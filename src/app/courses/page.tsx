@@ -49,7 +49,7 @@ export default async function CoursesPage({
       {/* Page header */}
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">Browse Courses</h1>
+          <h1 className="text-2xl font-medium text-zinc-900">Browse Courses</h1>
           <p className="mt-0.5 text-sm text-zinc-500">
             {isFiltered
               ? `${enriched.length} result${enriched.length !== 1 ? "s" : ""}${q ? ` for "${q}"` : ""}${school ? ` at ${school}` : ""}`
