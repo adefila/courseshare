@@ -58,7 +58,7 @@ export default async function CourseDetailPage({
                 {course.semester} {course.year}
               </span>
             </div>
-            <h1 className="mb-1.5 text-2xl font-medium text-zinc-900 sm:text-3xl">
+            <h1 className="mb-1.5 text-2xl font-normal text-zinc-900 sm:text-3xl">
               {course.course_name}
             </h1>
             <p className="flex items-center gap-1.5 text-sm text-zinc-500">
@@ -74,27 +74,23 @@ export default async function CourseDetailPage({
             )}
 
             {contributors.length > 0 && (
-              <div className="mt-5 flex items-center gap-2.5">
+              <div className="mt-5 flex items-center gap-2">
                 <div className="flex -space-x-2">
                   {contributors.slice(0, 4).map((c) => {
-                    const initials = c.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+                    const initials = c.name.split(" ").map((w: string) => w[0]).slice(0, 2).join("").toUpperCase();
                     const colors = ["bg-indigo-100 text-indigo-700","bg-violet-100 text-violet-700","bg-blue-100 text-blue-700","bg-emerald-100 text-emerald-700","bg-amber-100 text-amber-700"];
                     const color = colors[c.name.charCodeAt(0) % colors.length];
                     return (
                       <span key={c.name} title={c.name}
-                        className={`inline-flex h-7 w-7 items-center justify-center rounded-full border-2 border-white text-[10px] font-semibold ${color}`}>
+                        className={`inline-flex h-7 w-7 cursor-default items-center justify-center rounded-full border-2 border-white text-[10px] font-semibold transition-transform hover:z-10 hover:scale-110 ${color}`}>
                         {initials}
                       </span>
                     );
                   })}
                 </div>
-                <span className="text-xs text-zinc-500">
-                  <span className="font-medium text-zinc-700">
-                    {contributors.slice(0, 2).map(c => c.name.split(" ")[0]).join(", ")}
-                    {contributors.length > 2 ? ` +${contributors.length - 2} more` : ""}
-                  </span>
-                  {" "}contributed resources
-                </span>
+                {contributors.length > 4 && (
+                  <span className="text-xs text-zinc-400">+{contributors.length - 4} more</span>
+                )}
               </div>
             )}
           </div>
