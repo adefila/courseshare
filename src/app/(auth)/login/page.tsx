@@ -91,7 +91,7 @@ function LoginForm() {
         </div>
 
         {/* Form */}
-        <div className="px-8 py-8 sm:px-10">
+        <div className="px-5 py-7 sm:px-7">
           <h1 className="mb-1 text-2xl font-medium tracking-tight text-zinc-900">
             Welcome back
           </h1>

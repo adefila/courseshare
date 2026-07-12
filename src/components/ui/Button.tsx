@@ -8,13 +8,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses = {
   primary:
-    "bg-zinc-900 text-white hover:bg-zinc-800 active:scale-[0.98] disabled:bg-zinc-400",
+    "bg-zinc-900 text-white hover:bg-zinc-700 hover:-translate-y-px hover:shadow-md active:translate-y-0 active:shadow-none active:bg-zinc-900 disabled:bg-zinc-400 disabled:translate-y-0 disabled:shadow-none",
   secondary:
-    "bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-50",
+    "bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 hover:bg-zinc-50 hover:-translate-y-px hover:shadow-sm active:translate-y-0 active:shadow-none disabled:opacity-50 disabled:translate-y-0",
   ghost:
-    "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 disabled:opacity-50",
+    "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 hover:-translate-y-px active:translate-y-0 disabled:opacity-50",
   danger:
-    "bg-red-600 text-white hover:bg-red-700 active:scale-[0.98] disabled:opacity-50",
+    "bg-red-600 text-white hover:bg-red-500 hover:-translate-y-px hover:shadow-md active:translate-y-0 active:shadow-none active:bg-red-700 disabled:opacity-50 disabled:translate-y-0",
 };
 
 const sizeClasses = {
