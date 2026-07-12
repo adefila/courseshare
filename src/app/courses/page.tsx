@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { CourseCard } from "@/components/courses/CourseCard";
+import { CourseSearch } from "@/components/courses/CourseSearch";
 import { Button } from "@/components/ui/Button";
 
 export default async function CoursesPage({
@@ -83,40 +85,9 @@ export default async function CoursesPage({
       )}
 
       {/* Search bar */}
-      <form method="GET" className="mb-8">
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <div className="relative flex-1">
-            <svg className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-            </svg>
-            <input
-              name="q"
-              defaultValue={q}
-              placeholder="Search by course name, code, or university…"
-              className="w-full rounded-full border border-zinc-200 bg-white py-2.5 pl-10 pr-5 text-sm transition placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-            />
-          </div>
-          <div className="relative sm:max-w-[210px]">
-            <select
-              name="school"
-              defaultValue={school ?? ""}
-              onChange="this.form.requestSubmit()"
-              className="w-full appearance-none rounded-full border border-zinc-200 bg-white py-2.5 pl-4 pr-9 text-sm text-zinc-700 transition focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100"
-            >
-              <option value="">All universities</option>
-              {schools.map((s) => (<option key={s} value={s}>{s}</option>))}
-            </select>
-            <svg className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </div>
-          {isFiltered && (
-            <Link href="/courses">
-              <Button variant="ghost">Clear</Button>
-            </Link>
-          )}
-        </div>
-      </form>
+      <Suspense>
+        <CourseSearch schools={schools} defaultQ={q} defaultSchool={school} />
+      </Suspense>
 
       {/* Results */}
       {enriched.length === 0 ? (
