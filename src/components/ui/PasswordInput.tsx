@@ -25,7 +25,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             id={id}
             type={show ? "text" : "password"}
             className={cn(
-              "w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-3.5 pr-10 text-base text-zinc-900 transition placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100 disabled:bg-zinc-50 disabled:text-zinc-500 sm:text-sm",
+              "w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-3.5 pr-10 text-base text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100 disabled:bg-zinc-50 disabled:text-zinc-500 sm:text-sm",
               error && "border-red-400 focus:border-red-400 focus:ring-red-100",
               className
             )}
