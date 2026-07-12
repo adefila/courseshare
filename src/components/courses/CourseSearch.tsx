@@ -33,8 +33,8 @@ export function CourseSearch({ defaultQ = "" }: { defaultQ?: string }) {
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search by course name, code, or university…"
-          className="w-full rounded-full border border-zinc-200 bg-white py-2.5 pl-10 pr-24 text-sm transition placeholder:text-zinc-400 focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+          placeholder="Search courses or universities…"
+          className="w-full rounded-full border border-zinc-200 bg-white py-2.5 pl-10 pr-20 text-sm transition placeholder:text-zinc-400 focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-100"
         />
         <div className="absolute right-1.5 top-1/2 flex -translate-y-1/2 items-center gap-1">
           {q && (
