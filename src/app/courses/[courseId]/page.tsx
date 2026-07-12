@@ -76,7 +76,7 @@ export default async function CourseDetailPage({
             {contributors.length > 0 && (
               <div className="mt-5 flex items-center gap-2.5">
                 <div className="flex -space-x-2">
-                  {contributors.slice(0, 5).map((c) => {
+                  {contributors.slice(0, 4).map((c) => {
                     const initials = c.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
                     const colors = ["bg-indigo-100 text-indigo-700","bg-violet-100 text-violet-700","bg-blue-100 text-blue-700","bg-emerald-100 text-emerald-700","bg-amber-100 text-amber-700"];
                     const color = colors[c.name.charCodeAt(0) % colors.length];
