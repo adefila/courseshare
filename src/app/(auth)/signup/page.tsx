@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useRef, useTransition } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -49,12 +50,15 @@ function CheckEmailIllustration() {
 }
 
 export default function SignupPage() {
-  const [step, setStep] = useState<"form" | "done">("form");
+  const router = useRouter();
+  const [step, setStep] = useState<"form" | "verify">("form");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   function handleSignUp(e: React.FormEvent) {
     e.preventDefault();
@@ -67,11 +71,61 @@ export default function SignupPage() {
         options: { data: { display_name: name } },
       });
       if (error) setError(error.message);
-      else setStep("done");
+      else setStep("verify");
     });
   }
 
-  if (step === "done") {
+  function handleCodeChange(index: number, value: string) {
+    const digit = value.replace(/\D/g, "").slice(-1);
+    const next = [...code];
+    next[index] = digit;
+    setCode(next);
+    if (digit && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+    if (next.every((d) => d !== "")) {
+      verifyCode(next.join(""));
+    }
+  }
+
+  function handleCodeKeyDown(index: number, e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  }
+
+  function handleCodePaste(e: React.ClipboardEvent) {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (pasted.length === 6) {
+      setCode(pasted.split(""));
+      inputRefs.current[5]?.focus();
+      verifyCode(pasted);
+    }
+  }
+
+  function verifyCode(token: string) {
+    setError("");
+    startTransition(async () => {
+      const supabase = createClient();
+      const { error } = await supabase.auth.verifyOtp({ email, token, type: "signup" });
+      if (error) {
+        setError(error.message);
+        setCode(["", "", "", "", "", ""]);
+        inputRefs.current[0]?.focus();
+      } else {
+        router.push("/courses");
+        router.refresh();
+      }
+    });
+  }
+
+  function handleVerifySubmit(e: React.FormEvent) {
+    e.preventDefault();
+    verifyCode(code.join(""));
+  }
+
+  if (step === "verify") {
     return (
       <div className="w-full max-w-sm">
         <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white">
@@ -79,24 +133,52 @@ export default function SignupPage() {
             <CheckEmailIllustration />
           </div>
           <div className="px-5 py-7 sm:px-7 text-center">
-            <h1 className="mb-2 text-2xl font-medium tracking-tight text-zinc-900">
+            <h1 className="mb-1 text-2xl font-medium tracking-tight text-zinc-900">
               Check your email
             </h1>
-            <p className="text-sm leading-relaxed text-zinc-500">
-              We sent a confirmation link to{" "}
+            <p className="mb-6 text-sm leading-relaxed text-zinc-500">
+              We sent a 6-digit code to{" "}
               <span className="font-medium text-zinc-700">{email}</span>.
-              Click it to activate your account.
             </p>
+
+            <form onSubmit={handleVerifySubmit} className="flex flex-col items-center gap-5">
+              <div className="flex gap-2" onPaste={handleCodePaste}>
+                {code.map((digit, i) => (
+                  <input
+                    key={i}
+                    ref={(el) => { inputRefs.current[i] = el; }}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={1}
+                    value={digit}
+                    onChange={(e) => handleCodeChange(i, e.target.value)}
+                    onKeyDown={(e) => handleCodeKeyDown(i, e)}
+                    className="h-12 w-10 rounded-xl border border-zinc-200 bg-white text-center text-lg font-semibold text-zinc-900 transition focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100"
+                    autoFocus={i === 0}
+                  />
+                ))}
+              </div>
+
+              {error && (
+                <p className="w-full rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{error}</p>
+              )}
+
+              <Button type="submit" disabled={isPending || code.some((d) => !d)} className="w-full">
+                {isPending ? "Verifying…" : "Verify email"}
+              </Button>
+            </form>
+
             <p className="mt-5 text-xs text-zinc-400">
               Didn&apos;t get it? Check your spam folder.
             </p>
           </div>
         </div>
         <p className="mt-5 text-center text-sm text-zinc-500">
-          Already verified?{" "}
-          <Link href="/login" className="font-medium text-zinc-900 hover:underline">
-            Sign in
-          </Link>
+          Wrong email?{" "}
+          <button onClick={() => { setStep("form"); setCode(["", "", "", "", "", ""]); setError(""); }}
+            className="font-medium text-zinc-900 hover:underline">
+            Go back
+          </button>
         </p>
       </div>
     );
