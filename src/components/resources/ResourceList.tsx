@@ -33,15 +33,28 @@ function fileStyle(filePath: string) {
 export function ResourceList({ resources, courseId, userId }: ResourceListProps) {
   if (resources.length === 0) {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-dashed border-zinc-300 bg-white/60 py-16 text-center">
-        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-400">
-          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-        </div>
-        <p className="text-sm font-medium text-zinc-500">
-          No resources yet. Be the first to upload!
-        </p>
+      <div className="flex flex-col items-center rounded-2xl border border-dashed border-zinc-200 bg-white/60 py-10 text-center">
+        <svg viewBox="0 0 200 170" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-4 w-36">
+          <ellipse cx="100" cy="158" rx="58" ry="8" fill="#e4e4e7" opacity="0.5" />
+          <g transform="rotate(-7 100 95)">
+            <rect x="58" y="28" width="84" height="108" rx="6" fill="#e4e4e7" />
+            <rect x="72" y="46" width="50" height="4" rx="2" fill="#d4d4d8" />
+            <rect x="72" y="56" width="36" height="4" rx="2" fill="#d4d4d8" />
+          </g>
+          <g transform="rotate(-3 100 95)">
+            <rect x="54" y="24" width="84" height="108" rx="6" fill="#ececec" stroke="#e4e4e7" strokeWidth="1" />
+            <rect x="68" y="42" width="50" height="4" rx="2" fill="#e4e4e7" />
+            <rect x="68" y="52" width="38" height="4" rx="2" fill="#e4e4e7" />
+          </g>
+          <rect x="50" y="20" width="84" height="108" rx="6" fill="white" stroke="#e4e4e7" strokeWidth="1.5" />
+          <rect x="64" y="38" width="50" height="4" rx="2" fill="#f4f4f5" />
+          <rect x="64" y="50" width="36" height="4" rx="2" fill="#f4f4f5" />
+          <rect x="64" y="62" width="44" height="4" rx="2" fill="#f4f4f5" />
+          <circle cx="92" cy="96" r="16" fill="#f4f4f5" />
+          <path d="M92 89 L92 103 M85 96 L99 96" stroke="#a1a1aa" strokeWidth="2.2" strokeLinecap="round" />
+        </svg>
+        <p className="text-sm font-medium text-zinc-700">No resources yet</p>
+        <p className="mt-1 text-xs text-zinc-400">Be the first to upload something useful.</p>
       </div>
     );
   }
