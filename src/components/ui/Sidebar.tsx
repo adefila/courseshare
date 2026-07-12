@@ -91,6 +91,30 @@ function NavContent({
             </Link>
           )}
         </div>
+
+        {user && (
+          <>
+            <p className="mb-1 mt-4 px-3 text-[11px] font-medium uppercase tracking-widest text-zinc-400">
+              Account
+            </p>
+            <div className="space-y-0.5">
+              <Link
+                href="/account"
+                className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
+                  pathname === "/account"
+                    ? "bg-zinc-100 font-medium text-zinc-900"
+                    : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
+                }`}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
+                Edit profile
+              </Link>
+            </div>
+          </>
+        )}
       </nav>
 
       {/* User section */}

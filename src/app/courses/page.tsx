@@ -42,7 +42,7 @@ export default async function CoursesPage({
   const isFiltered = !!(q || school);
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-6 py-8">
+    <div className="mx-auto w-full max-w-[1200px] px-6 py-8 pr-8 sm:pr-10">
 
       {/* Page header */}
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -68,16 +68,16 @@ export default async function CoursesPage({
       {!isFiltered && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="text-xl font-semibold text-zinc-900">{enriched.length}+</p>
-            <p className="text-xs text-zinc-500 mt-0.5">Courses uploaded</p>
+            <p className="text-3xl font-bold tracking-tight text-zinc-900">{enriched.length}+</p>
+            <p className="text-xs text-zinc-500 mt-1">Courses uploaded</p>
           </div>
           <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="text-xl font-semibold text-zinc-900">{schools.length}</p>
-            <p className="text-xs text-zinc-500 mt-0.5">Universities</p>
+            <p className="text-3xl font-bold tracking-tight text-zinc-900">{schools.length}</p>
+            <p className="text-xs text-zinc-500 mt-1">Universities</p>
           </div>
           <div className="col-span-2 rounded-xl border border-zinc-200 bg-white px-5 py-4 sm:col-span-1">
-            <p className="text-xl font-semibold text-zinc-900">{(countRows ?? []).length}</p>
-            <p className="text-xs text-zinc-500 mt-0.5">Resources shared</p>
+            <p className="text-3xl font-bold tracking-tight text-zinc-900">{(countRows ?? []).length}</p>
+            <p className="text-xs text-zinc-500 mt-1">Resources shared</p>
           </div>
         </div>
       )}
@@ -96,15 +96,20 @@ export default async function CoursesPage({
               className="w-full rounded-full border border-zinc-200 bg-white py-2.5 pl-10 pr-5 text-sm transition placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100"
             />
           </div>
-          <select
-            name="school"
-            defaultValue={school ?? ""}
-            className="rounded-full border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-700 transition focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100 sm:max-w-[200px]"
-          >
-            <option value="">All universities</option>
-            {schools.map((s) => (<option key={s} value={s}>{s}</option>))}
-          </select>
-          <Button type="submit" variant="secondary">Search</Button>
+          <div className="relative sm:max-w-[210px]">
+            <select
+              name="school"
+              defaultValue={school ?? ""}
+              onChange="this.form.requestSubmit()"
+              className="w-full appearance-none rounded-full border border-zinc-200 bg-white py-2.5 pl-4 pr-9 text-sm text-zinc-700 transition focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-100"
+            >
+              <option value="">All universities</option>
+              {schools.map((s) => (<option key={s} value={s}>{s}</option>))}
+            </select>
+            <svg className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
           {isFiltered && (
             <Link href="/courses">
               <Button variant="ghost">Clear</Button>
