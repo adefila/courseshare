@@ -87,7 +87,7 @@ export default function AccountPage() {
           <div className="flex flex-col gap-8">
             {/* Profile */}
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-zinc-700">Profile</h2>
+              <h2 className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500">Profile</h2>
               <form onSubmit={handleNameSave} className="flex flex-col gap-4">
                 <Input id="email" label="Email" type="email" value={email} disabled className="bg-zinc-50 text-zinc-400" />
                 <Input
@@ -113,7 +113,7 @@ export default function AccountPage() {
 
             {/* Password */}
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-zinc-700">Change password</h2>
+              <h2 className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500">Change password</h2>
               <form onSubmit={handlePasswordSave} className="flex flex-col gap-4">
                 <PasswordInput
                   id="new_password"

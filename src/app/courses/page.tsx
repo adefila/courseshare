@@ -152,15 +152,44 @@ export default async function CoursesPage({
 
       {/* Results */}
       {enriched.length === 0 ? (
-        <div className="flex flex-col items-center rounded-2xl border border-dashed border-zinc-300 bg-white py-20 text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-zinc-100 text-zinc-500">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        <div className="flex flex-col items-center rounded-2xl border border-dashed border-indigo-200 bg-indigo-50/30 py-16 text-center">
+          <div className="mb-5 w-48">
+            <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+              {/* Background glow */}
+              <circle cx="100" cy="80" r="55" fill="#eef2ff" />
+              {/* Back doc */}
+              <g transform="rotate(-10 100 90)">
+                <rect x="65" y="35" width="56" height="72" rx="6" fill="#c7d2fe" />
+                <rect x="74" y="50" width="30" height="3.5" rx="1.5" fill="#a5b4fc" />
+                <rect x="74" y="59" width="22" height="3.5" rx="1.5" fill="#a5b4fc" />
+              </g>
+              {/* Mid doc */}
+              <g transform="rotate(-4 100 90)">
+                <rect x="62" y="30" width="56" height="72" rx="6" fill="#e0e7ff" stroke="#c7d2fe" strokeWidth="1" />
+                <rect x="71" y="45" width="30" height="3.5" rx="1.5" fill="#c7d2fe" />
+                <rect x="71" y="54" width="22" height="3.5" rx="1.5" fill="#c7d2fe" />
+              </g>
+              {/* Front doc */}
+              <rect x="59" y="25" width="56" height="72" rx="6" fill="white" stroke="#e0e7ff" strokeWidth="1.5" />
+              <rect x="68" y="40" width="30" height="3.5" rx="1.5" fill="#f0f0ff" />
+              <rect x="68" y="50" width="22" height="3.5" rx="1.5" fill="#f0f0ff" />
+              <rect x="68" y="60" width="26" height="3.5" rx="1.5" fill="#f0f0ff" />
+              {/* Search circle */}
+              <circle cx="128" cy="58" r="20" fill="white" stroke="#e0e7ff" strokeWidth="2" />
+              <circle cx="126" cy="56" r="9" stroke="#a5b4fc" strokeWidth="2.5" fill="none" />
+              <path d="M132.5 62.5 L138 68" stroke="#a5b4fc" strokeWidth="2.5" strokeLinecap="round" />
+              {/* Question marks / search lines suggesting no result */}
+              <line x1="122" y1="53" x2="130" y2="53" stroke="#c7d2fe" strokeWidth="2" strokeLinecap="round" />
+              <line x1="122" y1="57" x2="128" y2="57" stroke="#c7d2fe" strokeWidth="2" strokeLinecap="round" />
+              {/* Sparkles */}
+              <path d="M42 44 L43 39 L44 44 L49 45 L44 46 L43 51 L42 46 L37 45 Z" fill="#c7d2fe" />
+              <path d="M158 32 L159 28 L160 32 L164 33 L160 34 L159 38 L158 34 L154 33 Z" fill="#a5b4fc" />
+              <circle cx="50" cy="110" r="4" fill="#e0e7ff" />
+              <circle cx="155" cy="108" r="3" fill="#e0e7ff" />
             </svg>
           </div>
-          <p className="mb-1 font-semibold text-zinc-700">{q ? `No courses match "${q}"` : "No courses yet"}</p>
-          <p className="mb-5 text-sm text-zinc-500">{q ? "Try a different search term." : "Be the first to add one!"}</p>
+          <p className="mb-1.5 font-semibold text-zinc-700">{q ? `No courses match "${q}"` : "No courses yet"}</p>
+          <p className="mb-6 text-sm text-zinc-500">{q ? "Try a different search term." : "Be the first to add one!"}</p>
           <Link href="/courses/new"><Button>Create a course</Button></Link>
         </div>
       ) : (

@@ -241,7 +241,7 @@ export function CourseForm() {
           required
         />
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="university" className="text-[13px] font-medium text-zinc-700">
+          <label htmlFor="university" className="font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500">
             University *
           </label>
           <UniversityCombobox />
@@ -249,7 +249,7 @@ export function CourseForm() {
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="semester" className="text-[13px] font-medium text-zinc-700">
+          <label htmlFor="semester" className="font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500">
             Semester *
           </label>
           <div className="relative">

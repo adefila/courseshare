@@ -39,10 +39,10 @@ function NavContent({
       <div className="flex h-14 shrink-0 items-center border-b border-zinc-100 px-5">
         <Link
           href="/courses"
-          className="flex items-center gap-2 text-[15px] font-semibold tracking-tight text-zinc-900"
+          className="flex items-center gap-2"
         >
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-indigo-600 text-white text-[11px] font-bold tracking-wide">CS</span>
-          CourseShare
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+          <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseShare</span>
         </Link>
       </div>
 
@@ -188,9 +188,9 @@ export function Sidebar() {
     <>
       {/* Mobile top bar */}
       <div className="fixed inset-x-0 top-0 z-50 flex h-12 items-center justify-between border-b border-zinc-200 bg-white px-4 sm:hidden">
-        <Link href="/courses" className="flex items-center gap-2 text-[15px] font-semibold text-zinc-900">
-          <span className="flex h-5 w-5 items-center justify-center rounded bg-indigo-600 text-white text-[10px] font-bold">CS</span>
-          CourseShare
+        <Link href="/courses" className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+          <span className="font-mono text-[12px] font-bold uppercase tracking-widest text-zinc-900">CourseShare</span>
         </Link>
         <button
           onClick={() => setMobileOpen((o) => !o)}
