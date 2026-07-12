@@ -14,15 +14,22 @@ export default async function CourseDetailPage({
 
   const [{ data: course }, { data: resources }, { data: { user } }] =
     await Promise.all([
-      supabase.from("courses").select("*").eq("id", courseId).single(),
+      supabase.from("courses").select("*, creator:profiles!created_by(display_name)").eq("id", courseId).single(),
       supabase
         .from("resources")
-        .select("*")
+        .select("*, uploader:profiles!uploaded_by(display_name)")
         .eq("course_id", courseId)
         .eq("is_removed", false)
         .order("created_at", { ascending: false }),
       supabase.auth.getUser(),
     ]);
+
+  const contributors: { name: string }[] = [];
+  const seen = new Set<string>();
+  for (const r of resources ?? []) {
+    const name = (r as { uploader?: { display_name: string | null } | null }).uploader?.display_name;
+    if (name && !seen.has(name)) { seen.add(name); contributors.push({ name }); }
+  }
 
   if (!course) notFound();
 
@@ -64,6 +71,31 @@ export default async function CourseDetailPage({
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-600">
                 {course.description}
               </p>
+            )}
+
+            {contributors.length > 0 && (
+              <div className="mt-5 flex items-center gap-2.5">
+                <div className="flex -space-x-2">
+                  {contributors.slice(0, 5).map((c) => {
+                    const initials = c.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+                    const colors = ["bg-indigo-100 text-indigo-700","bg-violet-100 text-violet-700","bg-blue-100 text-blue-700","bg-emerald-100 text-emerald-700","bg-amber-100 text-amber-700"];
+                    const color = colors[c.name.charCodeAt(0) % colors.length];
+                    return (
+                      <span key={c.name} title={c.name}
+                        className={`inline-flex h-7 w-7 items-center justify-center rounded-full border-2 border-white text-[10px] font-semibold ${color}`}>
+                        {initials}
+                      </span>
+                    );
+                  })}
+                </div>
+                <span className="text-xs text-zinc-500">
+                  <span className="font-medium text-zinc-700">
+                    {contributors.slice(0, 2).map(c => c.name.split(" ")[0]).join(", ")}
+                    {contributors.length > 2 ? ` +${contributors.length - 2} more` : ""}
+                  </span>
+                  {" "}contributed resources
+                </span>
+              </div>
             )}
           </div>
 

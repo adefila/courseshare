@@ -11,21 +11,21 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 function SignupIllustration() {
   return (
     <svg viewBox="0 0 320 150" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <circle cx="160" cy="80" r="62" fill="#f4f4f5" />
-      <circle cx="118" cy="62" r="19" fill="#d4d4d8" />
-      <path d="M86 128 Q88 103 118 103 Q148 103 150 128" fill="#d4d4d8" />
-      <circle cx="202" cy="62" r="19" fill="#d4d4d8" />
-      <path d="M170 128 Q172 103 202 103 Q232 103 234 128" fill="#d4d4d8" />
-      <circle cx="160" cy="58" r="22" fill="#27272a" />
-      <path d="M124 126 Q127 98 160 98 Q193 98 196 126" fill="#27272a" />
-      <circle cx="198" cy="36" r="13" fill="white" stroke="#e4e4e7" strokeWidth="1.5" />
-      <path d="M198 30 L198 42 M192 36 L204 36" stroke="#52525b" strokeWidth="2.2" strokeLinecap="round" />
-      <path d="M65 42 L66.6 36 L68.2 42 L74 43.6 L68.2 45.2 L66.6 51 L65 45.2 L59 43.6 Z" fill="#d4d4d8" />
-      <path d="M249 30 L250.4 25 L251.8 30 L257 31.4 L251.8 32.8 L250.4 38 L249 32.8 L244 31.4 Z" fill="#d4d4d8" />
-      <circle cx="55" cy="80" r="5" fill="#e4e4e7" />
-      <circle cx="265" cy="74" r="7" fill="#e4e4e7" />
-      <circle cx="260" cy="118" r="4" fill="#e4e4e7" />
-      <circle cx="60" cy="118" r="4" fill="#e4e4e7" />
+      <circle cx="160" cy="80" r="62" fill="#eef2ff" />
+      <circle cx="118" cy="62" r="19" fill="#c7d2fe" />
+      <path d="M86 128 Q88 103 118 103 Q148 103 150 128" fill="#c7d2fe" />
+      <circle cx="202" cy="62" r="19" fill="#c7d2fe" />
+      <path d="M170 128 Q172 103 202 103 Q232 103 234 128" fill="#c7d2fe" />
+      <circle cx="160" cy="58" r="22" fill="#4f46e5" />
+      <path d="M124 126 Q127 98 160 98 Q193 98 196 126" fill="#4f46e5" />
+      <circle cx="198" cy="36" r="13" fill="white" stroke="#e0e7ff" strokeWidth="1.5" />
+      <path d="M198 30 L198 42 M192 36 L204 36" stroke="#4f46e5" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M65 42 L66.6 36 L68.2 42 L74 43.6 L68.2 45.2 L66.6 51 L65 45.2 L59 43.6 Z" fill="#a5b4fc" />
+      <path d="M249 30 L250.4 25 L251.8 30 L257 31.4 L251.8 32.8 L250.4 38 L249 32.8 L244 31.4 Z" fill="#a5b4fc" />
+      <circle cx="55" cy="80" r="5" fill="#c7d2fe" />
+      <circle cx="265" cy="74" r="7" fill="#c7d2fe" />
+      <circle cx="260" cy="118" r="4" fill="#e0e7ff" />
+      <circle cx="60" cy="118" r="4" fill="#e0e7ff" />
     </svg>
   );
 }

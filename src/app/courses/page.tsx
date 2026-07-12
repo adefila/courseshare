@@ -15,7 +15,7 @@ export default async function CoursesPage({
 
   let query = supabase
     .from("courses")
-    .select("id, course_name, course_code, university, semester, year, description, created_at, created_by")
+    .select("id, course_name, course_code, university, semester, year, description, created_at, created_by, creator:profiles!created_by(display_name)")
     .order("created_at", { ascending: false })
     .limit(60);
 
