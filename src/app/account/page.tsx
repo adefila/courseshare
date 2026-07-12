@@ -32,6 +32,7 @@ function AccountIllustration() {
 export default function AccountPage() {
   const router = useRouter();
   const [displayName, setDisplayName] = useState("");
+  const [originalName, setOriginalName] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [nameMsg, setNameMsg] = useState("");
@@ -46,7 +47,9 @@ export default function AccountPage() {
     supabase.auth.getUser().then(({ data }) => {
       if (!data.user) { router.push("/login"); return; }
       setEmail(data.user.email ?? "");
-      setDisplayName(data.user.user_metadata?.display_name ?? "");
+      const name = data.user.user_metadata?.display_name ?? "";
+      setDisplayName(name);
+      setOriginalName(name);
     });
   }, [router]);
 
@@ -57,7 +60,7 @@ export default function AccountPage() {
       const supabase = createClient();
       const { error } = await supabase.auth.updateUser({ data: { display_name: displayName } });
       if (error) setNameError(error.message);
-      else { setNameMsg("Name updated."); router.refresh(); }
+      else { setNameMsg("Name updated."); setOriginalName(displayName); router.refresh(); }
     });
   }
 
@@ -102,7 +105,7 @@ export default function AccountPage() {
                 {nameError && <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{nameError}</p>}
                 {nameMsg && <p className="rounded-xl bg-green-50 px-3.5 py-2.5 text-sm text-green-700">{nameMsg}</p>}
                 <div>
-                  <Button type="submit" disabled={nameLoading} size="sm">
+                  <Button type="submit" disabled={nameLoading || displayName.trim() === originalName.trim() || !displayName.trim()} size="sm">
                     {nameLoading ? "Saving…" : "Save name"}
                   </Button>
                 </div>
@@ -128,7 +131,7 @@ export default function AccountPage() {
                 {pwError && <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{pwError}</p>}
                 {pwMsg && <p className="rounded-xl bg-green-50 px-3.5 py-2.5 text-sm text-green-700">{pwMsg}</p>}
                 <div>
-                  <Button type="submit" disabled={pwLoading} size="sm">
+                  <Button type="submit" disabled={pwLoading || newPassword.length < 8} size="sm">
                     {pwLoading ? "Saving…" : "Update password"}
                   </Button>
                 </div>

@@ -94,15 +94,22 @@ function LoginForm() {
               required
               autoComplete="email"
             />
-            <PasswordInput
-              id="password"
-              label="Password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-            />
+            <div className="flex flex-col gap-1.5">
+              <PasswordInput
+                id="password"
+                label="Password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+              />
+              <div className="text-right">
+                <Link href="/forgot-password" className="text-xs text-zinc-400 hover:text-indigo-600 hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+            </div>
 
             {error && (
               <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">
