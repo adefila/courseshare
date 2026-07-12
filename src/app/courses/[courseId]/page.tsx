@@ -51,7 +51,7 @@ export default async function CourseDetailPage({
         <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-start sm:justify-between sm:p-8">
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-zinc-100 px-3 py-1 text-[13px] font-semibold text-zinc-700">
+              <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
                 {course.course_code}
               </span>
               <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-500">

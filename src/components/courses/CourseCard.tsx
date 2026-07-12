@@ -73,15 +73,7 @@ export function CourseCard({ course }: CourseCardProps) {
       <div className="mt-auto flex items-center justify-between border-t border-zinc-100 pt-3">
         <div className="flex items-center gap-2">
           {creatorName && <Avatar name={creatorName} size={22} />}
-          <div className="flex items-center gap-1.5 text-xs">
-            {creatorName && (
-              <span className="font-medium text-zinc-700">
-                {creatorName.split(" ")[0]}
-              </span>
-            )}
-            <span className="text-zinc-300">·</span>
-            <span className="text-zinc-400">{count} {count !== 1 ? "resources" : "resource"}</span>
-          </div>
+          <span className="text-xs text-zinc-400">{count} {count !== 1 ? "resources" : "resource"}</span>
         </div>
         <span className="flex items-center gap-1 text-xs font-medium text-indigo-500 opacity-0 transition-opacity group-hover:opacity-100">
           View
