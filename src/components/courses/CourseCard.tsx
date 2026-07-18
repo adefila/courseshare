@@ -47,7 +47,7 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
       className="relative overflow-hidden rounded-t-2xl"
       style={{
         height: 152,
-        background: "linear-gradient(160deg, #1e1b4b 0%, #312e81 60%, #3730a3 100%)",
+        background: "linear-gradient(155deg, #1e1b4b 0%, #312e81 55%, #3730a3 100%)",
       }}
     >
       {/* Folder tab */}
@@ -56,19 +56,20 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
           position: "absolute",
           left: 24,
           top: 0,
-          width: 56,
-          height: 14,
-          borderRadius: "6px 6px 0 0",
-          background: "rgba(99,102,241,0.5)",
+          width: 52,
+          height: 13,
+          borderRadius: "5px 5px 0 0",
+          background: "rgba(99,102,241,0.45)",
         }}
       />
 
-      {/* Subtle inner glow */}
+      {/* Radial glow from bottom */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "radial-gradient(ellipse at 50% 110%, rgba(99,102,241,0.25) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse at 50% 115%, rgba(99,102,241,0.3) 0%, transparent 65%)",
           pointerEvents: "none",
         }}
       />
@@ -79,97 +80,101 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: "44%",
+          bottom: "43%",
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-end",
-          gap: 10,
+          gap: 8,
         }}
       >
-        {/* Back doc — tilts left */}
+        {/* Left doc — tilts left, sits behind center */}
         <div
           style={{
-            width: 42,
-            height: 58,
-            borderRadius: 10,
-            background: "rgba(255,255,255,0.90)",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
+            width: 40,
+            height: 56,
+            borderRadius: 9,
+            background: "rgba(255,255,255,0.88)",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.30)",
             transform: hovered
-              ? "translateY(-20px) rotate(-7deg)"
+              ? "translateY(-18px) rotate(-7deg)"
               : "translateY(2px) rotate(-7deg)",
             transition: `transform 0.45s ${spring}`,
             flexShrink: 0,
+            zIndex: 1,
           }}
         >
-          <div style={{ padding: "10px 8px 0", display: "flex", flexDirection: "column", gap: 5 }}>
-            <div style={{ height: 5, width: 24, borderRadius: 3, background: "#c7d2fe" }} />
-            <div style={{ height: 4, width: 17, borderRadius: 3, background: "#e0e7ff" }} />
-            <div style={{ height: 4, width: 21, borderRadius: 3, background: "#e0e7ff" }} />
+          <div style={{ padding: "9px 7px 0", display: "flex", flexDirection: "column", gap: 5 }}>
+            <div style={{ height: 4, width: 22, borderRadius: 3, background: "#c7d2fe" }} />
+            <div style={{ height: 3, width: 15, borderRadius: 3, background: "#e0e7ff" }} />
+            <div style={{ height: 3, width: 18, borderRadius: 3, background: "#e0e7ff" }} />
           </div>
         </div>
 
-        {/* Centre doc — goes up highest */}
+        {/* Centre doc — goes up highest, always on top */}
         <div
           style={{
-            width: 46,
-            height: 64,
-            borderRadius: 10,
+            width: 44,
+            height: 63,
+            borderRadius: 9,
             background: "rgba(238,242,255,0.97)",
-            boxShadow: "0 10px 28px rgba(0,0,0,0.4)",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.38)",
             transform: hovered
-              ? "translateY(-28px) rotate(0deg)"
+              ? "translateY(-26px) rotate(0deg)"
               : "translateY(2px) rotate(0deg)",
             transition: `transform 0.45s ${spring} 0.04s`,
+            flexShrink: 0,
+            zIndex: 3,
+          }}
+        >
+          <div style={{ padding: "9px 8px 0", display: "flex", flexDirection: "column", gap: 5 }}>
+            <div style={{ height: 4, width: 26, borderRadius: 3, background: "#a5b4fc" }} />
+            <div style={{ height: 3, width: 17, borderRadius: 3, background: "#c7d2fe" }} />
+            <div style={{ height: 3, width: 22, borderRadius: 3, background: "#c7d2fe" }} />
+            <div style={{ height: 3, width: 14, borderRadius: 3, background: "#e0e7ff" }} />
+          </div>
+        </div>
+
+        {/* Right doc — tilts right, sits in front of left but behind center */}
+        <div
+          style={{
+            width: 40,
+            height: 53,
+            borderRadius: 9,
+            background: "rgba(255,255,255,0.88)",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.30)",
+            transform: hovered
+              ? "translateY(-13px) rotate(6deg)"
+              : "translateY(2px) rotate(6deg)",
+            transition: `transform 0.45s ${spring} 0.08s`,
             flexShrink: 0,
             zIndex: 2,
           }}
         >
-          <div style={{ padding: "10px 8px 0", display: "flex", flexDirection: "column", gap: 5 }}>
-            <div style={{ height: 5, width: 28, borderRadius: 3, background: "#a5b4fc" }} />
+          <div style={{ padding: "9px 7px 0", display: "flex", flexDirection: "column", gap: 5 }}>
             <div style={{ height: 4, width: 18, borderRadius: 3, background: "#c7d2fe" }} />
-            <div style={{ height: 4, width: 24, borderRadius: 3, background: "#c7d2fe" }} />
-            <div style={{ height: 4, width: 15, borderRadius: 3, background: "#e0e7ff" }} />
-          </div>
-        </div>
-
-        {/* Front doc — tilts right */}
-        <div
-          style={{
-            width: 42,
-            height: 54,
-            borderRadius: 10,
-            background: "rgba(255,255,255,0.90)",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
-            transform: hovered
-              ? "translateY(-14px) rotate(6deg)"
-              : "translateY(2px) rotate(6deg)",
-            transition: `transform 0.45s ${spring} 0.08s`,
-            flexShrink: 0,
-          }}
-        >
-          <div style={{ padding: "10px 8px 0", display: "flex", flexDirection: "column", gap: 5 }}>
-            <div style={{ height: 5, width: 20, borderRadius: 3, background: "#c7d2fe" }} />
-            <div style={{ height: 4, width: 14, borderRadius: 3, background: "#e0e7ff" }} />
-            <div style={{ height: 4, width: 18, borderRadius: 3, background: "#e0e7ff" }} />
+            <div style={{ height: 3, width: 13, borderRadius: 3, background: "#e0e7ff" }} />
+            <div style={{ height: 3, width: 16, borderRadius: 3, background: "#e0e7ff" }} />
           </div>
         </div>
       </div>
 
-      {/* Folder front flap */}
+      {/* Folder front flap — translucent glass */}
       <div
         style={{
           position: "absolute",
           inset: "auto 0 0 0",
-          height: "48%",
-          background: "linear-gradient(to bottom, rgba(79,70,229,0.82), rgba(67,56,202,0.96))",
-          backdropFilter: "blur(8px)",
+          height: "46%",
+          background:
+            "linear-gradient(to bottom, rgba(79,70,229,0.48), rgba(67,56,202,0.62))",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          zIndex: 4,
         }}
       >
         {/* Glossy top edge */}
-        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "rgba(165,180,252,0.5)" }} />
-        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 18, background: "linear-gradient(to bottom, rgba(165,180,252,0.14), transparent)" }} />
-        {/* Subtle sheen across flap */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(255,255,255,0.06) 0%, transparent 60%)" }} />
+        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "rgba(165,180,252,0.55)" }} />
+        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 20, background: "linear-gradient(to bottom, rgba(165,180,252,0.16), transparent)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(255,255,255,0.07) 0%, transparent 55%)" }} />
       </div>
     </div>
   );
@@ -183,8 +188,12 @@ export function CourseCard({ course }: CourseCardProps) {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl"
-      style={{ boxShadow: hovered ? "0 20px 40px -12px rgba(79,70,229,0.18)" : undefined }}
+      className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200"
+      style={{
+        boxShadow: hovered
+          ? "0 20px 40px -12px rgba(79,70,229,0.2)"
+          : "0 1px 3px rgba(0,0,0,0.05)",
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

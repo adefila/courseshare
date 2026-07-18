@@ -8,6 +8,16 @@ import type { User } from "@supabase/supabase-js";
 
 const NAV = [
   {
+    href: "/",
+    label: "Home",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
+        <path d="M9 21V12h6v9" />
+      </svg>
+    ),
+  },
+  {
     href: "/courses",
     label: "Browse",
     icon: (
@@ -39,7 +49,7 @@ function NavContent({
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex h-14 shrink-0 items-center border-b border-zinc-100 px-5">
-        <Link href="/courses" onClick={onNavClick} className="flex items-center gap-2">
+        <Link href="/" onClick={onNavClick} className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
           <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseShare</span>
         </Link>
@@ -194,7 +204,7 @@ export function Sidebar() {
   async function handleSignOut() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/courses");
+    router.push("/");
     router.refresh();
   }
 
@@ -202,7 +212,7 @@ export function Sidebar() {
     <>
       {/* Mobile top bar */}
       <div className="fixed inset-x-0 top-0 z-50 flex h-12 items-center justify-between border-b border-zinc-200 bg-white px-4 sm:hidden">
-        <Link href="/courses" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
           <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseShare</span>
         </Link>
