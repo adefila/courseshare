@@ -53,7 +53,7 @@ export function CourseSearch({
   return (
     <div className="mb-8 flex items-center gap-2.5">
       {/* Search — constrained width */}
-      <form onSubmit={handleSubmit} className="relative w-full max-w-sm">
+      <form onSubmit={handleSubmit} className="relative flex-1">
         <svg
           className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400"
           width="14" height="14" viewBox="0 0 24 24" fill="none"
