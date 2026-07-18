@@ -64,7 +64,7 @@ export function CourseSearch({
               <button
                 type="button"
                 onClick={() => { setQ(""); navigate("", semester); }}
-                className="flex h-7 w-7 items-center justify-center rounded-full text-zinc-400 hover:bg-indigo-100 hover:text-indigo-600"
+                className="cursor-pointer flex h-7 w-7 items-center justify-center rounded-full text-zinc-400 hover:bg-indigo-100 hover:text-indigo-600"
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                   <path d="M18 6L6 18M6 6l12 12" />
@@ -75,7 +75,7 @@ export function CourseSearch({
             <button
               type="button"
               onClick={() => setFilterOpen((o) => !o)}
-              className={`flex h-8 w-8 items-center justify-center rounded-full transition ${
+              className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-full transition ${
                 hasFilter || filterOpen
                   ? "bg-indigo-600 text-white"
                   : "bg-indigo-600 text-white hover:bg-indigo-500"
@@ -109,7 +109,7 @@ export function CourseSearch({
                   key={s}
                   type="button"
                   onClick={() => handleSemesterClick(s)}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition-all duration-150 ${
+                  className={`cursor-pointer rounded-full px-3 py-1 text-xs font-medium transition-all duration-150 ${
                     semester === s
                       ? "bg-indigo-600 text-white scale-105"
                       : "border border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700"
@@ -123,7 +123,7 @@ export function CourseSearch({
               <button
                 type="button"
                 onClick={() => { setSemester(""); navigate(q, ""); }}
-                className="ml-auto text-[11px] text-zinc-400 transition-colors hover:text-zinc-600"
+                className="cursor-pointer ml-auto text-[11px] text-zinc-400 transition-colors hover:text-zinc-600"
               >
                 Clear filter
               </button>

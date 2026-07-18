@@ -24,7 +24,7 @@ export function ReportButton({ resourceId }: { resourceId: string }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs text-gray-400 hover:text-red-500"
+        className="cursor-pointer text-xs text-zinc-400 transition-colors hover:text-red-500"
       >
         Report
       </button>
