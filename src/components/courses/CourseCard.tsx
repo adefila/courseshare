@@ -50,19 +50,6 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
         background: "linear-gradient(155deg, #1e1b4b 0%, #312e81 55%, #3730a3 100%)",
       }}
     >
-      {/* Folder tab */}
-      <div
-        style={{
-          position: "absolute",
-          left: 24,
-          top: 0,
-          width: 52,
-          height: 13,
-          borderRadius: "5px 5px 0 0",
-          background: "rgba(99,102,241,0.45)",
-        }}
-      />
-
       {/* Radial glow from bottom */}
       <div
         style={{
@@ -165,9 +152,9 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
           inset: "auto 0 0 0",
           height: "46%",
           background:
-            "linear-gradient(to bottom, rgba(79,70,229,0.48), rgba(67,56,202,0.62))",
-          backdropFilter: "blur(14px)",
-          WebkitBackdropFilter: "blur(14px)",
+            "linear-gradient(to bottom, rgba(79,70,229,0.28), rgba(67,56,202,0.40))",
+          backdropFilter: "blur(22px)",
+          WebkitBackdropFilter: "blur(22px)",
           zIndex: 4,
         }}
       >

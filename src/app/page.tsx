@@ -13,7 +13,6 @@ function MiniFolder() {
         background: "linear-gradient(155deg, #312e81 0%, #3730a3 100%)",
       }}
     >
-      <div style={{ position: "absolute", left: 6, top: 0, width: 16, height: 5, borderRadius: "3px 3px 0 0", background: "rgba(99,102,241,0.5)" }} />
       <div
         style={{
           position: "absolute",
