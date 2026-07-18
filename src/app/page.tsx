@@ -101,7 +101,7 @@ export default async function DashboardPage() {
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
         {stats.map(({ label, value }) => (
-          <div key={label} className="rounded-2xl border border-zinc-200 bg-white px-5 py-5">
+          <div key={label} className="rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="font-mono text-4xl font-bold leading-none text-zinc-900 sm:text-5xl">
               {value}
             </p>
@@ -126,7 +126,7 @@ export default async function DashboardPage() {
         </div>
 
         {(recentCourses ?? []).length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-indigo-200 bg-indigo-50/30 py-10 text-center">
+          <div className="rounded-2xl bg-gradient-to-b from-indigo-50/50 to-white py-10 text-center" style={{ border: "0.5px solid #e0e7ff" }}>
             <p className="text-sm text-zinc-500">No courses yet — be the first to add one.</p>
             <Link href="/courses/new" className="mt-3 inline-block">
               <Button size="sm">Create a course</Button>
@@ -138,7 +138,8 @@ export default async function DashboardPage() {
               <Link
                 key={course.id}
                 href={`/courses/${course.id}`}
-                className="group flex items-center gap-4 rounded-xl border border-zinc-200 bg-white px-5 py-3.5 transition-all hover:border-indigo-200 hover:shadow-sm"
+                className="group flex items-center gap-4 rounded-xl bg-white px-5 py-3.5 transition-all hover:bg-indigo-50/30"
+                style={{ border: "0.5px solid #e8e8f0" }}
               >
                 <MiniFolder />
 
@@ -178,7 +179,7 @@ export default async function DashboardPage() {
 
       {/* ── Sign-up nudge (guests only) ──────────────────────────── */}
       {!user && (
-        <div className="animate-fade-up-delay-3 mt-8 flex items-center justify-between rounded-2xl border border-indigo-100 bg-indigo-50 px-6 py-5">
+        <div className="animate-fade-up-delay-3 mt-8 flex items-center justify-between rounded-2xl bg-gradient-to-r from-indigo-50/80 to-violet-50/40 px-6 py-5" style={{ border: "0.5px solid #e0e7ff" }}>
           <div>
             <p className="font-semibold text-zinc-900">Join the community</p>
             <p className="text-sm text-zinc-500">Sign up free to upload and manage course resources.</p>

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${instrumentSans.variable} ${dmMono.variable} h-full antialiased`}>
-      <body className="flex h-full flex-col bg-zinc-50 text-zinc-900">
+      <body className="flex h-full flex-col bg-[#fdfcff] text-zinc-900">
         <AppShell>{children}</AppShell>
       </body>
     </html>

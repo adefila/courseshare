@@ -188,18 +188,20 @@ export function CourseCard({ course }: CourseCardProps) {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200"
+      className="group flex flex-col overflow-hidden rounded-2xl bg-white transition-all duration-300 hover:-translate-y-0.5"
       style={{
+        border: "0.5px solid",
+        borderColor: hovered ? "rgba(165,180,252,0.7)" : "rgba(228,228,231,0.9)",
         boxShadow: hovered
-          ? "0 20px 40px -12px rgba(79,70,229,0.2)"
-          : "0 1px 3px rgba(0,0,0,0.05)",
+          ? "0 8px 28px -6px rgba(79,70,229,0.13)"
+          : "none",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <FolderIllustration hovered={hovered} />
 
-      <div className="flex flex-1 flex-col px-5 py-4">
+      <div className="flex flex-1 flex-col bg-gradient-to-b from-white to-indigo-50/20 px-5 py-4">
         <div className="mb-2.5 flex items-center justify-between gap-2">
           <span className="inline-block rounded-full bg-indigo-50 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-indigo-700">
             {course.course_code}
@@ -225,7 +227,7 @@ export function CourseCard({ course }: CourseCardProps) {
           </p>
         )}
 
-        <div className="mt-auto flex items-center justify-between border-t border-zinc-100 pt-3">
+        <div className="mt-auto flex items-center justify-between pt-3" style={{ borderTop: "0.5px solid #f0f0f5" }}>
           <div className="flex items-center gap-2">
             {contributors.length > 0 && (
               <div className="flex -space-x-1.5">

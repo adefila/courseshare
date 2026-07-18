@@ -38,7 +38,8 @@ export default async function CourseDetailPage({
       <div className="mx-auto max-w-4xl">
       <Link
         href="/courses"
-        className="mb-6 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-800"
+        className="mb-6 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-zinc-400 transition hover:bg-white hover:text-zinc-700"
+        style={{ border: "0.5px solid transparent" }}
       >
         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M15 19l-7-7 7-7" />
@@ -47,7 +48,7 @@ export default async function CourseDetailPage({
       </Link>
 
       {/* Course header card */}
-      <div className="mb-8 rounded-2xl border border-zinc-200 bg-white">
+      <div className="mb-8 rounded-2xl bg-gradient-to-br from-indigo-50/40 via-white to-white" style={{ border: "0.5px solid #e4e4f0" }}>
         <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-start sm:justify-between sm:p-8">
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">

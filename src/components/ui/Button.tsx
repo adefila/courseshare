@@ -8,13 +8,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses = {
   primary:
-    "bg-indigo-600 text-white hover:bg-indigo-500 hover:-translate-y-px hover:shadow-md active:translate-y-0 active:scale-[0.97] active:shadow-none active:bg-indigo-700 disabled:bg-indigo-300 disabled:translate-y-0 disabled:shadow-none",
+    "bg-indigo-600 text-white hover:bg-indigo-500 active:scale-[0.97] active:bg-indigo-700 disabled:bg-indigo-300 disabled:opacity-60",
   secondary:
-    "bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 hover:bg-zinc-50 hover:-translate-y-px hover:shadow-sm active:translate-y-0 active:scale-[0.97] active:shadow-none disabled:opacity-50 disabled:translate-y-0",
+    "bg-white text-zinc-700 [border:0.5px_solid_#d4d4d8] hover:bg-zinc-50 hover:[border-color:#a1a1aa] active:scale-[0.97] disabled:opacity-50",
   ghost:
-    "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 hover:-translate-y-px active:translate-y-0 active:scale-[0.97] disabled:opacity-50",
+    "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 active:scale-[0.97] disabled:opacity-50",
   danger:
-    "bg-red-600 text-white hover:bg-red-500 hover:-translate-y-px hover:shadow-md active:translate-y-0 active:scale-[0.97] active:shadow-none active:bg-red-700 disabled:opacity-50 disabled:translate-y-0",
+    "bg-red-600 text-white hover:bg-red-500 active:scale-[0.97] active:bg-red-700 disabled:opacity-50",
 };
 
 const sizeClasses = {

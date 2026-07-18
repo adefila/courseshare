@@ -134,16 +134,16 @@ export default async function CoursesPage({
       {/* Stats strip — only on page 1 when not filtered */}
       {!isFiltered && page === 1 && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="font-mono text-[64px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
+          <div className="rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
+            <p className="font-mono text-[56px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
             <p className="mt-2 text-xs text-zinc-500">Courses uploaded</p>
           </div>
-          <div className="rounded-xl border border-zinc-200 bg-white px-5 py-4">
-            <p className="font-mono text-[64px] font-bold leading-none text-zinc-900">{schools.length}</p>
+          <div className="rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
+            <p className="font-mono text-[56px] font-bold leading-none text-zinc-900">{schools.length}</p>
             <p className="mt-2 text-xs text-zinc-500">Universities</p>
           </div>
-          <div className="col-span-2 rounded-xl border border-zinc-200 bg-white px-5 py-4 sm:col-span-1">
-            <p className="font-mono text-[64px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
+          <div className="col-span-2 rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-4 sm:col-span-1" style={{ border: "0.5px solid #e8e8f0" }}>
+            <p className="font-mono text-[56px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
             <p className="mt-2 text-xs text-zinc-500">Resources shared</p>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default async function CoursesPage({
 
       {/* Results */}
       {enriched.length === 0 ? (
-        <div className="flex flex-col items-center rounded-2xl border border-dashed border-indigo-200 bg-indigo-50/30 py-16 text-center">
+        <div className="flex flex-col items-center rounded-2xl bg-gradient-to-b from-indigo-50/50 to-white py-16 text-center" style={{ border: "0.5px solid #e0e7ff" }}>
           <div className="mb-5 w-48">
             <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
               {/* Background glow */}
@@ -206,53 +206,51 @@ export default async function CoursesPage({
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <nav className="mt-8 flex items-center justify-center gap-1" aria-label="Pagination">
-              {/* Prev */}
+            <nav className="mt-8 flex items-center justify-center gap-1.5" aria-label="Pagination">
               {page > 1 ? (
                 <Link
                   href={buildHref(page - 1, q, semester)}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-500 transition hover:border-indigo-300 hover:text-indigo-600"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-zinc-500 transition hover:bg-indigo-50 hover:text-indigo-600"
+                  style={{ border: "0.5px solid #e4e4e7" }}
                 >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                 </Link>
               ) : (
-                <span className="flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-lg border border-zinc-100 bg-zinc-50 text-zinc-300">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                <span className="flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-full bg-zinc-50 text-zinc-300" style={{ border: "0.5px solid #f0f0f0" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                 </span>
               )}
 
-              {/* Page numbers */}
               {getPageNumbers(page, totalPages).map((p, i) =>
                 p === "…" ? (
-                  <span key={`el-${i}`} className="flex h-9 w-9 items-center justify-center text-sm text-zinc-400">
-                    …
-                  </span>
+                  <span key={`el-${i}`} className="flex h-9 w-9 items-center justify-center text-sm text-zinc-400">…</span>
                 ) : (
                   <Link
                     key={p}
                     href={buildHref(p as number, q, semester)}
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg border text-sm font-medium transition ${
+                    className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium transition ${
                       p === page
-                        ? "border-indigo-600 bg-indigo-600 text-white"
-                        : "border-zinc-200 bg-white text-zinc-700 hover:border-indigo-300 hover:text-indigo-600"
+                        ? "bg-indigo-600 text-white"
+                        : "bg-white text-zinc-700 hover:bg-indigo-50 hover:text-indigo-600"
                     }`}
+                    style={{ border: p === page ? "none" : "0.5px solid #e4e4e7" }}
                   >
                     {p}
                   </Link>
                 )
               )}
 
-              {/* Next */}
               {page < totalPages ? (
                 <Link
                   href={buildHref(page + 1, q, semester)}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-500 transition hover:border-indigo-300 hover:text-indigo-600"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-zinc-500 transition hover:bg-indigo-50 hover:text-indigo-600"
+                  style={{ border: "0.5px solid #e4e4e7" }}
                 >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
                 </Link>
               ) : (
-                <span className="flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-lg border border-zinc-100 bg-zinc-50 text-zinc-300">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+                <span className="flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-full bg-zinc-50 text-zinc-300" style={{ border: "0.5px solid #f0f0f0" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
                 </span>
               )}
             </nav>

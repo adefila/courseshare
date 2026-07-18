@@ -37,7 +37,7 @@ function fileMeta(filePath: string) {
 function FileIcon({ filePath }: { filePath: string }) {
   const meta = fileMeta(filePath);
   return (
-    <div className={`relative h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-zinc-100 ${meta.bg}`}>
+    <div className={`relative h-11 w-11 shrink-0 overflow-hidden rounded-xl ${meta.bg}`} style={{ border: "0.5px solid #ebebf0" }}>
       {/* document shape */}
       <div className="flex h-full flex-col items-center pt-[7px]">
         <svg width="18" height="20" viewBox="0 0 18 20" fill="none">
@@ -146,7 +146,7 @@ function ResourceRow({ resource }: { resource: ResourceWithUploader }) {
   }
 
   return (
-    <li className="group flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition-all duration-150 hover:border-indigo-200">
+    <li className="group flex items-center gap-4 rounded-2xl bg-white px-5 py-4 transition-all duration-200 hover:bg-indigo-50/30" style={{ border: "0.5px solid #e8e8f0" }}>
       <FileIcon filePath={resource.file_path} />
 
       {/* Info */}
@@ -176,7 +176,8 @@ function ResourceRow({ resource }: { resource: ResourceWithUploader }) {
         <button
           onClick={handleDownload}
           disabled={downloading}
-          className="cursor-pointer flex shrink-0 items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-4 py-2 text-xs font-medium text-zinc-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 disabled:opacity-50"
+          className="cursor-pointer flex shrink-0 items-center gap-1.5 rounded-full bg-zinc-50 px-4 py-2 text-xs font-medium text-zinc-600 transition hover:bg-indigo-50 hover:text-indigo-700 disabled:opacity-50"
+          style={{ border: "0.5px solid #e4e4e7" }}
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

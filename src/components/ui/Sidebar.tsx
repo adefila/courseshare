@@ -48,7 +48,7 @@ function NavContent({
   return (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex h-14 shrink-0 items-center border-b border-zinc-100 px-5">
+      <div className="flex h-14 shrink-0 items-center px-5" style={{ borderBottom: "0.5px solid #ebebf0" }}>
         <Link href="/" onClick={onNavClick} className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
           <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseShare</span>
@@ -127,7 +127,7 @@ function NavContent({
       </nav>
 
       {/* User section */}
-      <div className="shrink-0 border-t border-zinc-100 px-3 py-3">
+      <div className="shrink-0 px-3 py-3" style={{ borderTop: "0.5px solid #ebebf0" }}>
         {user ? (
           <div className="space-y-0.5">
             <div className="px-4 py-1.5">
@@ -211,7 +211,7 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile top bar */}
-      <div className="fixed inset-x-0 top-0 z-50 flex h-12 items-center justify-between border-b border-zinc-200 bg-white px-4 sm:hidden">
+      <div className="fixed inset-x-0 top-0 z-50 flex h-12 items-center justify-between bg-white/90 px-4 backdrop-blur-sm sm:hidden" style={{ borderBottom: "0.5px solid #e8e8f0" }}>
         <Link href="/" className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
           <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseShare</span>
@@ -246,7 +246,7 @@ export function Sidebar() {
       </div>
 
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[220px] flex-col border-r border-zinc-200 bg-white sm:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[220px] flex-col bg-gradient-to-b from-white to-indigo-50/10 sm:flex" style={{ borderRight: "0.5px solid #e8e8f0" }}>
         <NavContent user={user} pathname={pathname} onSignOut={handleSignOut} />
       </aside>
 
@@ -260,9 +260,10 @@ export function Sidebar() {
 
       {/* Mobile drawer — always mounted, slides in/out */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-zinc-200 bg-white sm:hidden transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform ${
-          mobileOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+        className={`fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col bg-white sm:hidden transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform ${
+          mobileOpen ? "translate-x-0 shadow-[4px_0_24px_rgba(0,0,0,0.06)]" : "-translate-x-full"
         }`}
+        style={{ borderRight: "0.5px solid #e8e8f0" }}
       >
         <NavContent
           user={user}
