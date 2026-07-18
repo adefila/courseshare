@@ -7,8 +7,28 @@ import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
 const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/courses", label: "Browse" },
+  {
+    href: "/",
+    label: "Home",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
+        <path d="M9 21V12h6v9" />
+      </svg>
+    ),
+  },
+  {
+    href: "/courses",
+    label: "Browse",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
+      </svg>
+    ),
+  },
 ];
 
 function NavContent({
@@ -50,12 +70,13 @@ function NavContent({
                 key={item.href}
                 href={item.href}
                 onClick={onNavClick}
-                className={`cursor-pointer block rounded-full px-4 py-2 text-sm transition-colors ${
+                className={`cursor-pointer flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors ${
                   active
                     ? "bg-indigo-50 font-semibold text-indigo-700"
                     : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
                 }`}
               >
+                {item.icon}
                 {item.label}
               </Link>
             );
@@ -65,12 +86,15 @@ function NavContent({
             <Link
               href="/courses/new"
               onClick={onNavClick}
-              className={`cursor-pointer block rounded-full px-4 py-2 text-sm transition-colors ${
+              className={`cursor-pointer flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors ${
                 pathname === "/courses/new"
                   ? "bg-zinc-100 font-semibold text-zinc-900"
                   : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
               }`}
             >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
               New Course
             </Link>
           )}
@@ -85,12 +109,16 @@ function NavContent({
               <Link
                 href="/account"
                 onClick={onNavClick}
-                className={`cursor-pointer block rounded-full px-4 py-2 text-sm transition-colors ${
+                className={`cursor-pointer flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors ${
                   pathname === "/account"
                     ? "bg-zinc-100 font-semibold text-zinc-900"
                     : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
                 }`}
               >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
                 Edit profile
               </Link>
             </div>
@@ -108,8 +136,13 @@ function NavContent({
             </div>
             <button
               onClick={onSignOut}
-              className="cursor-pointer w-full rounded-full px-4 py-2 text-left text-sm text-zinc-500 transition-colors hover:bg-zinc-50 hover:text-zinc-800"
+              className="cursor-pointer flex w-full items-center gap-2.5 rounded-full px-3 py-2 text-sm text-zinc-500 transition-colors hover:bg-zinc-50 hover:text-zinc-800"
             >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
               Sign out
             </button>
           </div>

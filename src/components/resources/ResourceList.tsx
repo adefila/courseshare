@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { formatBytes, formatDate } from "@/lib/utils";
 import { ReportButton } from "./ReportButton";
@@ -51,35 +52,20 @@ function FileIcon({ filePath }: { filePath: string }) {
 export function ResourceList({ resources, courseId, userId }: ResourceListProps) {
   if (resources.length === 0) {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-dashed border-indigo-200 bg-indigo-50/30 py-12 text-center">
-        <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-4 w-40">
-          <circle cx="100" cy="80" r="52" fill="#eef2ff" />
-          <g transform="rotate(-8 100 88)">
-            <rect x="62" y="32" width="64" height="82" rx="6" fill="#c7d2fe" />
-            <rect x="74" y="48" width="38" height="3.5" rx="1.5" fill="#a5b4fc" />
-            <rect x="74" y="57" width="28" height="3.5" rx="1.5" fill="#a5b4fc" />
-          </g>
-          <g transform="rotate(-3 100 88)">
-            <rect x="58" y="28" width="64" height="82" rx="6" fill="#e0e7ff" stroke="#c7d2fe" strokeWidth="1" />
-            <rect x="70" y="44" width="38" height="3.5" rx="1.5" fill="#c7d2fe" />
-            <rect x="70" y="53" width="28" height="3.5" rx="1.5" fill="#c7d2fe" />
-          </g>
-          <rect x="54" y="24" width="64" height="82" rx="6" fill="white" stroke="#e0e7ff" strokeWidth="1.5" />
-          <rect x="66" y="40" width="38" height="3.5" rx="1.5" fill="#f0f0ff" />
-          <rect x="66" y="50" width="28" height="3.5" rx="1.5" fill="#f0f0ff" />
-          <rect x="66" y="60" width="34" height="3.5" rx="1.5" fill="#f0f0ff" />
-          {/* Upload arrow in circle */}
-          <circle cx="136" cy="62" r="22" fill="white" stroke="#e0e7ff" strokeWidth="1.5" />
-          <path d="M136 72 L136 54 M129 61 L136 54 L143 61" stroke="#a5b4fc" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-          <line x1="130" y1="74" x2="142" y2="74" stroke="#c7d2fe" strokeWidth="2" strokeLinecap="round" />
-          {/* Sparkles */}
-          <path d="M38 50 L39 45 L40 50 L45 51 L40 52 L39 57 L38 52 L33 51 Z" fill="#c7d2fe" />
-          <path d="M163 36 L164 32 L165 36 L169 37 L165 38 L164 42 L163 38 L159 37 Z" fill="#a5b4fc" />
-          <circle cx="44" cy="112" r="4" fill="#e0e7ff" />
-          <circle cx="158" cy="110" r="3" fill="#e0e7ff" />
-        </svg>
-        <p className="text-sm font-medium text-zinc-700">No resources yet</p>
-        <p className="mt-1 text-xs text-zinc-400">Be the first to upload something useful.</p>
+      <div className="flex flex-col items-center py-10 text-center">
+        <p className="mb-1 text-sm font-medium text-zinc-700">No resources yet</p>
+        <p className="mb-5 text-xs text-zinc-400">Be the first to upload something useful.</p>
+        <Link
+          href={`/courses/${courseId}/upload`}
+          className="cursor-pointer inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <path d="M17 8l-5-5-5 5" />
+            <path d="M12 3v12" />
+          </svg>
+          Upload resource
+        </Link>
       </div>
     );
   }
@@ -134,7 +120,7 @@ function ResourceRow({ resource }: { resource: Resource }) {
         <button
           onClick={handleDownload}
           disabled={downloading}
-          className="flex shrink-0 items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-4 py-2 text-xs font-medium text-zinc-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 disabled:opacity-50"
+          className="cursor-pointer flex shrink-0 items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-4 py-2 text-xs font-medium text-zinc-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 disabled:opacity-50"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

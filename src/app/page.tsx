@@ -72,8 +72,11 @@ export default async function DashboardPage() {
         <div style={{ position: "absolute", right: 60, bottom: -60, width: 150, height: 150, borderRadius: "50%", background: "rgba(139,92,246,0.15)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", left: -20, bottom: -30, width: 120, height: 120, borderRadius: "50%", background: "rgba(79,70,229,0.2)", pointerEvents: "none" }} />
 
-        <p className="relative mb-1 text-sm font-medium text-indigo-300">
-          {displayName ? `Welcome back, ${displayName} 👋` : "Welcome to CourseShare 👋"}
+        <p className="relative mb-1 flex items-center gap-1.5 text-sm font-medium text-indigo-300">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" className="text-indigo-400">
+            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+          </svg>
+          {displayName ? `Welcome back, ${displayName}` : "Welcome to CourseShare"}
         </p>
         <h1 className="relative mb-3 text-3xl font-bold leading-tight text-white sm:text-4xl">
           Your student resource hub
@@ -83,12 +86,12 @@ export default async function DashboardPage() {
         </p>
         <div className="relative flex flex-wrap gap-3">
           <Link href="/courses">
-            <button className="rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-50">
+            <button className="cursor-pointer rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-50">
               Browse courses
             </button>
           </Link>
           <Link href="/courses/new">
-            <button className="rounded-xl border border-indigo-400/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
+            <button className="cursor-pointer rounded-full border border-indigo-400/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
               Share a course
             </button>
           </Link>
