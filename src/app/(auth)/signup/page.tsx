@@ -30,18 +30,45 @@ function SignupIllustration() {
   );
 }
 
-
 export default function SignupPage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [formError, setFormError] = useState("");
   const [isPending, startTransition] = useTransition();
 
   function handleSignUp(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setNameError("");
+    setEmailError("");
+    setPasswordError("");
+    setFormError("");
+
+    let valid = true;
+    if (!name.trim()) {
+      setNameError("Display name is required");
+      valid = false;
+    }
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Enter a valid email address");
+      valid = false;
+    }
+    if (!password) {
+      setPasswordError("Password is required");
+      valid = false;
+    } else if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters");
+      valid = false;
+    }
+    if (!valid) return;
+
     startTransition(async () => {
       const supabase = createClient();
       const { error } = await supabase.auth.signUp({
@@ -49,7 +76,7 @@ export default function SignupPage() {
         password,
         options: { data: { display_name: name } },
       });
-      if (error) setError(error.message);
+      if (error) setFormError(error.message);
       else {
         router.push("/courses");
         router.refresh();
@@ -59,29 +86,46 @@ export default function SignupPage() {
 
   return (
     <div className="w-full max-w-sm">
-      <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white">
-        <div className="flex h-40 items-center justify-center border-b border-zinc-100 bg-zinc-50 px-6">
+      <div className="overflow-hidden rounded-2xl bg-white" style={{ border: "0.5px solid #e4e4e7" }}>
+        <div className="flex h-40 items-center justify-center bg-gradient-to-b from-indigo-50/60 to-white px-6" style={{ borderBottom: "0.5px solid #ebebf0" }}>
           <SignupIllustration />
         </div>
         <div className="px-5 py-7 sm:px-7">
-          <h1 className="mb-1 text-2xl font-semibold text-zinc-900">
-            Create an account
-          </h1>
-          <p className="mb-6 text-sm text-zinc-500">
-            Free forever. Help students who come after you.
-          </p>
+          <h1 className="mb-1 text-2xl font-semibold text-zinc-900">Create an account</h1>
+          <p className="mb-6 text-sm text-zinc-500">Free forever. Help students who come after you.</p>
 
-          <form onSubmit={handleSignUp} className="flex flex-col gap-4">
-            <Input id="name" label="Display name" type="text" placeholder="Ada Lovelace"
-              value={name} onChange={(e) => setName(e.target.value)} required />
-            <Input id="email" label="Email" type="email" placeholder="you@university.edu"
-              value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
-            <PasswordInput id="password" label="Password" placeholder="min. 8 characters"
-              value={password} onChange={(e) => setPassword(e.target.value)}
-              required minLength={8} autoComplete="new-password" />
+          <form onSubmit={handleSignUp} noValidate className="flex flex-col gap-4">
+            <Input
+              id="name"
+              label="Display name"
+              type="text"
+              placeholder="Ada Lovelace"
+              value={name}
+              onChange={(e) => { setName(e.target.value); setNameError(""); }}
+              error={nameError}
+            />
+            <Input
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="you@university.edu"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setEmailError(""); }}
+              autoComplete="email"
+              error={emailError}
+            />
+            <PasswordInput
+              id="password"
+              label="Password"
+              placeholder="min. 8 characters"
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setPasswordError(""); }}
+              autoComplete="new-password"
+              error={passwordError}
+            />
 
-            {error && (
-              <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{error}</p>
+            {formError && (
+              <p className="text-sm text-red-500">{formError}</p>
             )}
 
             <Button type="submit" disabled={isPending} className="mt-1 w-full">

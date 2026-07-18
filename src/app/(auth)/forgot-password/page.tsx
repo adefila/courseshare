@@ -39,6 +39,8 @@ export default function ForgotPasswordPage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    if (!email.trim()) { setError("Email is required"); return; }
+    if (!/\S+@\S+\.\S+/.test(email)) { setError("Enter a valid email address"); return; }
     startTransition(async () => {
       const supabase = createClient();
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
@@ -97,21 +99,18 @@ export default function ForgotPasswordPage() {
           <p className="mb-7 text-sm text-zinc-500">
             Enter your email and we&apos;ll send a reset link.
           </p>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
             <Input
               id="email"
               label="Email"
               type="email"
               placeholder="you@university.edu"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              onChange={(e) => { setEmail(e.target.value); setError(""); }}
               autoComplete="email"
+              error={error}
             />
-            {error && (
-              <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{error}</p>
-            )}
-            <Button type="submit" disabled={isPending || !email.trim()} className="mt-1 w-full">
+            <Button type="submit" disabled={isPending} className="mt-1 w-full">
               {isPending ? "Sending…" : "Send reset link"}
             </Button>
           </form>

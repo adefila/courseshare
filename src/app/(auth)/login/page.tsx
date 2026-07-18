@@ -47,18 +47,36 @@ function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [formError, setFormError] = useState("");
   const [isPending, startTransition] = useTransition();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setEmailError("");
+    setPasswordError("");
+    setFormError("");
+
+    let valid = true;
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Enter a valid email address");
+      valid = false;
+    }
+    if (!password) {
+      setPasswordError("Password is required");
+      valid = false;
+    }
+    if (!valid) return;
 
     startTransition(async () => {
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
-        setError(error.message);
+        setFormError(error.message);
       } else {
         router.push(redirectTo);
         router.refresh();
@@ -68,31 +86,25 @@ function LoginForm() {
 
   return (
     <div className="w-full max-w-sm">
-      <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white">
-        {/* Illustration header */}
-        <div className="flex h-40 items-center justify-center border-b border-zinc-100 bg-zinc-50 px-6">
+      <div className="overflow-hidden rounded-2xl bg-white" style={{ border: "0.5px solid #e4e4e7" }}>
+        <div className="flex h-40 items-center justify-center bg-gradient-to-b from-indigo-50/60 to-white px-6" style={{ borderBottom: "0.5px solid #ebebf0" }}>
           <LoginIllustration />
         </div>
 
-        {/* Form */}
         <div className="px-5 py-7 sm:px-7">
-          <h1 className="mb-1 text-2xl font-semibold text-zinc-900">
-            Welcome back
-          </h1>
-          <p className="mb-7 text-sm text-zinc-500">
-            Sign in to upload and manage course resources.
-          </p>
+          <h1 className="mb-1 text-2xl font-semibold text-zinc-900">Welcome back</h1>
+          <p className="mb-7 text-sm text-zinc-500">Sign in to upload and manage course resources.</p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
             <Input
               id="email"
               label="Email"
               type="email"
               placeholder="you@university.edu"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              onChange={(e) => { setEmail(e.target.value); setEmailError(""); }}
               autoComplete="email"
+              error={emailError}
             />
             <div className="flex flex-col gap-1.5">
               <PasswordInput
@@ -100,9 +112,9 @@ function LoginForm() {
                 label="Password"
                 placeholder="••••••••"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                onChange={(e) => { setPassword(e.target.value); setPasswordError(""); }}
                 autoComplete="current-password"
+                error={passwordError}
               />
               <div className="text-right">
                 <Link href="/forgot-password" className="text-xs text-zinc-400 hover:text-indigo-600 hover:underline">
@@ -111,10 +123,8 @@ function LoginForm() {
               </div>
             </div>
 
-            {error && (
-              <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">
-                {error}
-              </p>
+            {formError && (
+              <p className="text-sm text-red-500">{formError}</p>
             )}
 
             <Button type="submit" disabled={isPending} className="mt-1 w-full">

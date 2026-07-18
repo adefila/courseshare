@@ -136,7 +136,7 @@ function NavContent({
             </div>
             <button
               onClick={onSignOut}
-              className="cursor-pointer flex w-full items-center gap-2.5 rounded-full px-3 py-2 text-sm text-zinc-500 transition-colors hover:bg-zinc-50 hover:text-zinc-800"
+              className="cursor-pointer flex w-full items-center gap-2.5 rounded-full px-3 py-2 text-sm text-red-400 transition-colors hover:bg-red-50 hover:text-red-600"
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
