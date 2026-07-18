@@ -56,6 +56,7 @@ export default function AccountPage() {
   function handleNameSave(e: React.FormEvent) {
     e.preventDefault();
     setNameMsg(""); setNameError("");
+    if (!displayName.trim()) { setNameError("Display name is required"); return; }
     startNameTransition(async () => {
       const supabase = createClient();
       const { error } = await supabase.auth.updateUser({ data: { display_name: displayName } });
@@ -67,6 +68,8 @@ export default function AccountPage() {
   function handlePasswordSave(e: React.FormEvent) {
     e.preventDefault();
     setPwMsg(""); setPwError("");
+    if (!newPassword) { setPwError("Password is required"); return; }
+    if (newPassword.length < 8) { setPwError("Password must be at least 8 characters"); return; }
     startPwTransition(async () => {
       const supabase = createClient();
       const { error } = await supabase.auth.updateUser({ password: newPassword });
@@ -91,7 +94,7 @@ export default function AccountPage() {
             {/* Profile */}
             <div>
               <h2 className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500">Profile</h2>
-              <form onSubmit={handleNameSave} className="flex flex-col gap-4">
+              <form onSubmit={handleNameSave} noValidate className="flex flex-col gap-4">
                 <Input id="email" label="Email" type="email" value={email} disabled className="bg-zinc-50 text-zinc-400" />
                 <Input
                   id="display_name"
@@ -99,13 +102,12 @@ export default function AccountPage() {
                   type="text"
                   placeholder="Your name"
                   value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  required
+                  onChange={(e) => { setDisplayName(e.target.value); setNameError(""); }}
+                  error={nameError}
                 />
-                {nameError && <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{nameError}</p>}
-                {nameMsg && <p className="rounded-xl bg-green-50 px-3.5 py-2.5 text-sm text-green-700">{nameMsg}</p>}
+                {nameMsg && <p className="text-sm text-green-700">{nameMsg}</p>}
                 <div>
-                  <Button type="submit" disabled={nameLoading || displayName.trim() === originalName.trim() || !displayName.trim()} size="sm">
+                  <Button type="submit" disabled={nameLoading || displayName.trim() === originalName.trim()} size="sm">
                     {nameLoading ? "Saving…" : "Save name"}
                   </Button>
                 </div>
@@ -117,21 +119,19 @@ export default function AccountPage() {
             {/* Password */}
             <div>
               <h2 className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500">Change password</h2>
-              <form onSubmit={handlePasswordSave} className="flex flex-col gap-4">
+              <form onSubmit={handlePasswordSave} noValidate className="flex flex-col gap-4">
                 <PasswordInput
                   id="new_password"
                   label="New password"
                   placeholder="min. 8 characters"
                   value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                  minLength={8}
+                  onChange={(e) => { setNewPassword(e.target.value); setPwError(""); }}
                   autoComplete="new-password"
+                  error={pwError}
                 />
-                {pwError && <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{pwError}</p>}
-                {pwMsg && <p className="rounded-xl bg-green-50 px-3.5 py-2.5 text-sm text-green-700">{pwMsg}</p>}
+                {pwMsg && <p className="text-sm text-green-700">{pwMsg}</p>}
                 <div>
-                  <Button type="submit" disabled={pwLoading || newPassword.length < 8} size="sm">
+                  <Button type="submit" disabled={pwLoading} size="sm">
                     {pwLoading ? "Saving…" : "Update password"}
                   </Button>
                 </div>

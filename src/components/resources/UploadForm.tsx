@@ -20,44 +20,52 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState("");
+  const [fileError, setFileError] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [submitError, setSubmitError] = useState("");
   const [progress, setProgress] = useState(0);
   const [isPending, startTransition] = useTransition();
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0] ?? null;
     if (f && f.size > MAX_BYTES) {
-      setError("File exceeds the 50 MB limit.");
+      setFileError("File exceeds the 50 MB limit.");
       e.target.value = "";
       return;
     }
     setFile(f);
-    setError("");
+    setFileError("");
     if (f && !title) setTitle(f.name.replace(/\.[^/.]+$/, ""));
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!file) return setError("Please select a file.");
-    setError("");
+    setFileError("");
+    setTitleError("");
+    setSubmitError("");
+
+    if (!title.trim()) { setTitleError("Title is required"); return; }
+    if (!file) { setFileError("Please select a file."); return; }
+
+    const selectedFile = file;
 
     startTransition(async () => {
       const supabase = createClient();
 
       // Generate UUID on the client so cleanup is trivial if DB insert fails
       const resourceId = crypto.randomUUID();
-      const filePath = `${courseId}/${resourceId}/${file.name}`;
+      const filePath = `${courseId}/${resourceId}/${selectedFile.name}`;
 
       setProgress(30);
 
       // 1. Upload to Storage
       const { error: storageError } = await supabase.storage
         .from("resources")
-        .upload(filePath, file);
+        .upload(filePath, selectedFile);
 
       if (storageError) {
         setProgress(0);
-        return setError(storageError.message);
+        return setSubmitError(storageError.message);
       }
 
       setProgress(70);
@@ -70,15 +78,15 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
         title: title.trim(),
         description: description.trim() || null,
         file_path: filePath,
-        file_size_bytes: file.size,
-        file_type: file.type || null,
+        file_size_bytes: selectedFile.size,
+        file_type: selectedFile.type || null,
       });
 
       if (dbError) {
         // Cleanup orphaned storage object
         await supabase.storage.from("resources").remove([filePath]);
         setProgress(0);
-        return setError(dbError.message);
+        return setSubmitError(dbError.message);
       }
 
       setProgress(100);
@@ -88,7 +96,7 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <div>
         <label className="mb-1.5 block text-[13px] font-semibold text-zinc-700">
           File *
@@ -98,12 +106,15 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
           type="file"
           accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip,.rar"
           onChange={handleFileChange}
-          required
           className="w-full cursor-pointer rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 px-3.5 py-3 text-sm text-zinc-600 transition hover:border-zinc-400 hover:bg-zinc-50 file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-zinc-100 file:px-3.5 file:py-1.5 file:text-xs file:font-semibold file:text-zinc-700 hover:file:bg-zinc-200"
         />
-        <p className="mt-1.5 text-xs text-zinc-400">
-          PDF, Word, PowerPoint, Excel, TXT, ZIP — max 50 MB
-        </p>
+        {fileError ? (
+          <p className="mt-1.5 text-xs text-red-600">{fileError}</p>
+        ) : (
+          <p className="mt-1.5 text-xs text-zinc-400">
+            PDF, Word, PowerPoint, Excel, TXT, ZIP — max 50 MB
+          </p>
+        )}
       </div>
 
       <Input
@@ -111,8 +122,8 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
         label="Title *"
         placeholder="Week 3 Lecture Notes"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
+        onChange={(e) => { setTitle(e.target.value); setTitleError(""); }}
+        error={titleError}
       />
 
       <Textarea
@@ -124,8 +135,8 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
         rows={3}
       />
 
-      {error && (
-        <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{error}</p>
+      {submitError && (
+        <p className="text-sm text-red-500">{submitError}</p>
       )}
 
       {isPending && progress > 0 && (
@@ -137,7 +148,7 @@ export function UploadForm({ courseId, userId }: UploadFormProps) {
         </div>
       )}
 
-      <Button type="submit" disabled={isPending || !file} size="lg">
+      <Button type="submit" disabled={isPending} size="lg">
         {isPending ? "Uploading…" : "Upload resource"}
       </Button>
     </form>

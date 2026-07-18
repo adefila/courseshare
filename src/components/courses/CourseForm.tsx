@@ -165,7 +165,7 @@ const NIGERIAN_UNIVERSITIES = [
   "The Polytechnic, Ibadan",
 ].sort();
 
-function UniversityCombobox() {
+function UniversityCombobox({ error }: { error?: string }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -177,41 +177,43 @@ function UniversityCombobox() {
       : [];
 
   return (
-    <div className="relative">
-      <input
-        name="university"
-        required
-        value={query}
-        autoComplete="off"
-        onChange={(e) => {
-          setQuery(e.target.value);
-          setOpen(true);
-        }}
-        onFocus={() => {
-          if (query.trim().length >= 1) setOpen(true);
-        }}
-        onBlur={() => setOpen(false)}
-        placeholder="Search or type your university…"
-        className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-base text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 sm:text-sm"
-      />
-      {open && suggestions.length > 0 && (
-        <ul className="absolute left-0 right-0 z-50 mt-1 max-h-52 overflow-auto rounded-xl border border-zinc-200 bg-white py-1 text-sm shadow-lg">
-          {suggestions.map((u) => (
-            <li
-              key={u}
-              onMouseDown={(e) => {
-                e.preventDefault();
-                setQuery(u);
-                setOpen(false);
-              }}
-              className="cursor-pointer px-3.5 py-2.5 text-zinc-700 hover:bg-indigo-50 hover:text-indigo-700"
-            >
-              {u}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <>
+      <div className="relative">
+        <input
+          name="university"
+          value={query}
+          autoComplete="off"
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setOpen(true);
+          }}
+          onFocus={() => {
+            if (query.trim().length >= 1) setOpen(true);
+          }}
+          onBlur={() => setOpen(false)}
+          placeholder="Search or type your university…"
+          className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-base text-zinc-900 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 sm:text-sm"
+        />
+        {open && suggestions.length > 0 && (
+          <ul className="absolute left-0 right-0 z-50 mt-1 max-h-52 overflow-auto rounded-xl border border-zinc-200 bg-white py-1 text-sm shadow-lg">
+            {suggestions.map((u) => (
+              <li
+                key={u}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  setQuery(u);
+                  setOpen(false);
+                }}
+                className="cursor-pointer px-3.5 py-2.5 text-zinc-700 hover:bg-indigo-50 hover:text-indigo-700"
+              >
+                {u}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+    </>
   );
 }
 
@@ -223,14 +225,48 @@ export function CourseForm() {
     null
   );
 
+  const [courseNameError, setCourseNameError] = useState("");
+  const [courseCodeError, setCourseCodeError] = useState("");
+  const [universityError, setUniversityError] = useState("");
+  const [semesterError, setSemesterError] = useState("");
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setCourseNameError("");
+    setCourseCodeError("");
+    setUniversityError("");
+    setSemesterError("");
+
+    const formData = new FormData(e.currentTarget);
+    let valid = true;
+
+    if (!(formData.get("course_name") as string)?.trim()) {
+      setCourseNameError("Course name is required");
+      valid = false;
+    }
+    if (!(formData.get("course_code") as string)?.trim()) {
+      setCourseCodeError("Course code is required");
+      valid = false;
+    }
+    if (!(formData.get("university") as string)?.trim()) {
+      setUniversityError("Please select a university");
+      valid = false;
+    }
+    if (!(formData.get("semester") as string)) {
+      setSemesterError("Please select a semester");
+      valid = false;
+    }
+    if (!valid) e.preventDefault();
+  }
+
   return (
-    <form action={action} className="flex flex-col gap-5">
+    <form action={action} onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <Input
         id="course_name"
         name="course_name"
         label="Course name *"
         placeholder="Introduction to Computer Science"
-        required
+        onChange={() => setCourseNameError("")}
+        error={courseNameError}
       />
       <div className="grid grid-cols-2 gap-4">
         <Input
@@ -238,13 +274,14 @@ export function CourseForm() {
           name="course_code"
           label="Course code *"
           placeholder="COMP101"
-          required
+          onChange={() => setCourseCodeError("")}
+          error={courseCodeError}
         />
         <div className="flex flex-col gap-1.5">
           <label htmlFor="university" className="font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500">
             University *
           </label>
-          <UniversityCombobox />
+          <UniversityCombobox error={universityError} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -256,7 +293,7 @@ export function CourseForm() {
             <select
               id="semester"
               name="semester"
-              required
+              onChange={() => setSemesterError("")}
               className="w-full appearance-none rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 pr-9 text-base text-zinc-900 transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 sm:text-sm"
             >
               <option value="">Select…</option>
@@ -269,6 +306,7 @@ export function CourseForm() {
               <path d="M6 9l6 6 6-6" />
             </svg>
           </div>
+          {semesterError && <p className="text-xs text-red-600">{semesterError}</p>}
         </div>
         <Input
           id="year"
@@ -278,7 +316,6 @@ export function CourseForm() {
           min={2000}
           max={2100}
           defaultValue={CURRENT_YEAR}
-          required
         />
       </div>
       <Textarea
@@ -290,9 +327,7 @@ export function CourseForm() {
       />
 
       {state?.error && (
-        <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">
-          {state.error}
-        </p>
+        <p className="text-sm text-red-500">{state.error}</p>
       )}
 
       <Button type="submit" disabled={isPending} size="lg">

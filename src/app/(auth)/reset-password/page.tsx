@@ -35,25 +35,28 @@ export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [ready, setReady] = useState(false);
   const [done, setDone] = useState(false);
-  const [error, setError] = useState("");
+  const [linkError, setLinkError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) setReady(true);
-      else setError("This reset link is invalid or has expired.");
+      else setLinkError("This reset link is invalid or has expired.");
     });
   }, []);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setPasswordError("");
+    if (!password) { setPasswordError("Password is required"); return; }
+    if (password.length < 8) { setPasswordError("Password must be at least 8 characters"); return; }
     startTransition(async () => {
       const supabase = createClient();
       const { error } = await supabase.auth.updateUser({ password });
       if (error) {
-        setError(error.message);
+        setPasswordError(error.message);
       } else {
         setDone(true);
         setTimeout(() => router.push("/courses"), 2500);
@@ -84,24 +87,23 @@ export default function ResetPasswordPage() {
               <p className="mb-7 text-sm text-zinc-500">
                 Choose a strong password for your account.
               </p>
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {linkError && (
+                <p className="mb-4 text-sm text-red-500">{linkError}</p>
+              )}
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
                 <PasswordInput
                   id="new_password"
                   label="New password"
                   placeholder="min. 8 characters"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={8}
+                  onChange={(e) => { setPassword(e.target.value); setPasswordError(""); }}
                   autoComplete="new-password"
                   disabled={!ready}
+                  error={passwordError}
                 />
-                {error && (
-                  <p className="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-600">{error}</p>
-                )}
                 <Button
                   type="submit"
-                  disabled={isPending || !ready || password.length < 8}
+                  disabled={isPending || !ready}
                   className="mt-1 w-full"
                 >
                   {isPending ? "Updating…" : "Update password"}
