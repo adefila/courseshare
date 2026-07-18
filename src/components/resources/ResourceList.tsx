@@ -7,8 +7,12 @@ import { formatBytes, formatDate } from "@/lib/utils";
 import { ReportButton } from "./ReportButton";
 import type { Resource } from "@/types/database";
 
+type ResourceWithUploader = Resource & {
+  uploader?: { display_name: string | null } | null;
+};
+
 interface ResourceListProps {
-  resources: Resource[];
+  resources: ResourceWithUploader[];
   courseId: string;
   userId?: string;
 }
@@ -49,15 +53,58 @@ function FileIcon({ filePath }: { filePath: string }) {
   );
 }
 
+function EmptyIllustration() {
+  return (
+    <svg width="128" height="108" viewBox="0 0 128 108" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Back-left doc */}
+      <g transform="rotate(-12, 32, 30)">
+        <rect x="14" y="18" width="44" height="56" rx="5" fill="#e0e7ff" />
+        <rect x="14" y="18" width="44" height="56" rx="5" stroke="#c7d2fe" strokeWidth="1.2" />
+        <rect x="21" y="36" width="24" height="2.5" rx="1.2" fill="#c7d2fe" />
+        <rect x="21" y="42" width="18" height="2.5" rx="1.2" fill="#e0e7ff" stroke="#c7d2fe" strokeWidth="0.5" />
+        <rect x="21" y="48" width="21" height="2.5" rx="1.2" fill="#e0e7ff" stroke="#c7d2fe" strokeWidth="0.5" />
+      </g>
+      {/* Back-right doc */}
+      <g transform="rotate(11, 90, 26)">
+        <rect x="68" y="14" width="44" height="56" rx="5" fill="#ede9fe" />
+        <rect x="68" y="14" width="44" height="56" rx="5" stroke="#ddd6fe" strokeWidth="1.2" />
+        <rect x="75" y="32" width="24" height="2.5" rx="1.2" fill="#ddd6fe" />
+        <rect x="75" y="38" width="16" height="2.5" rx="1.2" fill="#ede9fe" stroke="#ddd6fe" strokeWidth="0.5" />
+      </g>
+      {/* Front center doc (white card) */}
+      <rect x="40" y="10" width="48" height="64" rx="6" fill="white" stroke="#c7d2fe" strokeWidth="1.5" />
+      {/* dog-ear fold */}
+      <path d="M76 10 L88 22 H76 Z" fill="#e0e7ff" />
+      <path d="M76 10 L88 22" stroke="#c7d2fe" strokeWidth="1.5" strokeLinejoin="round" />
+      {/* content lines */}
+      <rect x="48" y="32" width="28" height="3" rx="1.5" fill="#c7d2fe" />
+      <rect x="48" y="40" width="20" height="2.5" rx="1.25" fill="#e0e7ff" />
+      <rect x="48" y="47" width="24" height="2.5" rx="1.25" fill="#e0e7ff" />
+      <rect x="48" y="54" width="16" height="2.5" rx="1.25" fill="#e0e7ff" />
+      {/* Upload button circle */}
+      <circle cx="64" cy="90" r="14" fill="#eef2ff" />
+      <circle cx="64" cy="90" r="10" fill="#4f46e5" />
+      <path d="M64 95 V85 M60.5 88.5 L64 85 L67.5 88.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      {/* motion dots */}
+      <circle cx="64" cy="77" r="1.5" fill="#a5b4fc" opacity="0.7" />
+      <circle cx="58" cy="79" r="1" fill="#a5b4fc" opacity="0.5" />
+      <circle cx="70" cy="79" r="1" fill="#a5b4fc" opacity="0.5" />
+    </svg>
+  );
+}
+
 export function ResourceList({ resources, courseId, userId }: ResourceListProps) {
   if (resources.length === 0) {
     return (
-      <div className="flex flex-col items-center py-10 text-center">
-        <p className="mb-1 text-sm font-medium text-zinc-700">No resources yet</p>
-        <p className="mb-5 text-xs text-zinc-400">Be the first to upload something useful.</p>
+      <div className="flex flex-col items-center rounded-2xl bg-gradient-to-b from-indigo-50/60 to-white px-8 py-12 text-center">
+        <EmptyIllustration />
+        <p className="mt-4 mb-1 text-sm font-semibold text-zinc-800">No resources yet</p>
+        <p className="mb-6 max-w-xs text-xs leading-relaxed text-zinc-400">
+          Be the first to upload something useful — notes, past papers, slides.
+        </p>
         <Link
           href={`/courses/${courseId}/upload`}
-          className="cursor-pointer inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500"
+          className="cursor-pointer inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-indigo-200 transition hover:bg-indigo-500"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -79,7 +126,7 @@ export function ResourceList({ resources, courseId, userId }: ResourceListProps)
   );
 }
 
-function ResourceRow({ resource }: { resource: Resource }) {
+function ResourceRow({ resource }: { resource: ResourceWithUploader }) {
   const [downloading, setDownloading] = useState(false);
 
   async function handleDownload() {
@@ -111,6 +158,15 @@ function ResourceRow({ resource }: { resource: Resource }) {
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-400">
           {resource.file_size_bytes != null && <span>{formatBytes(resource.file_size_bytes)}</span>}
           <span>{formatDate(resource.created_at)}</span>
+          {resource.uploader?.display_name && (
+            <span className="flex items-center gap-1">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+              {resource.uploader.display_name}
+            </span>
+          )}
           <ReportButton resourceId={resource.id} />
         </div>
       </div>
