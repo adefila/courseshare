@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono } from "next/font/google";
+import { Instrument_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/ui/AppShell";
 
-const dmSans = DM_Sans({
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-instrument-sans",
 });
 
 const dmMono = DM_Mono({
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${dmMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${instrumentSans.variable} ${dmMono.variable} h-full antialiased`}>
       <body className="flex h-full flex-col bg-zinc-50 text-zinc-900">
         <AppShell>{children}</AppShell>
       </body>
