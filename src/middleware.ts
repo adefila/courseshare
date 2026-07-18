@@ -33,7 +33,12 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 3000));
+  const userResult = await Promise.race([
+    supabase.auth.getUser().then(({ data }) => data.user),
+    timeout,
+  ]);
+  const user = userResult ?? null;
 
   const path = request.nextUrl.pathname;
   const isProtected = PROTECTED_PATTERNS.some((p) => p.test(path));
