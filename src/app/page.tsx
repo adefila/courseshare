@@ -115,7 +115,7 @@ export default async function DashboardPage() {
           <h2 className="font-semibold text-zinc-900">Recently added</h2>
           <Link
             href="/courses"
-            className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:underline"
+            className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-500"
           >
             View all
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
