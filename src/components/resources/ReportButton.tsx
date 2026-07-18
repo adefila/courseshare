@@ -33,11 +33,10 @@ export function ReportButton({ resourceId }: { resourceId: string }) {
     startTransition(async () => {
       await reportResource(resourceId, reason);
       setDone(true);
-      setTimeout(() => setOpen(false), 0);
     });
   }
 
-  if (done) return <span className="text-xs text-zinc-400">Reported</span>;
+  if (done && !open) return <span className="text-xs text-zinc-400">Reported</span>;
 
   return (
     <>
@@ -87,54 +86,77 @@ export function ReportButton({ resourceId }: { resourceId: string }) {
 
             {/* Body */}
             <div className="px-6 py-5">
-              <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-400">
-                Reason
-              </p>
-
-              <div className="mb-4 flex flex-wrap gap-2">
-                {REASONS.map((r) => (
+              {done ? (
+                <div className="flex flex-col items-center py-4 text-center">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-green-50">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </div>
+                  <h4 className="mb-1 font-semibold text-zinc-900">Report received</h4>
+                  <p className="mb-5 text-sm text-zinc-500">
+                    We received your report and will review it shortly.
+                  </p>
                   <button
-                    key={r}
                     type="button"
-                    onClick={() => setSelected(selected === r ? "" : r)}
-                    className={`cursor-pointer rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
-                      selected === r
-                        ? "bg-red-50 text-red-600 ring-1 ring-red-200"
-                        : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
-                    }`}
+                    onClick={() => setOpen(false)}
+                    className="cursor-pointer rounded-full bg-zinc-100 px-6 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-200 active:scale-[0.97]"
                   >
-                    {r}
+                    Close
                   </button>
-                ))}
-              </div>
+                </div>
+              ) : (
+                <>
+                  <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-400">
+                    Reason
+                  </p>
 
-              <textarea
-                value={detail}
-                onChange={(e) => setDetail(e.target.value)}
-                placeholder="Additional details (optional)…"
-                rows={3}
-                className="w-full resize-none rounded-xl bg-zinc-50 px-3.5 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 transition focus:outline-none focus:ring-2 focus:ring-indigo-100"
-                style={{ border: "0.5px solid #e4e4e7" }}
-              />
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {REASONS.map((r) => (
+                      <button
+                        key={r}
+                        type="button"
+                        onClick={() => setSelected(selected === r ? "" : r)}
+                        className={`cursor-pointer rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+                          selected === r
+                            ? "bg-red-50 text-red-600 ring-1 ring-red-200"
+                            : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                        }`}
+                      >
+                        {r}
+                      </button>
+                    ))}
+                  </div>
 
-              <div className="mt-4 flex gap-2">
-                <button
-                  type="button"
-                  onClick={submit}
-                  disabled={isPending || (!selected && !detail.trim())}
-                  className="cursor-pointer flex-1 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {isPending ? "Submitting…" : "Submit report"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 active:scale-[0.97]"
-                  style={{ border: "0.5px solid #e4e4e7" }}
-                >
-                  Cancel
-                </button>
-              </div>
+                  <textarea
+                    value={detail}
+                    onChange={(e) => setDetail(e.target.value)}
+                    placeholder="Additional details (optional)…"
+                    rows={3}
+                    className="w-full resize-none rounded-xl bg-zinc-50 px-3.5 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 transition focus:outline-none focus:ring-2 focus:ring-indigo-100"
+                    style={{ border: "0.5px solid #e4e4e7" }}
+                  />
+
+                  <div className="mt-4 flex gap-2">
+                    <button
+                      type="button"
+                      onClick={submit}
+                      disabled={isPending || (!selected && !detail.trim())}
+                      className="cursor-pointer flex-1 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {isPending ? "Submitting…" : "Submit report"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 active:scale-[0.97]"
+                      style={{ border: "0.5px solid #e4e4e7" }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -134,12 +134,24 @@ function ResourceRow({ resource }: { resource: ResourceWithUploader }) {
     try {
       const supabase = createClient();
       const { data } = await supabase.storage.from("resources").createSignedUrl(resource.file_path, 60);
-      if (data?.signedUrl) {
-        const a = document.createElement("a");
-        a.href = data.signedUrl;
-        a.download = resource.title;
-        a.click();
-      }
+      if (!data?.signedUrl) return;
+
+      // Fetch as blob so the download attribute works across origins
+      const res = await fetch(data.signedUrl);
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const ext = resource.file_path.split(".").pop() ?? "";
+      const filename = resource.title.includes(".") ? resource.title : `${resource.title}.${ext}`;
+
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = filename;
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
     } finally {
       setDownloading(false);
     }
