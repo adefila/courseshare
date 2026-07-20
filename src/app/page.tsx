@@ -139,7 +139,7 @@ export default async function DashboardPage() {
         {stats.map(({ label, value, illus }) => (
           <div key={label} className="relative overflow-hidden rounded-2xl bg-white px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
             {/* Background illustration — anchored bottom-right */}
-            <div className="absolute bottom-0 right-0 opacity-[0.12]" aria-hidden="true">
+            <div className="absolute bottom-0 right-0 opacity-[0.06]" aria-hidden="true">
               {illus}
             </div>
             {/* Left-to-right fade so text side is always clean */}
