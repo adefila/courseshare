@@ -137,17 +137,13 @@ export default async function DashboardPage() {
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
         {stats.map(({ label, value, illus }) => (
-          <div key={label} className="relative overflow-hidden rounded-2xl bg-white px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
-            {/* Background illustration — anchored bottom-right */}
-            <div className="absolute bottom-0 right-0 opacity-[0.06]" aria-hidden="true">
-              {illus}
-            </div>
-            {/* Left-to-right fade so text side is always clean */}
+          <div key={label} className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 30%, rgba(255,255,255,0.97) 50%, rgba(255,255,255,0.85) 68%, rgba(255,255,255,0.55) 82%, rgba(255,255,255,0.15) 100%), linear-gradient(to top, white 0%, transparent 40%)" }} />
-            <p className="relative font-mono text-4xl font-bold leading-none text-zinc-900 sm:text-5xl">
-              {value}
-            </p>
-            <p className="relative mt-2 text-xs text-zinc-500">{label}</p>
+            <svg className="absolute right-0 bottom-0 opacity-[0.06]" width="110" height="110" viewBox={illus.props.viewBox} fill="none" aria-hidden="true">
+              {illus.props.children}
+            </svg>
+            <p className="relative z-10 font-mono text-[52px] font-bold leading-none text-zinc-900">{value}</p>
+            <p className="relative z-10 mt-2 text-xs text-zinc-500">{label}</p>
           </div>
         ))}
       </div>
