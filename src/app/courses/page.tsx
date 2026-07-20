@@ -134,17 +134,68 @@ export default async function CoursesPage({
       {/* Stats strip — only on page 1 when not filtered */}
       {!isFiltered && page === 1 && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <p className="font-mono text-[56px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
-            <p className="mt-2 text-xs text-zinc-500">Courses uploaded</p>
+          {/* Courses */}
+          <div className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
+            <svg className="absolute right-0 bottom-0 opacity-[0.07]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+              <g transform="rotate(-12 60 60)">
+                <rect x="20" y="18" width="56" height="72" rx="7" fill="#4f46e5"/>
+                <rect x="28" y="34" width="32" height="4" rx="2" fill="#4f46e5"/>
+                <rect x="28" y="44" width="24" height="4" rx="2" fill="#4f46e5"/>
+                <rect x="28" y="54" width="28" height="4" rx="2" fill="#4f46e5"/>
+              </g>
+              <g transform="rotate(-4 60 60)">
+                <rect x="28" y="12" width="56" height="72" rx="7" fill="#4f46e5"/>
+                <rect x="36" y="28" width="32" height="4" rx="2" fill="#6366f1"/>
+                <rect x="36" y="38" width="24" height="4" rx="2" fill="#6366f1"/>
+                <rect x="36" y="48" width="28" height="4" rx="2" fill="#6366f1"/>
+              </g>
+              <rect x="36" y="6" width="56" height="72" rx="7" fill="#4f46e5"/>
+              <path d="M36 6 L76 6 L92 22 L36 22 Z" fill="#6366f1"/>
+              <rect x="44" y="30" width="32" height="4" rx="2" fill="#818cf8"/>
+              <rect x="44" y="40" width="24" height="4" rx="2" fill="#818cf8"/>
+              <rect x="44" y="50" width="28" height="4" rx="2" fill="#818cf8"/>
+            </svg>
+            <p className="relative font-mono text-[52px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
+            <p className="relative mt-2 text-xs text-zinc-500">Courses uploaded</p>
           </div>
-          <div className="rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <p className="font-mono text-[56px] font-bold leading-none text-zinc-900">{schools.length}</p>
-            <p className="mt-2 text-xs text-zinc-500">Universities</p>
+
+          {/* Universities */}
+          <div className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
+            <svg className="absolute right-0 bottom-0 opacity-[0.07]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+              <rect x="10" y="52" width="100" height="60" rx="4" fill="#4f46e5"/>
+              <path d="M60 10 L10 38 L110 38 Z" fill="#4f46e5"/>
+              <rect x="48" y="14" width="24" height="24" rx="12" fill="#6366f1"/>
+              <rect x="18" y="60" width="16" height="24" rx="2" fill="#6366f1"/>
+              <rect x="44" y="60" width="16" height="24" rx="2" fill="#6366f1"/>
+              <rect x="70" y="60" width="16" height="24" rx="2" fill="#6366f1"/>
+              <rect x="96" y="60" width="16" height="24" rx="2" fill="#6366f1"/>
+              <rect x="40" y="80" width="40" height="32" rx="2" fill="#818cf8"/>
+              <rect x="50" y="90" width="8" height="8" rx="1" fill="#4f46e5"/>
+              <rect x="62" y="90" width="8" height="8" rx="1" fill="#4f46e5"/>
+            </svg>
+            <p className="relative font-mono text-[52px] font-bold leading-none text-zinc-900">{schools.length}</p>
+            <p className="relative mt-2 text-xs text-zinc-500">Universities</p>
           </div>
-          <div className="col-span-2 rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-4 sm:col-span-1" style={{ border: "0.5px solid #e8e8f0" }}>
-            <p className="font-mono text-[56px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
-            <p className="mt-2 text-xs text-zinc-500">Resources shared</p>
+
+          {/* Resources */}
+          <div className="relative col-span-2 overflow-hidden rounded-2xl bg-white px-5 py-4 sm:col-span-1" style={{ border: "0.5px solid #e8e8f0" }}>
+            <svg className="absolute right-0 bottom-0 opacity-[0.07]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+              <rect x="16" y="30" width="50" height="64" rx="6" fill="#c7d2fe"/>
+              <rect x="24" y="44" width="28" height="3.5" rx="1.5" fill="#a5b4fc"/>
+              <rect x="24" y="54" width="20" height="3.5" rx="1.5" fill="#a5b4fc"/>
+              <rect x="28" y="20" width="50" height="64" rx="6" fill="#e0e7ff" stroke="#c7d2fe" strokeWidth="1"/>
+              <rect x="36" y="34" width="28" height="3.5" rx="1.5" fill="#c7d2fe"/>
+              <rect x="36" y="44" width="20" height="3.5" rx="1.5" fill="#c7d2fe"/>
+              <rect x="40" y="10" width="50" height="64" rx="6" fill="#4f46e5"/>
+              <path d="M40 10 L74 10 L90 26 L40 26 Z" fill="#6366f1"/>
+              <rect x="48" y="32" width="28" height="3.5" rx="1.5" fill="#818cf8"/>
+              <rect x="48" y="42" width="20" height="3.5" rx="1.5" fill="#818cf8"/>
+              <rect x="48" y="52" width="24" height="3.5" rx="1.5" fill="#818cf8"/>
+              <circle cx="90" cy="86" r="18" fill="#4f46e5"/>
+              <path d="M90 92 V80 M86 83.5 L90 80 L94 83.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <p className="relative font-mono text-[52px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
+            <p className="relative mt-2 text-xs text-zinc-500">Resources shared</p>
           </div>
         </div>
       )}
