@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 
-export function HeroBanner({ displayName }: { displayName?: string }) {
+export function HeroBanner() {
   return (
-    <div className="animate-fade-up relative mb-8 overflow-hidden rounded-2xl" style={{ minHeight: 320 }}>
+    <div className="relative mb-8 overflow-hidden rounded-2xl" style={{ minHeight: 320 }}>
       {/* Video background */}
       <video
         autoPlay
@@ -25,11 +25,6 @@ export function HeroBanner({ displayName }: { displayName?: string }) {
 
       {/* Content */}
       <div className="relative px-8 py-10 sm:px-12" style={{ zIndex: 5 }}>
-        {/* Big welcome at top */}
-        <h1 className="mb-6 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-          {displayName ? `Welcome back, ${displayName}` : "Welcome to CourseShare"}
-        </h1>
-
         <p className="mb-7 max-w-md text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.70)" }}>
           Course materials, past papers, and notes shared by students across Nigerian universities.
         </p>

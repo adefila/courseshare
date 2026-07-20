@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import { HeroBanner } from "@/components/ui/HeroBanner";
+import { Clock } from "@/components/ui/Clock";
 import { formatDate } from "@/lib/utils";
 
 function MiniFolder() {
@@ -62,8 +63,21 @@ export default async function DashboardPage() {
   return (
     <div className="mx-auto w-full max-w-[1100px] px-6 py-8 sm:pr-10">
 
+      {/* ── Welcome header ───────────────────────────────────────── */}
+      <div className="animate-fade-up mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl">
+            {displayName ? `Welcome back, ${displayName}` : "Welcome to CourseShare"}
+          </h1>
+          <p className="mt-1.5 max-w-sm text-sm text-zinc-500">
+            Everything you need to ace this semester — notes, past papers, and slides shared by students who&apos;ve been there.
+          </p>
+        </div>
+        <Clock />
+      </div>
+
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <HeroBanner displayName={displayName} />
+      <HeroBanner />
 
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
