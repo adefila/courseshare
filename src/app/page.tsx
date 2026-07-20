@@ -1,19 +1,14 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
-import { HeroBanner } from "@/components/ui/HeroBanner";
 import { Clock } from "@/components/ui/Clock";
 import { formatDate } from "@/lib/utils";
 
 function MiniFolder() {
   return (
     <div
-      className="relative shrink-0 overflow-hidden rounded-lg"
-      style={{
-        width: 40,
-        height: 36,
-        background: "linear-gradient(155deg, #312e81 0%, #3730a3 100%)",
-      }}
+      className="relative shrink-0 overflow-hidden rounded-lg bg-indigo-600"
+      style={{ width: 40, height: 36 }}
     >
       <div
         style={{
@@ -64,7 +59,7 @@ export default async function DashboardPage() {
     <div className="mx-auto w-full max-w-[1100px] px-6 py-8 sm:pr-10">
 
       {/* ── Welcome header ───────────────────────────────────────── */}
-      <div className="animate-fade-up mb-6 flex items-start justify-between gap-4">
+      <div className="animate-fade-up mb-8 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-medium text-zinc-900 sm:text-3xl">
             {displayName ? (
@@ -78,13 +73,10 @@ export default async function DashboardPage() {
         <Clock />
       </div>
 
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <HeroBanner />
-
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
         {stats.map(({ label, value }) => (
-          <div key={label} className="rounded-2xl bg-gradient-to-br from-white to-indigo-50/40 px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
+          <div key={label} className="rounded-2xl bg-white px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="font-mono text-4xl font-bold leading-none text-zinc-900 sm:text-5xl">
               {value}
             </p>
@@ -109,7 +101,7 @@ export default async function DashboardPage() {
         </div>
 
         {(recentCourses ?? []).length === 0 ? (
-          <div className="rounded-2xl bg-gradient-to-b from-indigo-50/50 to-white py-10 text-center" style={{ border: "0.5px solid #e0e7ff" }}>
+          <div className="rounded-2xl bg-white py-10 text-center" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="text-sm text-zinc-500">No courses yet — be the first to add one.</p>
             <Link href="/courses/new" className="mt-3 inline-block">
               <Button size="sm">Create a course</Button>
@@ -121,7 +113,7 @@ export default async function DashboardPage() {
               <Link
                 key={course.id}
                 href={`/courses/${course.id}`}
-                className="group flex items-center gap-4 rounded-xl bg-white px-5 py-3.5 transition-all hover:bg-indigo-50/30"
+                className="group flex items-center gap-4 rounded-xl bg-white px-5 py-3.5 transition-all hover:bg-zinc-50"
                 style={{ border: "0.5px solid #e8e8f0" }}
               >
                 <MiniFolder />
@@ -162,7 +154,7 @@ export default async function DashboardPage() {
 
       {/* ── Sign-up nudge (guests only) ──────────────────────────── */}
       {!user && (
-        <div className="animate-fade-up-delay-3 mt-8 flex items-center justify-between rounded-2xl bg-gradient-to-r from-indigo-50/80 to-violet-50/40 px-6 py-5" style={{ border: "0.5px solid #e0e7ff" }}>
+        <div className="animate-fade-up-delay-3 mt-8 flex items-center justify-between rounded-2xl bg-white px-6 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
           <div>
             <p className="font-semibold text-zinc-900">Join the community</p>
             <p className="text-sm text-zinc-500">Sign up free to upload and manage course resources.</p>
