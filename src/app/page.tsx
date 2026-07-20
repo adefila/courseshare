@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
+import { HeroBanner } from "@/components/ui/HeroBanner";
 import { formatDate } from "@/lib/utils";
 
 function MiniFolder() {
@@ -62,40 +63,7 @@ export default async function DashboardPage() {
     <div className="mx-auto w-full max-w-[1100px] px-6 py-8 sm:pr-10">
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <div
-        className="animate-fade-up relative mb-8 overflow-hidden rounded-2xl px-8 py-10 sm:px-12"
-        style={{ background: "linear-gradient(135deg, #1e1b4b 0%, #3730a3 55%, #4f46e5 100%)" }}
-      >
-        {/* Decorative circles */}
-        <div style={{ position: "absolute", right: -40, top: -40, width: 200, height: 200, borderRadius: "50%", background: "rgba(99,102,241,0.2)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", right: 60, bottom: -60, width: 150, height: 150, borderRadius: "50%", background: "rgba(139,92,246,0.15)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", left: -20, bottom: -30, width: 120, height: 120, borderRadius: "50%", background: "rgba(79,70,229,0.2)", pointerEvents: "none" }} />
-
-        <p className="relative mb-1 flex items-center gap-1.5 text-sm font-medium text-indigo-300">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" className="text-indigo-400">
-            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-          </svg>
-          {displayName ? `Welcome back, ${displayName}` : "Welcome to CourseShare"}
-        </p>
-        <h1 className="relative mb-3 text-3xl font-bold leading-tight text-white sm:text-4xl">
-          Your student resource hub
-        </h1>
-        <p className="relative mb-7 max-w-md text-sm leading-relaxed text-indigo-200">
-          Discover course materials, past papers, and notes shared by students across Nigerian universities.
-        </p>
-        <div className="relative flex flex-wrap gap-3">
-          <Link href="/courses">
-            <button className="cursor-pointer rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-50">
-              Browse courses
-            </button>
-          </Link>
-          <Link href="/courses/new">
-            <button className="cursor-pointer rounded-full border border-indigo-400/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
-              Share a course
-            </button>
-          </Link>
-        </div>
-      </div>
+      <HeroBanner displayName={displayName} />
 
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
@@ -115,7 +83,7 @@ export default async function DashboardPage() {
           <h2 className="font-semibold text-zinc-900">Recently added</h2>
           <Link
             href="/courses"
-            className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+            className="flex items-center gap-1 text-sm font-medium text-indigo-600 no-underline hover:text-indigo-500"
           >
             View all
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
