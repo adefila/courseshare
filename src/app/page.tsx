@@ -50,70 +50,9 @@ export default async function DashboardPage() {
   const totalUniversities = new Set((universityRows ?? []).map((r) => r.university)).size;
 
   const stats = [
-    {
-      label: "Courses",
-      value: totalCourses ?? 0,
-      illus: (
-        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-          <g transform="rotate(-12 60 60)">
-            <rect x="20" y="18" width="56" height="72" rx="7" fill="#4f46e5"/>
-            <rect x="28" y="34" width="32" height="4" rx="2" fill="#6366f1"/>
-            <rect x="28" y="44" width="24" height="4" rx="2" fill="#6366f1"/>
-            <rect x="28" y="54" width="28" height="4" rx="2" fill="#6366f1"/>
-          </g>
-          <g transform="rotate(-4 60 60)">
-            <rect x="28" y="12" width="56" height="72" rx="7" fill="#4f46e5"/>
-            <rect x="36" y="28" width="32" height="4" rx="2" fill="#818cf8"/>
-            <rect x="36" y="38" width="24" height="4" rx="2" fill="#818cf8"/>
-            <rect x="36" y="48" width="28" height="4" rx="2" fill="#818cf8"/>
-          </g>
-          <rect x="36" y="6" width="56" height="72" rx="7" fill="#4f46e5"/>
-          <path d="M36 6 L76 6 L92 22 L36 22 Z" fill="#6366f1"/>
-          <rect x="44" y="30" width="32" height="4" rx="2" fill="#a5b4fc"/>
-          <rect x="44" y="40" width="24" height="4" rx="2" fill="#a5b4fc"/>
-          <rect x="44" y="50" width="28" height="4" rx="2" fill="#a5b4fc"/>
-        </svg>
-      ),
-    },
-    {
-      label: "Resources",
-      value: totalResources ?? 0,
-      illus: (
-        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-          <rect x="16" y="30" width="50" height="64" rx="6" fill="#c7d2fe"/>
-          <rect x="24" y="44" width="28" height="3.5" rx="1.5" fill="#a5b4fc"/>
-          <rect x="24" y="54" width="20" height="3.5" rx="1.5" fill="#a5b4fc"/>
-          <rect x="28" y="20" width="50" height="64" rx="6" fill="#e0e7ff" stroke="#c7d2fe" strokeWidth="1"/>
-          <rect x="36" y="34" width="28" height="3.5" rx="1.5" fill="#c7d2fe"/>
-          <rect x="36" y="44" width="20" height="3.5" rx="1.5" fill="#c7d2fe"/>
-          <rect x="40" y="10" width="50" height="64" rx="6" fill="#4f46e5"/>
-          <path d="M40 10 L74 10 L90 26 L40 26 Z" fill="#6366f1"/>
-          <rect x="48" y="32" width="28" height="3.5" rx="1.5" fill="#a5b4fc"/>
-          <rect x="48" y="42" width="20" height="3.5" rx="1.5" fill="#a5b4fc"/>
-          <rect x="48" y="52" width="24" height="3.5" rx="1.5" fill="#a5b4fc"/>
-          <circle cx="88" cy="88" r="18" fill="#4f46e5"/>
-          <path d="M88 94 V82 M84 85.5 L88 82 L92 85.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      ),
-    },
-    {
-      label: "Universities",
-      value: totalUniversities,
-      illus: (
-        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-          <rect x="10" y="52" width="100" height="60" rx="4" fill="#4f46e5"/>
-          <path d="M60 10 L10 38 L110 38 Z" fill="#4f46e5"/>
-          <circle cx="60" cy="24" r="10" fill="#6366f1"/>
-          <rect x="18" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
-          <rect x="44" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
-          <rect x="70" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
-          <rect x="96" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
-          <rect x="42" y="80" width="36" height="32" rx="2" fill="#6366f1"/>
-          <rect x="52" y="90" width="7" height="7" rx="1" fill="#4f46e5"/>
-          <rect x="63" y="90" width="7" height="7" rx="1" fill="#4f46e5"/>
-        </svg>
-      ),
-    },
+    { label: "Courses", value: totalCourses ?? 0 },
+    { label: "Resources", value: totalResources ?? 0 },
+    { label: "Universities", value: totalUniversities },
   ];
 
   return (
@@ -122,7 +61,7 @@ export default async function DashboardPage() {
       {/* ── Welcome header ───────────────────────────────────────── */}
       <div className="animate-fade-up mb-8 flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-medium text-zinc-900 sm:text-3xl">
+          <h1 className="text-2xl font-semibold text-zinc-900 sm:text-3xl">
             {displayName ? (
               <>Welcome back, <span className="font-bold text-indigo-600">{displayName}</span></>
             ) : "Welcome to CourseShare"}
@@ -136,14 +75,10 @@ export default async function DashboardPage() {
 
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
-        {stats.map(({ label, value, illus }) => (
-          <div key={label} className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 30%, rgba(255,255,255,0.97) 50%, rgba(255,255,255,0.85) 68%, rgba(255,255,255,0.55) 82%, rgba(255,255,255,0.15) 100%), linear-gradient(to top, white 0%, transparent 40%)" }} />
-            <svg className="absolute right-0 bottom-0 opacity-[0.06]" width="110" height="110" viewBox={illus.props.viewBox} fill="none" aria-hidden="true">
-              {illus.props.children}
-            </svg>
-            <p className="relative z-10 font-mono text-[52px] font-bold leading-none text-zinc-900">{value}</p>
-            <p className="relative z-10 mt-2 text-xs text-zinc-500">{label}</p>
+        {stats.map(({ label, value }) => (
+          <div key={label} className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
+            <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{value}</p>
+            <p className="mt-2 text-xs text-zinc-500">{label}</p>
           </div>
         ))}
       </div>
