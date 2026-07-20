@@ -139,11 +139,11 @@ export default async function DashboardPage() {
         {stats.map(({ label, value, illus }) => (
           <div key={label} className="relative overflow-hidden rounded-2xl bg-white px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
             {/* Background illustration — anchored bottom-right */}
-            <div className="absolute bottom-0 right-0 opacity-[0.08]" aria-hidden="true">
+            <div className="absolute bottom-0 right-0 opacity-[0.12]" aria-hidden="true">
               {illus}
             </div>
             {/* Left-to-right fade so text side is always clean */}
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 30%, rgba(255,255,255,0.97) 50%, rgba(255,255,255,0.85) 68%, rgba(255,255,255,0.55) 82%, rgba(255,255,255,0.15) 100%), linear-gradient(to top, white 0%, transparent 40%)" }} />
             <p className="relative font-mono text-4xl font-bold leading-none text-zinc-900 sm:text-5xl">
               {value}
             </p>

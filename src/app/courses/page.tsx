@@ -136,8 +136,8 @@ export default async function CoursesPage({
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {/* Courses */}
           <div className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
-            <svg className="absolute right-0 bottom-0 opacity-[0.08]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 30%, rgba(255,255,255,0.97) 50%, rgba(255,255,255,0.85) 68%, rgba(255,255,255,0.55) 82%, rgba(255,255,255,0.15) 100%), linear-gradient(to top, white 0%, transparent 40%)" }} />
+            <svg className="absolute right-0 bottom-0 opacity-[0.12]" width="110" height="110" viewBox="0 0 120 120" fill="none">
               <g transform="rotate(-12 60 60)">
                 <rect x="20" y="18" width="56" height="72" rx="7" fill="#4f46e5"/>
                 <rect x="28" y="34" width="32" height="4" rx="2" fill="#4f46e5"/>
@@ -162,8 +162,8 @@ export default async function CoursesPage({
 
           {/* Universities */}
           <div className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
-            <svg className="absolute right-0 bottom-0 opacity-[0.08]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 30%, rgba(255,255,255,0.97) 50%, rgba(255,255,255,0.85) 68%, rgba(255,255,255,0.55) 82%, rgba(255,255,255,0.15) 100%), linear-gradient(to top, white 0%, transparent 40%)" }} />
+            <svg className="absolute right-0 bottom-0 opacity-[0.12]" width="110" height="110" viewBox="0 0 120 120" fill="none">
               <rect x="10" y="52" width="100" height="60" rx="4" fill="#4f46e5"/>
               <path d="M60 10 L10 38 L110 38 Z" fill="#4f46e5"/>
               <rect x="48" y="14" width="24" height="24" rx="12" fill="#6366f1"/>
@@ -181,8 +181,8 @@ export default async function CoursesPage({
 
           {/* Resources */}
           <div className="relative col-span-2 overflow-hidden rounded-2xl bg-white px-5 py-4 sm:col-span-1" style={{ border: "0.5px solid #e8e8f0" }}>
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
-            <svg className="absolute right-0 bottom-0 opacity-[0.08]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 30%, rgba(255,255,255,0.97) 50%, rgba(255,255,255,0.85) 68%, rgba(255,255,255,0.55) 82%, rgba(255,255,255,0.15) 100%), linear-gradient(to top, white 0%, transparent 40%)" }} />
+            <svg className="absolute right-0 bottom-0 opacity-[0.12]" width="110" height="110" viewBox="0 0 120 120" fill="none">
               <rect x="16" y="30" width="50" height="64" rx="6" fill="#c7d2fe"/>
               <rect x="24" y="44" width="28" height="3.5" rx="1.5" fill="#a5b4fc"/>
               <rect x="24" y="54" width="20" height="3.5" rx="1.5" fill="#a5b4fc"/>
