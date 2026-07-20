@@ -247,7 +247,7 @@ export function Sidebar() {
       </div>
 
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[220px] flex-col bg-gradient-to-b from-white to-indigo-50/10 sm:flex" style={{ borderRight: "0.5px solid #e8e8f0" }}>
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[220px] flex-col bg-white sm:flex" style={{ borderRight: "0.5px solid #e8e8f0" }}>
         <NavContent user={user} pathname={pathname} onSignOut={handleSignOut} />
       </aside>
 
