@@ -50,9 +50,43 @@ export default async function DashboardPage() {
   const totalUniversities = new Set((universityRows ?? []).map((r) => r.university)).size;
 
   const stats = [
-    { label: "Courses", value: totalCourses ?? 0 },
-    { label: "Resources", value: totalResources ?? 0 },
-    { label: "Universities", value: totalUniversities },
+    {
+      label: "Courses",
+      value: totalCourses ?? 0,
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          <line x1="9" y1="7" x2="15" y2="7" />
+          <line x1="9" y1="11" x2="13" y2="11" />
+        </svg>
+      ),
+    },
+    {
+      label: "Resources",
+      value: totalResources ?? 0,
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="9" y1="13" x2="15" y2="13" />
+          <line x1="9" y1="17" x2="12" y2="17" />
+        </svg>
+      ),
+    },
+    {
+      label: "Universities",
+      value: totalUniversities,
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="10" width="20" height="12" rx="1" />
+          <path d="M12 2L2 7h20L12 2z" />
+          <line x1="7" y1="15" x2="7" y2="18" />
+          <line x1="12" y1="15" x2="12" y2="18" />
+          <line x1="17" y1="15" x2="17" y2="18" />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -75,8 +109,12 @@ export default async function DashboardPage() {
 
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
-        {stats.map(({ label, value }) => (
-          <div key={label} className="rounded-2xl bg-white px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
+        {stats.map(({ label, value, icon }) => (
+          <div key={label} className="relative overflow-hidden rounded-2xl bg-white px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
+            {/* Subtle background illustration */}
+            <div className="absolute right-3 top-3 text-indigo-100" aria-hidden="true">
+              {icon}
+            </div>
             <p className="font-mono text-4xl font-bold leading-none text-zinc-900 sm:text-5xl">
               {value}
             </p>
