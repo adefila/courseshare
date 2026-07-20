@@ -53,37 +53,64 @@ export default async function DashboardPage() {
     {
       label: "Courses",
       value: totalCourses ?? 0,
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-          <line x1="9" y1="7" x2="15" y2="7" />
-          <line x1="9" y1="11" x2="13" y2="11" />
+      illus: (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <g transform="rotate(-12 60 60)">
+            <rect x="20" y="18" width="56" height="72" rx="7" fill="#4f46e5"/>
+            <rect x="28" y="34" width="32" height="4" rx="2" fill="#6366f1"/>
+            <rect x="28" y="44" width="24" height="4" rx="2" fill="#6366f1"/>
+            <rect x="28" y="54" width="28" height="4" rx="2" fill="#6366f1"/>
+          </g>
+          <g transform="rotate(-4 60 60)">
+            <rect x="28" y="12" width="56" height="72" rx="7" fill="#4f46e5"/>
+            <rect x="36" y="28" width="32" height="4" rx="2" fill="#818cf8"/>
+            <rect x="36" y="38" width="24" height="4" rx="2" fill="#818cf8"/>
+            <rect x="36" y="48" width="28" height="4" rx="2" fill="#818cf8"/>
+          </g>
+          <rect x="36" y="6" width="56" height="72" rx="7" fill="#4f46e5"/>
+          <path d="M36 6 L76 6 L92 22 L36 22 Z" fill="#6366f1"/>
+          <rect x="44" y="30" width="32" height="4" rx="2" fill="#a5b4fc"/>
+          <rect x="44" y="40" width="24" height="4" rx="2" fill="#a5b4fc"/>
+          <rect x="44" y="50" width="28" height="4" rx="2" fill="#a5b4fc"/>
         </svg>
       ),
     },
     {
       label: "Resources",
       value: totalResources ?? 0,
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <polyline points="14 2 14 8 20 8" />
-          <line x1="9" y1="13" x2="15" y2="13" />
-          <line x1="9" y1="17" x2="12" y2="17" />
+      illus: (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <rect x="16" y="30" width="50" height="64" rx="6" fill="#c7d2fe"/>
+          <rect x="24" y="44" width="28" height="3.5" rx="1.5" fill="#a5b4fc"/>
+          <rect x="24" y="54" width="20" height="3.5" rx="1.5" fill="#a5b4fc"/>
+          <rect x="28" y="20" width="50" height="64" rx="6" fill="#e0e7ff" stroke="#c7d2fe" strokeWidth="1"/>
+          <rect x="36" y="34" width="28" height="3.5" rx="1.5" fill="#c7d2fe"/>
+          <rect x="36" y="44" width="20" height="3.5" rx="1.5" fill="#c7d2fe"/>
+          <rect x="40" y="10" width="50" height="64" rx="6" fill="#4f46e5"/>
+          <path d="M40 10 L74 10 L90 26 L40 26 Z" fill="#6366f1"/>
+          <rect x="48" y="32" width="28" height="3.5" rx="1.5" fill="#a5b4fc"/>
+          <rect x="48" y="42" width="20" height="3.5" rx="1.5" fill="#a5b4fc"/>
+          <rect x="48" y="52" width="24" height="3.5" rx="1.5" fill="#a5b4fc"/>
+          <circle cx="88" cy="88" r="18" fill="#4f46e5"/>
+          <path d="M88 94 V82 M84 85.5 L88 82 L92 85.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
     },
     {
       label: "Universities",
       value: totalUniversities,
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="10" width="20" height="12" rx="1" />
-          <path d="M12 2L2 7h20L12 2z" />
-          <line x1="7" y1="15" x2="7" y2="18" />
-          <line x1="12" y1="15" x2="12" y2="18" />
-          <line x1="17" y1="15" x2="17" y2="18" />
+      illus: (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <rect x="10" y="52" width="100" height="60" rx="4" fill="#4f46e5"/>
+          <path d="M60 10 L10 38 L110 38 Z" fill="#4f46e5"/>
+          <circle cx="60" cy="24" r="10" fill="#6366f1"/>
+          <rect x="18" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
+          <rect x="44" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
+          <rect x="70" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
+          <rect x="96" y="60" width="16" height="24" rx="2" fill="#818cf8"/>
+          <rect x="42" y="80" width="36" height="32" rx="2" fill="#6366f1"/>
+          <rect x="52" y="90" width="7" height="7" rx="1" fill="#4f46e5"/>
+          <rect x="63" y="90" width="7" height="7" rx="1" fill="#4f46e5"/>
         </svg>
       ),
     },
@@ -109,16 +136,18 @@ export default async function DashboardPage() {
 
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
-        {stats.map(({ label, value, icon }) => (
+        {stats.map(({ label, value, illus }) => (
           <div key={label} className="relative overflow-hidden rounded-2xl bg-white px-5 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
-            {/* Subtle background illustration */}
-            <div className="absolute right-3 top-3 text-indigo-100" aria-hidden="true">
-              {icon}
+            {/* Background illustration — anchored bottom-right */}
+            <div className="absolute bottom-0 right-0 opacity-[0.08]" aria-hidden="true">
+              {illus}
             </div>
-            <p className="font-mono text-4xl font-bold leading-none text-zinc-900 sm:text-5xl">
+            {/* Left-to-right fade so text side is always clean */}
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
+            <p className="relative font-mono text-4xl font-bold leading-none text-zinc-900 sm:text-5xl">
               {value}
             </p>
-            <p className="mt-2 text-xs text-zinc-500">{label}</p>
+            <p className="relative mt-2 text-xs text-zinc-500">{label}</p>
           </div>
         ))}
       </div>

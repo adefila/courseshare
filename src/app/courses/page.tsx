@@ -136,7 +136,8 @@ export default async function CoursesPage({
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {/* Courses */}
           <div className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <svg className="absolute right-0 bottom-0 opacity-[0.07]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
+            <svg className="absolute right-0 bottom-0 opacity-[0.08]" width="110" height="110" viewBox="0 0 120 120" fill="none">
               <g transform="rotate(-12 60 60)">
                 <rect x="20" y="18" width="56" height="72" rx="7" fill="#4f46e5"/>
                 <rect x="28" y="34" width="32" height="4" rx="2" fill="#4f46e5"/>
@@ -155,13 +156,14 @@ export default async function CoursesPage({
               <rect x="44" y="40" width="24" height="4" rx="2" fill="#818cf8"/>
               <rect x="44" y="50" width="28" height="4" rx="2" fill="#818cf8"/>
             </svg>
-            <p className="relative font-mono text-[52px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
-            <p className="relative mt-2 text-xs text-zinc-500">Courses uploaded</p>
+            <p className="relative z-10 font-mono text-[52px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
+            <p className="relative z-10 mt-2 text-xs text-zinc-500">Courses uploaded</p>
           </div>
 
           {/* Universities */}
           <div className="relative overflow-hidden rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <svg className="absolute right-0 bottom-0 opacity-[0.07]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
+            <svg className="absolute right-0 bottom-0 opacity-[0.08]" width="110" height="110" viewBox="0 0 120 120" fill="none">
               <rect x="10" y="52" width="100" height="60" rx="4" fill="#4f46e5"/>
               <path d="M60 10 L10 38 L110 38 Z" fill="#4f46e5"/>
               <rect x="48" y="14" width="24" height="24" rx="12" fill="#6366f1"/>
@@ -173,13 +175,14 @@ export default async function CoursesPage({
               <rect x="50" y="90" width="8" height="8" rx="1" fill="#4f46e5"/>
               <rect x="62" y="90" width="8" height="8" rx="1" fill="#4f46e5"/>
             </svg>
-            <p className="relative font-mono text-[52px] font-bold leading-none text-zinc-900">{schools.length}</p>
-            <p className="relative mt-2 text-xs text-zinc-500">Universities</p>
+            <p className="relative z-10 font-mono text-[52px] font-bold leading-none text-zinc-900">{schools.length}</p>
+            <p className="relative z-10 mt-2 text-xs text-zinc-500">Universities</p>
           </div>
 
           {/* Resources */}
           <div className="relative col-span-2 overflow-hidden rounded-2xl bg-white px-5 py-4 sm:col-span-1" style={{ border: "0.5px solid #e8e8f0" }}>
-            <svg className="absolute right-0 bottom-0 opacity-[0.07]" width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, white 35%, transparent 80%)" }} />
+            <svg className="absolute right-0 bottom-0 opacity-[0.08]" width="110" height="110" viewBox="0 0 120 120" fill="none">
               <rect x="16" y="30" width="50" height="64" rx="6" fill="#c7d2fe"/>
               <rect x="24" y="44" width="28" height="3.5" rx="1.5" fill="#a5b4fc"/>
               <rect x="24" y="54" width="20" height="3.5" rx="1.5" fill="#a5b4fc"/>
@@ -194,8 +197,8 @@ export default async function CoursesPage({
               <circle cx="90" cy="86" r="18" fill="#4f46e5"/>
               <path d="M90 92 V80 M86 83.5 L90 80 L94 83.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <p className="relative font-mono text-[52px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
-            <p className="relative mt-2 text-xs text-zinc-500">Resources shared</p>
+            <p className="relative z-10 font-mono text-[52px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
+            <p className="relative z-10 mt-2 text-xs text-zinc-500">Resources shared</p>
           </div>
         </div>
       )}
