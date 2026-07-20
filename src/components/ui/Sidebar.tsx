@@ -31,46 +31,6 @@ const NAV = [
   },
 ];
 
-function CommunityStats() {
-  const [resources, setResources] = useState<number | null>(null);
-  const [contributors, setContributors] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (!isSupabaseConfigured()) return;
-    const supabase = createClient();
-    Promise.all([
-      supabase.from("resources").select("*", { count: "exact", head: true }).eq("is_removed", false),
-      supabase.from("resources").select("uploaded_by").eq("is_removed", false),
-    ]).then(([{ count }, { data }]) => {
-      setResources(count ?? 0);
-      setContributors(new Set((data ?? []).map((r) => r.uploaded_by).filter(Boolean)).size);
-    });
-  }, []);
-
-  return (
-    <div className="mx-3 mb-3 overflow-hidden rounded-xl" style={{ border: "0.5px solid #e0e7ff" }}>
-      <div className="bg-gradient-to-br from-indigo-50/80 to-white px-3 pb-3 pt-2.5">
-        <p className="mb-2 font-mono text-[9px] font-medium uppercase tracking-widest text-zinc-400">
-          Community
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="rounded-lg bg-white px-2.5 py-2" style={{ border: "0.5px solid #ebebf0" }}>
-            <p className="text-lg font-bold leading-none text-zinc-900">
-              {resources === null ? "—" : resources}
-            </p>
-            <p className="mt-1 text-[10px] text-zinc-400">Resources</p>
-          </div>
-          <div className="rounded-lg bg-white px-2.5 py-2" style={{ border: "0.5px solid #ebebf0" }}>
-            <p className="text-lg font-bold leading-none text-zinc-900">
-              {contributors === null ? "—" : contributors}
-            </p>
-            <p className="mt-1 text-[10px] text-zinc-400">Contributors</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function NavContent({
   user,
@@ -166,9 +126,6 @@ function NavContent({
           </>
         )}
       </nav>
-
-      {/* Community stats */}
-      <CommunityStats />
 
       {/* User section */}
       <div className="shrink-0 px-3 py-3" style={{ borderTop: "0.5px solid #ebebf0" }}>
