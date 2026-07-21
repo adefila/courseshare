@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
+import { getPlatformStats } from "@/lib/stats";
 import { CourseCard } from "@/components/courses/CourseCard";
 import { CourseSearch } from "@/components/courses/CourseSearch";
 import { Button } from "@/components/ui/Button";
@@ -56,19 +57,15 @@ export default async function CoursesPage({
 
   const [
     { data: courses, count: totalCount, error: coursesError },
-    { data: universityRows },
-    { count: totalResourceCount },
+    platformStats,
   ] = await Promise.all([
     query.range(from, to),
-    supabase.from("courses").select("university").order("university"),
-    supabase
-      .from("resources")
-      .select("*", { count: "exact", head: true })
-      .eq("is_removed", false),
+    getPlatformStats(),
   ]);
   if (coursesError) console.error("Supabase error:", coursesError.message);
 
-  const schools = [...new Set((universityRows ?? []).map((r) => r.university))];
+  const schools = platformStats.universities;
+  const totalResourceCount = platformStats.totalResources;
   const totalPages = Math.ceil((totalCount ?? 0) / PAGE_SIZE);
   const isFiltered = !!(q || semester);
 

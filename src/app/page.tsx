@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { getPlatformStats } from "@/lib/stats";
 import { Button } from "@/components/ui/Button";
 import { Clock } from "@/components/ui/Clock";
 import { formatDate } from "@/lib/utils";
@@ -30,15 +31,11 @@ export default async function DashboardPage() {
 
   const [
     { data: { user } },
-    { count: totalCourses },
-    { count: totalResources },
-    { data: universityRows },
+    platformStats,
     { data: recentCourses },
   ] = await Promise.all([
     supabase.auth.getUser(),
-    supabase.from("courses").select("*", { count: "exact", head: true }),
-    supabase.from("resources").select("*", { count: "exact", head: true }).eq("is_removed", false),
-    supabase.from("courses").select("university").order("university"),
+    getPlatformStats(),
     supabase
       .from("courses")
       .select("id, course_name, course_code, university, semester, year, created_at")
@@ -47,12 +44,11 @@ export default async function DashboardPage() {
   ]);
 
   const displayName = user?.user_metadata?.display_name as string | undefined;
-  const totalUniversities = new Set((universityRows ?? []).map((r) => r.university)).size;
 
   const stats = [
-    { label: "Courses", value: totalCourses ?? 0 },
-    { label: "Resources", value: totalResources ?? 0 },
-    { label: "Universities", value: totalUniversities },
+    { label: "Courses", value: platformStats.totalCourses },
+    { label: "Resources", value: platformStats.totalResources },
+    { label: "Universities", value: platformStats.universities.length },
   ];
 
   return (

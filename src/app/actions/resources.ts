@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function reportResource(resourceId: string, reason: string) {
   const supabase = await createClient();
@@ -86,6 +86,7 @@ export async function deleteResource(resourceId: string, courseId: string) {
   await supabase.storage.from("resources").remove([resource.file_path]);
   await supabase.from("resources").delete().eq("id", resourceId);
 
+  revalidateTag("platform-stats", "max");
   revalidatePath(`/courses/${courseId}`);
   return { success: true };
 }

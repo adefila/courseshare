@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -32,6 +32,7 @@ export async function createCourse(formData: FormData) {
 
   if (error) return { error: error.message };
 
+  revalidateTag("platform-stats", "max");
   revalidatePath("/courses");
   redirect(`/courses/${data.id}`);
 }

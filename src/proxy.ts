@@ -1,12 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED_PATTERNS = [
-  /^\/courses\/new$/,
-  /^\/courses\/[^/]+\/upload$/,
-];
-
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
@@ -40,21 +35,20 @@ export async function middleware(request: NextRequest) {
   ]);
   const user = userResult ?? null;
 
-  const path = request.nextUrl.pathname;
-  const isProtected = PROTECTED_PATTERNS.some((p) => p.test(path));
-
-  if (isProtected && !user) {
+  if (!user) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    url.searchParams.set("redirectTo", path);
+    url.searchParams.set("redirectTo", request.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
 
   return supabaseResponse;
 }
 
+/*
+ * Only protected routes go through the auth check — public pages skip the
+ * Supabase round-trip entirely. Add new protected paths here.
+ */
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: ["/courses/new", "/courses/:courseId/upload"],
 };
