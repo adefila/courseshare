@@ -20,9 +20,9 @@ export function Clock() {
   if (!time) return null;
 
   return (
-    <div className="text-right">
-      <p className="font-mono text-2xl font-semibold tabular-nums text-zinc-900">{time}</p>
-      <p className="mt-0.5 text-xs text-zinc-400">{date}</p>
+    <div className="shrink-0 text-right">
+      <p className="whitespace-nowrap font-mono text-base font-semibold tabular-nums text-zinc-900 sm:text-2xl">{time}</p>
+      <p className="mt-0.5 text-[10px] text-zinc-400 sm:text-xs">{date}</p>
     </div>
   );
 }

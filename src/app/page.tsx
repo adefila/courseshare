@@ -74,7 +74,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* ── Stats ────────────────────────────────────────────────── */}
-      <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
+      <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {stats.map(({ label, value }) => (
           <div key={label} className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{value}</p>

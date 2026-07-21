@@ -51,7 +51,7 @@ export function CourseSearch({
   const hasFilter = !!semester;
 
   return (
-    <div className="mb-8 flex items-center gap-2.5">
+    <div className="mb-8 flex flex-col gap-2.5 sm:flex-row sm:items-center">
       {/* Search — constrained width */}
       <form onSubmit={handleSubmit} className="relative flex-1">
         <svg
@@ -88,7 +88,7 @@ export function CourseSearch({
         <button
           type="button"
           onClick={() => setDropdownOpen((o) => !o)}
-          className={`cursor-pointer flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all ${
+          className={`cursor-pointer flex w-full items-center justify-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all sm:w-auto ${
             hasFilter
               ? "border-indigo-600 bg-indigo-600 text-white shadow-sm shadow-indigo-200"
               : dropdownOpen
