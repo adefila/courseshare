@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -31,7 +31,17 @@ function SignupIllustration() {
 }
 
 export default function SignupPage() {
+  return (
+    <Suspense>
+      <SignupForm />
+    </Suspense>
+  );
+}
+
+function SignupForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") ?? "/courses";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,7 +88,7 @@ export default function SignupPage() {
       });
       if (error) setFormError(error.message);
       else {
-        router.push("/courses");
+        router.push(redirectTo);
         router.refresh();
       }
     });
@@ -137,7 +147,10 @@ export default function SignupPage() {
 
       <p className="mt-5 text-center text-sm text-zinc-500">
         Already have an account?{" "}
-        <Link href="/login" className="font-medium text-zinc-900 hover:underline">
+        <Link
+          href={redirectTo !== "/courses" ? `/login?redirectTo=${encodeURIComponent(redirectTo)}` : "/login"}
+          className="font-medium text-zinc-900 hover:underline"
+        >
           Sign in
         </Link>
       </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 
@@ -11,7 +12,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   if (isAuth) {
     return (
-      <div className="flex min-h-full items-center justify-center px-6 py-16">
+      <div className="flex min-h-full flex-col items-center justify-center px-6 py-16">
+        <Link href="/" className="mb-8 flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+          <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseShare</span>
+        </Link>
         {children}
       </div>
     );

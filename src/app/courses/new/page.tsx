@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { CourseForm } from "@/components/courses/CourseForm";
@@ -53,7 +54,17 @@ export default async function NewCoursePage() {
   if (!user) redirect("/login?redirectTo=/courses/new");
 
   return (
-    <div className="flex flex-1 items-center justify-center px-6 py-10">
+    <div className="flex flex-1 flex-col items-center justify-center px-6 py-10">
+      <div className="w-full max-w-xl">
+        <Link
+          href="/courses"
+          className="mb-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-zinc-400 transition hover:bg-white hover:text-zinc-700"
+        >
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 19l-7-7 7-7" />
+          </svg>
+          All courses
+        </Link>
       <div className="w-full max-w-xl rounded-2xl border border-zinc-200 bg-white">
         <div className="flex h-40 items-center justify-center rounded-t-2xl border-b border-zinc-100 bg-zinc-50 px-6">
           <NewCourseIllustration />
@@ -67,6 +78,7 @@ export default async function NewCoursePage() {
           </p>
           <CourseForm />
         </div>
+      </div>
       </div>
     </div>
   );
