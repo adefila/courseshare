@@ -136,17 +136,17 @@ export default async function CoursesPage({
         <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-4">
           <div className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{totalCount ?? 0}+</p>
-            <p className="mt-2 text-xs text-zinc-500">Courses uploaded</p>
+            <p className="mt-2 text-xs text-zinc-500">Courses</p>
+          </div>
+
+          <div className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
+            <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
+            <p className="mt-2 text-xs text-zinc-500">Resources</p>
           </div>
 
           <div className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{schools.length}</p>
             <p className="mt-2 text-xs text-zinc-500">Universities</p>
-          </div>
-
-          <div className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{totalResourceCount ?? 0}</p>
-            <p className="mt-2 text-xs text-zinc-500">Resources shared</p>
           </div>
         </div>
       )}
