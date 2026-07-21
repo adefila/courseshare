@@ -74,7 +74,7 @@ function NavContent({
                 className={`cursor-pointer flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors ${
                   active
                     ? "bg-indigo-50 font-semibold text-indigo-700"
-                    : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
+                    : "text-zinc-500 hover:bg-indigo-50 hover:text-indigo-700"
                 }`}
               >
                 {item.icon}
@@ -90,7 +90,7 @@ function NavContent({
               className={`cursor-pointer flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors ${
                 pathname === "/courses/new"
                   ? "bg-zinc-100 font-semibold text-zinc-900"
-                  : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
+                  : "text-zinc-500 hover:bg-indigo-50 hover:text-indigo-700"
               }`}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -113,7 +113,7 @@ function NavContent({
                 className={`cursor-pointer flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors ${
                   pathname === "/account"
                     ? "bg-zinc-100 font-semibold text-zinc-900"
-                    : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-800"
+                    : "text-zinc-500 hover:bg-indigo-50 hover:text-indigo-700"
                 }`}
               >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -152,7 +152,7 @@ function NavContent({
             <Link
               href="/login"
               onClick={onNavClick}
-              className="cursor-pointer block rounded-full px-4 py-2 text-sm text-zinc-500 transition-colors hover:bg-zinc-50 hover:text-zinc-800"
+              className="cursor-pointer block rounded-full px-4 py-2 text-sm text-zinc-500 transition-colors hover:bg-indigo-50 hover:text-indigo-700"
             >
               Sign in
             </Link>

@@ -147,7 +147,7 @@ export function ReportButton({ resourceId }: { resourceId: string }) {
                       onChange={(e) => setDetail(e.target.value)}
                       placeholder="Describe the issue in more detail…"
                       rows={5}
-                      className="w-full resize-none rounded-2xl bg-zinc-50 px-4 py-3.5 text-sm text-zinc-900 placeholder:text-zinc-400 transition focus:outline-none focus:ring-2 focus:ring-indigo-100"
+                      className="w-full resize-none rounded-2xl bg-white px-4 py-3.5 text-sm text-zinc-900 placeholder:text-zinc-400 transition focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:[border-color:#818cf8]"
                       style={{ border: "0.5px solid #e4e4e7" }}
                     />
                   </div>
