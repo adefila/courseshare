@@ -6,6 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
+interface BookmarkedCourse { id: string; course_name: string; course_code: string }
+
 const NAV = [
   {
     href: "/",
@@ -37,11 +39,13 @@ function NavContent({
   pathname,
   onSignOut,
   onNavClick,
+  bookmarks,
 }: {
   user: User | null;
   pathname: string;
   onSignOut: () => void;
   onNavClick?: () => void;
+  bookmarks: BookmarkedCourse[];
 }) {
   const displayName =
     user?.user_metadata?.display_name ?? user?.email?.split("@")[0] ?? "Account";
@@ -100,6 +104,39 @@ function NavContent({
             </Link>
           )}
         </div>
+
+        {/* Saved courses */}
+        {user && (
+          <div className="mt-4">
+            <p className="mb-1 px-3 font-mono text-[10px] font-medium uppercase tracking-wide text-zinc-400">
+              Saved
+            </p>
+            <div className="space-y-0.5">
+              {bookmarks.length === 0 ? (
+                <p className="px-3 py-1.5 text-[11px] text-zinc-400">No saved courses yet.</p>
+              ) : (
+                bookmarks.map((b) => (
+                  <Link
+                    key={b.id}
+                    href={`/courses/${b.id}`}
+                    onClick={onNavClick}
+                    className={`cursor-pointer flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors ${
+                      pathname === `/courses/${b.id}`
+                        ? "bg-indigo-50 font-semibold text-indigo-700"
+                        : "text-zinc-500 hover:bg-indigo-50 hover:text-indigo-700"
+                    }`}
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill={pathname === `/courses/${b.id}` ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <span className="min-w-0 truncate">{b.course_name}</span>
+                    <span className="ml-auto shrink-0 font-mono text-[9px] text-zinc-400">{b.course_code}</span>
+                  </Link>
+                ))
+              )}
+            </div>
+          </div>
+        )}
 
         {user && (
           <>
@@ -175,17 +212,40 @@ export function Sidebar() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [bookmarks, setBookmarks] = useState<BookmarkedCourse[]>([]);
 
   useEffect(() => {
     if (!isSupabaseConfigured()) return;
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_e, session) => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+      if (data.user) fetchBookmarks(data.user.id);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) fetchBookmarks(session.user.id);
+      else setBookmarks([]);
     });
     return () => subscription.unsubscribe();
+
+    async function fetchBookmarks(uid: string) {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("bookmarks")
+        .select("course_id, courses(id, course_name, course_code)")
+        .eq("user_id", uid)
+        .order("created_at", { ascending: false });
+      if (data) {
+        setBookmarks(
+          data
+            .map((row) => {
+              const c = (row as unknown as { courses: BookmarkedCourse | null }).courses;
+              return c ?? null;
+            })
+            .filter((c): c is BookmarkedCourse => c !== null)
+        );
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -248,7 +308,7 @@ export function Sidebar() {
 
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[220px] flex-col bg-white sm:flex" style={{ borderRight: "0.5px solid #e8e8f0" }}>
-        <NavContent user={user} pathname={pathname} onSignOut={handleSignOut} />
+        <NavContent user={user} pathname={pathname} onSignOut={handleSignOut} bookmarks={bookmarks} />
       </aside>
 
       {/* Mobile backdrop */}
@@ -271,6 +331,7 @@ export function Sidebar() {
           pathname={pathname}
           onSignOut={handleSignOut}
           onNavClick={() => setMobileOpen(false)}
+          bookmarks={bookmarks}
         />
       </aside>
     </>

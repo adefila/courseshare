@@ -57,26 +57,28 @@ type EmbeddedResource = {
 async function CourseResults({
   q,
   semester,
+  university,
+  sort = "newest",
   page,
 }: {
   q?: string;
   semester?: string;
+  university?: string;
+  sort?: string;
   page: number;
 }) {
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
   const supabase = await createClient();
 
-  // Single query: courses with their resources (+ uploader names) embedded,
-  // instead of a second dependent round-trip after the course list resolves.
   let query = supabase
     .from("courses")
     .select(
-      "id, course_name, course_code, university, semester, year, description, created_at, created_by, resources(is_removed, created_at, uploader:profiles!uploaded_by(display_name))",
+      "id, course_name, course_code, university, semester, year, description, created_at, created_by, resource_count, resources(is_removed, created_at, uploader:profiles!uploaded_by(display_name))",
       { count: "exact" }
     )
     .eq("resources.is_removed", false)
-    .order("created_at", { ascending: false })
+    .order(sort === "popular" ? "resource_count" : "created_at", { ascending: sort === "oldest" })
     .order("created_at", { referencedTable: "resources", ascending: false });
 
   if (q?.trim()) {
@@ -85,6 +87,9 @@ async function CourseResults({
   }
   if (semester?.trim()) {
     query = query.eq("semester", semester.trim());
+  }
+  if (university?.trim()) {
+    query = query.eq("university", university.trim());
   }
 
   const { data: courses, count: totalCount, error: coursesError } = await query.range(from, to);
@@ -101,7 +106,8 @@ async function CourseResults({
         contributors.push({ name });
       }
     }
-    return { ...c, resource_count: resources.length, contributors };
+    const dbCount = (c as unknown as { resource_count?: number }).resource_count;
+    return { ...c, resource_count: dbCount ?? resources.length, contributors };
   });
 
   if (enriched.length === 0) {
@@ -215,17 +221,21 @@ async function CourseResults({
 export default async function CoursesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; semester?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; semester?: string; page?: string; sort?: string; university?: string }>;
 }) {
-  const { q, semester, page: pageParam } = await searchParams;
+  const { q, semester, page: pageParam, sort = "newest", university } = await searchParams;
   const page = Math.max(1, parseInt(pageParam ?? "1", 10));
-  const isFiltered = !!(q || semester);
+  const isFiltered = !!(q || semester || university);
 
   const platformStats = await getPlatformStats();
   const schools = platformStats.universities;
 
-  const subtitle = isFiltered
-    ? [q ? `Results for "${q}"` : "Filtered results", semester].filter(Boolean).join(" · ")
+  const subtitleParts = [];
+  if (q) subtitleParts.push(`Results for "${q}"`);
+  if (university) subtitleParts.push(university);
+  if (semester) subtitleParts.push(semester);
+  const subtitle = subtitleParts.length
+    ? subtitleParts.join(" · ")
     : `${platformStats.totalCourses}+ courses across ${schools.length} universities`;
 
   return (
@@ -253,12 +263,10 @@ export default async function CoursesPage({
             <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{platformStats.totalCourses}+</p>
             <p className="mt-2 text-xs text-zinc-500">Courses</p>
           </div>
-
           <div className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{platformStats.totalResources}</p>
             <p className="mt-2 text-xs text-zinc-500">Resources</p>
           </div>
-
           <div className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
             <p className="font-mono text-[52px] font-bold leading-none text-zinc-900">{schools.length}</p>
             <p className="mt-2 text-xs text-zinc-500">Universities</p>
@@ -266,14 +274,20 @@ export default async function CoursesPage({
         </div>
       )}
 
-      {/* Search bar */}
+      {/* Search / filter bar */}
       <Suspense>
-        <CourseSearch defaultQ={q} defaultSemester={semester} />
+        <CourseSearch
+          defaultQ={q}
+          defaultSemester={semester}
+          defaultSort={(sort as "newest" | "popular" | "oldest") ?? "newest"}
+          defaultUniversity={university}
+          universities={schools}
+        />
       </Suspense>
 
-      {/* Results — streamed so the header, stats, and search render instantly */}
-      <Suspense key={`${q ?? ""}-${semester ?? ""}-${page}`} fallback={<ResultsSkeleton />}>
-        <CourseResults q={q} semester={semester} page={page} />
+      {/* Results — streamed */}
+      <Suspense key={`${q ?? ""}-${semester ?? ""}-${university ?? ""}-${sort}-${page}`} fallback={<ResultsSkeleton />}>
+        <CourseResults q={q} semester={semester} university={university} sort={sort} page={page} />
       </Suspense>
     </div>
   );

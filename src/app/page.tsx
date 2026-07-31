@@ -38,7 +38,7 @@ export default async function DashboardPage() {
     getPlatformStats(),
     supabase
       .from("courses")
-      .select("id, course_name, course_code, university, semester, year, created_at")
+      .select("id, course_name, course_code, university, semester, year, created_at, resource_count")
       .order("created_at", { ascending: false })
       .limit(6),
   ]);
@@ -122,6 +122,12 @@ export default async function DashboardPage() {
                 <span className="hidden shrink-0 rounded-full bg-indigo-50 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-indigo-700 sm:inline-block">
                   {course.course_code}
                 </span>
+
+                {(course as unknown as { resource_count?: number }).resource_count != null && (
+                  <span className="hidden shrink-0 rounded-full bg-zinc-100 px-2 py-1 text-[10px] font-medium text-zinc-500 sm:inline-block">
+                    {(course as unknown as { resource_count: number }).resource_count} files
+                  </span>
+                )}
 
                 <span className="shrink-0 text-xs text-zinc-400">
                   {formatDate(course.created_at)}

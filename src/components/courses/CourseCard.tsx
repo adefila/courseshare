@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import type { Course } from "@/types/database";
+import { getCourseColor } from "@/lib/courseColors";
+import { BookmarkButton } from "./BookmarkButton";
+import { useToast } from "@/components/ui/Toast";
 
 interface CourseCardProps {
   course: Course & {
@@ -12,13 +15,7 @@ interface CourseCardProps {
 }
 
 function Avatar({ name, size = 22 }: { name: string; size?: number }) {
-  const initials = name
-    .split(" ")
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-
+  const initials = name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
   const colors = [
     "bg-indigo-100 text-indigo-700",
     "bg-violet-100 text-violet-700",
@@ -28,7 +25,6 @@ function Avatar({ name, size = 22 }: { name: string; size?: number }) {
     "bg-pink-100 text-pink-700",
   ];
   const color = colors[name.charCodeAt(0) % colors.length];
-
   return (
     <span
       className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white text-[10px] font-semibold ${color}`}
@@ -39,80 +35,25 @@ function Avatar({ name, size = 22 }: { name: string; size?: number }) {
   );
 }
 
-function FolderIllustration({ hovered }: { hovered: boolean }) {
+function FolderIllustration({ hovered, courseCode }: { hovered: boolean; courseCode: string }) {
   const spring = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+  const { gradient, glow } = getCourseColor(courseCode);
 
   return (
-    <div
-      className="relative overflow-hidden rounded-t-2xl"
-      style={{
-        height: 152,
-        background: "linear-gradient(155deg, #1e1b4b 0%, #312e81 55%, #3730a3 100%)",
-      }}
-    >
-      {/* Radial glow from bottom */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse at 50% 115%, rgba(99,102,241,0.3) 0%, transparent 65%)",
-          pointerEvents: "none",
-        }}
-      />
+    <div className="relative overflow-hidden rounded-t-2xl" style={{ height: 152, background: gradient }}>
+      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 50% 115%, ${glow} 0%, transparent 65%)`, pointerEvents: "none" }} />
 
-      {/* Documents */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: "43%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-end",
-          gap: 8,
-        }}
-      >
-        {/* Left doc — tilts left, sits behind center */}
-        <div
-          style={{
-            width: 40,
-            height: 56,
-            borderRadius: 9,
-            background: "rgba(255,255,255,0.88)",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.30)",
-            transform: hovered
-              ? "translateY(-18px) rotate(-7deg)"
-              : "translateY(2px) rotate(-7deg)",
-            transition: `transform 0.45s ${spring}`,
-            flexShrink: 0,
-            zIndex: 1,
-          }}
-        >
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: "43%", display: "flex", justifyContent: "center", alignItems: "flex-end", gap: 8 }}>
+        {/* Left doc */}
+        <div style={{ width: 40, height: 56, borderRadius: 9, background: "rgba(255,255,255,0.88)", boxShadow: "0 6px 20px rgba(0,0,0,0.30)", transform: hovered ? "translateY(-18px) rotate(-7deg)" : "translateY(2px) rotate(-7deg)", transition: `transform 0.45s ${spring}`, flexShrink: 0, zIndex: 1 }}>
           <div style={{ padding: "9px 7px 0", display: "flex", flexDirection: "column", gap: 5 }}>
             <div style={{ height: 4, width: 22, borderRadius: 3, background: "#c7d2fe" }} />
             <div style={{ height: 3, width: 15, borderRadius: 3, background: "#e0e7ff" }} />
             <div style={{ height: 3, width: 18, borderRadius: 3, background: "#e0e7ff" }} />
           </div>
         </div>
-
-        {/* Centre doc — goes up highest, always on top */}
-        <div
-          style={{
-            width: 44,
-            height: 63,
-            borderRadius: 9,
-            background: "rgba(238,242,255,0.97)",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.38)",
-            transform: hovered
-              ? "translateY(-26px) rotate(0deg)"
-              : "translateY(2px) rotate(0deg)",
-            transition: `transform 0.45s ${spring} 0.04s`,
-            flexShrink: 0,
-            zIndex: 3,
-          }}
-        >
+        {/* Centre doc */}
+        <div style={{ width: 44, height: 63, borderRadius: 9, background: "rgba(238,242,255,0.97)", boxShadow: "0 8px 24px rgba(0,0,0,0.38)", transform: hovered ? "translateY(-26px) rotate(0deg)" : "translateY(2px) rotate(0deg)", transition: `transform 0.45s ${spring} 0.04s`, flexShrink: 0, zIndex: 3 }}>
           <div style={{ padding: "9px 8px 0", display: "flex", flexDirection: "column", gap: 5 }}>
             <div style={{ height: 4, width: 26, borderRadius: 3, background: "#a5b4fc" }} />
             <div style={{ height: 3, width: 17, borderRadius: 3, background: "#c7d2fe" }} />
@@ -120,23 +61,8 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
             <div style={{ height: 3, width: 14, borderRadius: 3, background: "#e0e7ff" }} />
           </div>
         </div>
-
-        {/* Right doc — tilts right, sits in front of left but behind center */}
-        <div
-          style={{
-            width: 40,
-            height: 53,
-            borderRadius: 9,
-            background: "rgba(255,255,255,0.88)",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.30)",
-            transform: hovered
-              ? "translateY(-13px) rotate(6deg)"
-              : "translateY(2px) rotate(6deg)",
-            transition: `transform 0.45s ${spring} 0.08s`,
-            flexShrink: 0,
-            zIndex: 2,
-          }}
-        >
+        {/* Right doc */}
+        <div style={{ width: 40, height: 53, borderRadius: 9, background: "rgba(255,255,255,0.88)", boxShadow: "0 6px 20px rgba(0,0,0,0.30)", transform: hovered ? "translateY(-13px) rotate(6deg)" : "translateY(2px) rotate(6deg)", transition: `transform 0.45s ${spring} 0.08s`, flexShrink: 0, zIndex: 2 }}>
           <div style={{ padding: "9px 7px 0", display: "flex", flexDirection: "column", gap: 5 }}>
             <div style={{ height: 4, width: 18, borderRadius: 3, background: "#c7d2fe" }} />
             <div style={{ height: 3, width: 13, borderRadius: 3, background: "#e0e7ff" }} />
@@ -145,22 +71,10 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
         </div>
       </div>
 
-      {/* Folder front flap — translucent glass */}
-      <div
-        style={{
-          position: "absolute",
-          inset: "auto 0 0 0",
-          height: "46%",
-          background:
-            "linear-gradient(to bottom, rgba(79,70,229,0.28), rgba(67,56,202,0.40))",
-          backdropFilter: "blur(22px)",
-          WebkitBackdropFilter: "blur(22px)",
-          zIndex: 4,
-        }}
-      >
-        {/* Glossy top edge */}
-        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "rgba(165,180,252,0.55)" }} />
-        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 20, background: "linear-gradient(to bottom, rgba(165,180,252,0.16), transparent)" }} />
+      {/* Folder front flap */}
+      <div style={{ position: "absolute", inset: "auto 0 0 0", height: "46%", background: "linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.32))", backdropFilter: "blur(22px)", WebkitBackdropFilter: "blur(22px)", zIndex: 4 }}>
+        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "rgba(255,255,255,0.22)" }} />
+        <div style={{ position: "absolute", inset: "0 0 auto 0", height: 20, background: "linear-gradient(to bottom, rgba(255,255,255,0.1), transparent)" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(255,255,255,0.07) 0%, transparent 55%)" }} />
       </div>
     </div>
@@ -169,8 +83,17 @@ function FolderIllustration({ hovered }: { hovered: boolean }) {
 
 export function CourseCard({ course }: CourseCardProps) {
   const [hovered, setHovered] = useState(false);
+  const { toast } = useToast();
   const count = course.resource_count ?? 0;
   const contributors = course.contributors ?? [];
+  const { pill } = getCourseColor(course.course_code);
+
+  const copyLink = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(`${window.location.origin}/courses/${course.id}`);
+    toast("Link copied!", "success");
+  }, [course.id, toast]);
 
   return (
     <Link
@@ -179,23 +102,36 @@ export function CourseCard({ course }: CourseCardProps) {
       style={{
         border: "0.5px solid",
         borderColor: hovered ? "rgba(165,180,252,0.7)" : "rgba(228,228,231,0.9)",
-        boxShadow: hovered
-          ? "0 8px 28px -6px rgba(79,70,229,0.13)"
-          : "none",
+        boxShadow: hovered ? "0 8px 28px -6px rgba(79,70,229,0.13)" : "none",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <FolderIllustration hovered={hovered} />
+      <FolderIllustration hovered={hovered} courseCode={course.course_code} />
 
       <div className="flex flex-1 flex-col bg-gradient-to-b from-white to-indigo-50/20 px-5 py-4">
         <div className="mb-2.5 flex items-center justify-between gap-2">
-          <span className="inline-block rounded-full bg-indigo-50 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-indigo-700">
+          <span className={`inline-block rounded-full px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider ${pill}`}>
             {course.course_code}
           </span>
-          <span className="rounded-full bg-zinc-100 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-500">
-            {course.semester} {course.year}
-          </span>
+          <div className="flex items-center gap-1.5">
+            {/* Copy link */}
+            <button
+              onClick={copyLink}
+              title="Copy link"
+              className="cursor-pointer flex h-6 w-6 items-center justify-center rounded-full text-zinc-300 opacity-0 transition-all group-hover:opacity-100 hover:bg-indigo-50 hover:text-indigo-500"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+            </button>
+            {/* Bookmark */}
+            <BookmarkButton courseId={course.id} courseName={course.course_name} size="sm" />
+            <span className="rounded-full bg-zinc-100 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+              {course.semester} {course.year}
+            </span>
+          </div>
         </div>
 
         <h3 className="mb-1 font-semibold leading-snug text-zinc-900 line-clamp-2 transition-colors group-hover:text-indigo-700">
@@ -209,18 +145,14 @@ export function CourseCard({ course }: CourseCardProps) {
         </p>
 
         {course.description && (
-          <p className="mb-3 text-xs leading-relaxed text-zinc-500 line-clamp-2">
-            {course.description}
-          </p>
+          <p className="mb-3 text-xs leading-relaxed text-zinc-500 line-clamp-2">{course.description}</p>
         )}
 
         <div className="mt-auto flex items-center justify-between pt-3" style={{ borderTop: "0.5px solid #f0f0f5" }}>
           <div className="flex items-center gap-2">
             {contributors.length > 0 && (
               <div className="flex -space-x-1.5">
-                {contributors.slice(0, 4).map((c) => (
-                  <Avatar key={c.name} name={c.name} size={22} />
-                ))}
+                {contributors.slice(0, 4).map((c) => <Avatar key={c.name} name={c.name} size={22} />)}
               </div>
             )}
             <span className="text-xs text-zinc-400">
