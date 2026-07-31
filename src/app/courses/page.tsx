@@ -107,7 +107,8 @@ async function CourseResults({
       }
     }
     const dbCount = (c as unknown as { resource_count?: number }).resource_count;
-    return { ...c, resource_count: dbCount ?? resources.length, contributors };
+    const base = c as unknown as Record<string, unknown>;
+    return { ...base, resource_count: dbCount ?? resources.length, contributors };
   });
 
   if (enriched.length === 0) {
