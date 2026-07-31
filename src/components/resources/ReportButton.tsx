@@ -97,7 +97,7 @@ export function ReportButton({ resourceId }: { resourceId: string }) {
                   </div>
                   <h2 className="mb-2 text-2xl font-semibold text-zinc-900">Report received</h2>
                   <p className="mb-8 max-w-sm text-sm leading-relaxed text-zinc-500">
-                    We received your report and will review it shortly. Thank you for helping keep CourseShare accurate and useful.
+                    We received your report and will review it shortly. Thank you for helping keep CourseDeck accurate and useful.
                   </p>
                   <button
                     type="button"

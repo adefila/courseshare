@@ -35,13 +35,13 @@ export async function reportResource(resourceId: string, reason: string) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        from: "CourseShare <onboarding@resend.dev>",
+        from: "CourseDeck <onboarding@resend.dev>",
         to: ["adefilasamuel929@gmail.com"],
-        subject: `[CourseShare] Resource reported: ${resourceTitle}`,
+        subject: `[CourseDeck] Resource reported: ${resourceTitle}`,
         html: `
           <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#18181b">
             <div style="background:linear-gradient(135deg,#1e1b4b,#4f46e5);padding:32px;border-radius:12px 12px 0 0">
-              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#a5b4fc">CourseShare</p>
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#a5b4fc">CourseDeck</p>
               <h1 style="margin:8px 0 0;font-size:22px;font-weight:700;color:#fff">Resource reported</h1>
             </div>
             <div style="border:0.5px solid #e4e4e7;border-top:none;border-radius:0 0 12px 12px;padding:28px 32px">

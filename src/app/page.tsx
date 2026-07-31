@@ -60,7 +60,7 @@ export default async function DashboardPage() {
           <h1 className="text-2xl font-semibold text-zinc-900 sm:text-3xl">
             {displayName ? (
               <>Welcome back, <span className="font-bold text-indigo-600">{displayName}</span></>
-            ) : "Welcome to CourseShare"}
+            ) : "Welcome to CourseDeck"}
           </h1>
           <p className="mt-1.5 max-w-sm text-sm text-zinc-500">
             Everything you need to ace this semester — notes, past papers, and slides shared by students who&apos;ve been there.

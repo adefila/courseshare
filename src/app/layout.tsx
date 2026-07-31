@@ -16,7 +16,7 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CourseShare — Student Resource Hub",
+  title: "CourseDeck — Student Resource Hub",
   description:
     "Find and share course materials, past papers, and notes with students worldwide.",
 };
