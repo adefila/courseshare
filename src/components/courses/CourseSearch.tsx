@@ -81,6 +81,7 @@ export function CourseSearch({
             </svg>
           </button>
         )}
+        <button type="submit" className="sr-only" aria-hidden="true">Search</button>
       </form>
 
       {/* Filter dropdown */}
