@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, DM_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/ui/AppShell";
 import { Toaster } from "@/components/ui/Toast";
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-bricolage",
+});
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -24,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${instrumentSans.variable} ${dmMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${bricolage.variable} ${instrumentSans.variable} ${dmMono.variable} h-full antialiased`}>
       <body className="flex h-full flex-col bg-[#f5f5f7] text-zinc-900">
         <Toaster>
           <AppShell>{children}</AppShell>
