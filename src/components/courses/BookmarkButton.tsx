@@ -54,19 +54,18 @@ export function BookmarkButton({ courseId, courseName, size = "md" }: Props) {
     setBusy(false);
   }
 
-  const dim = size === "sm" ? "h-6 w-6" : "h-7 w-7";
+  const dim = size === "sm" ? "h-6 w-6" : "h-9 w-9";
   const icon = size === "sm" ? 12 : 14;
+  const mdStyle = size === "md"
+    ? `border ${saved ? "border-indigo-300 bg-indigo-50 text-indigo-600" : "border-zinc-200 bg-white text-zinc-400 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"}`
+    : saved ? "bg-indigo-100 text-indigo-600" : "text-zinc-300 hover:bg-indigo-50 hover:text-indigo-500";
 
   return (
     <button
       onClick={toggle}
       disabled={busy}
       title={saved ? "Remove from saved" : "Save course"}
-      className={`cursor-pointer flex shrink-0 items-center justify-center rounded-full transition-all duration-200 ${dim} ${
-        saved
-          ? "bg-indigo-100 text-indigo-600"
-          : "text-zinc-300 hover:bg-indigo-50 hover:text-indigo-500"
-      }`}
+      className={`cursor-pointer flex shrink-0 items-center justify-center rounded-full transition-all duration-200 ${dim} ${mdStyle}`}
     >
       <svg
         width={icon} height={icon}

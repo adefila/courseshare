@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useToast } from "@/components/ui/Toast";
 
 export function CopyLinkButton() {
   const [copied, setCopied] = useState(false);
+  const { toast } = useToast();
 
   function copy() {
     navigator.clipboard.writeText(window.location.href);
     setCopied(true);
+    toast("Link copied!", "success");
     setTimeout(() => setCopied(false), 2000);
   }
 
