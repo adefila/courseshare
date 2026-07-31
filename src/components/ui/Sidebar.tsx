@@ -219,9 +219,10 @@ function NavContent({
             <Link
               href="/signup"
               onClick={onNavClick}
-              className="cursor-pointer block rounded-full bg-indigo-600 px-4 py-2 text-center text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 active:translate-y-0"
+              className="group relative cursor-pointer block overflow-hidden rounded-full bg-indigo-600 px-4 py-2 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-indigo-500 active:scale-[0.97]"
             >
-              Sign up free
+              <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-[110%]">Sign up free</span>
+              <span className="absolute inset-0 flex items-center justify-center translate-y-[110%] transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden>Sign up free</span>
             </Link>
           </div>
         )}

@@ -93,13 +93,22 @@ export function ResourceListWithFilter({
           <button
             onClick={downloadAll}
             disabled={downloading || filtered.length === 0}
-            className="cursor-pointer flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-4 py-2 text-xs font-medium text-zinc-600 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+            className="group relative cursor-pointer flex items-center overflow-hidden rounded-full border border-zinc-200 bg-white px-4 py-2 text-xs font-medium text-zinc-600 transition-all duration-200 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700 active:scale-[0.97] disabled:opacity-50"
           >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <path d="M7 10l5 5 5-5" /><path d="M12 15V3" />
-            </svg>
-            {downloading ? "Downloading…" : `Download all${activeType !== "All" ? ` ${activeType}s` : ""}`}
+            <span className="flex items-center gap-1.5 transition-transform duration-300 ease-out group-hover:-translate-y-[110%] group-disabled:transition-none">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <path d="M7 10l5 5 5-5" /><path d="M12 15V3" />
+              </svg>
+              {downloading ? "Downloading…" : `Download all${activeType !== "All" ? ` ${activeType}s` : ""}`}
+            </span>
+            <span className="absolute inset-0 flex items-center justify-center gap-1.5 translate-y-[110%] transition-transform duration-300 ease-out group-hover:translate-y-0 group-disabled:transition-none" aria-hidden>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <path d="M7 10l5 5 5-5" /><path d="M12 15V3" />
+              </svg>
+              {downloading ? "Downloading…" : `Download all${activeType !== "All" ? ` ${activeType}s` : ""}`}
+            </span>
           </button>
         )}
       </div>
@@ -111,13 +120,14 @@ export function ResourceListWithFilter({
             <button
               key={t}
               onClick={() => setActiveType(t)}
-              className={`cursor-pointer rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 ${
+              className={`group relative cursor-pointer overflow-hidden rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
                 activeType === t
                   ? "bg-indigo-600 text-white shadow-sm shadow-indigo-200"
                   : "border border-zinc-200 bg-white text-zinc-600 hover:border-indigo-200 hover:text-indigo-700"
               }`}
             >
-              {t}
+              <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-[110%]">{t}</span>
+              <span className="absolute inset-0 flex items-center justify-center translate-y-[110%] transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden>{t}</span>
             </button>
           ))}
         </div>

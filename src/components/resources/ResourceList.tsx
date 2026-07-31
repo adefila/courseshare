@@ -188,15 +188,25 @@ function ResourceRow({ resource }: { resource: ResourceWithUploader }) {
         <button
           onClick={handleDownload}
           disabled={downloading}
-          className="cursor-pointer flex shrink-0 items-center gap-1.5 rounded-full bg-zinc-50 px-4 py-2 text-xs font-medium text-zinc-600 transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-50 hover:text-indigo-700 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+          className="group relative cursor-pointer flex shrink-0 overflow-hidden rounded-full bg-zinc-50 px-4 py-2 text-xs font-medium text-zinc-600 transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-700 active:scale-[0.97] disabled:opacity-50"
           style={{ border: "0.5px solid #e4e4e7" }}
         >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <path d="M7 10l5 5 5-5" />
-            <path d="M12 15V3" />
-          </svg>
-          {downloading ? "…" : "Download"}
+          <span className="flex items-center gap-1.5 transition-transform duration-300 ease-out group-hover:-translate-y-[110%] group-disabled:transition-none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <path d="M7 10l5 5 5-5" />
+              <path d="M12 15V3" />
+            </svg>
+            {downloading ? "…" : "Download"}
+          </span>
+          <span className="absolute inset-0 flex items-center justify-center gap-1.5 translate-y-[110%] transition-transform duration-300 ease-out group-hover:translate-y-0 group-disabled:transition-none" aria-hidden>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <path d="M7 10l5 5 5-5" />
+              <path d="M12 15V3" />
+            </svg>
+            {downloading ? "…" : "Download"}
+          </span>
         </button>
       </div>
     </li>

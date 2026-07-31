@@ -18,7 +18,7 @@ export function CopyLinkButton() {
     <button
       onClick={copy}
       title="Copy link"
-      className="cursor-pointer flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-400 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 active:translate-y-0"
+      className="cursor-pointer flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-400 transition-all duration-200 hover:scale-110 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 active:scale-100"
     >
       {copied ? (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500">

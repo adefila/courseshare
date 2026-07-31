@@ -24,17 +24,24 @@ const sizeClasses = {
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", ...props }, ref) => (
+  ({ className, variant = "primary", size = "md", children, ...props }, ref) => (
     <button
       ref={ref}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center rounded-full font-semibold tracking-normal transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:hover:translate-y-0",
+        "group relative inline-flex cursor-pointer overflow-hidden rounded-full font-semibold tracking-normal transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
         variantClasses[variant],
         sizeClasses[size],
         className
       )}
       {...props}
-    />
+    >
+      <span className="flex items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-[110%] group-disabled:transition-none">
+        {children}
+      </span>
+      <span className="absolute inset-0 flex items-center justify-center translate-y-[110%] transition-transform duration-300 ease-out group-hover:translate-y-0 group-disabled:transition-none" aria-hidden>
+        {children}
+      </span>
+    </button>
   )
 );
 
