@@ -171,7 +171,7 @@ export default async function DashboardPage() {
                   </div>
 
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-zinc-900 transition-colors group-hover:text-indigo-700">
+                    <p className="truncate text-sm font-medium text-zinc-900 transition-colors group-hover:text-indigo-700 [font-family:var(--font-bricolage)]">
                       {course.course_name}
                     </p>
                     <p className="truncate text-[11px] text-zinc-400">{course.university}</p>
