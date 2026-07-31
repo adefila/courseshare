@@ -219,7 +219,7 @@ function NavContent({
             <Link
               href="/signup"
               onClick={onNavClick}
-              className="cursor-pointer block rounded-full bg-indigo-600 px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-indigo-500"
+              className="cursor-pointer block rounded-full bg-indigo-600 px-4 py-2 text-center text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 active:translate-y-0"
             >
               Sign up free
             </Link>

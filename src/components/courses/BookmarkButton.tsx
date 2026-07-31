@@ -65,7 +65,7 @@ export function BookmarkButton({ courseId, courseName, size = "md" }: Props) {
       onClick={toggle}
       disabled={busy}
       title={saved ? "Remove from saved" : "Save course"}
-      className={`cursor-pointer flex shrink-0 items-center justify-center rounded-full transition-all duration-200 ${dim} ${mdStyle}`}
+      className={`cursor-pointer flex shrink-0 items-center justify-center rounded-full transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:hover:translate-y-0 ${dim} ${mdStyle}`}
     >
       <svg
         width={icon} height={icon}
