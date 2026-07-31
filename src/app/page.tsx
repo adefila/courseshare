@@ -58,25 +58,25 @@ export default async function DashboardPage() {
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
       {user ? (
-        /* Logged-in: compact greeting */
-        <div className="animate-fade-up mb-8">
-          <p className="mb-1 font-mono text-xs text-zinc-400">{dateStr}</p>
-          <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl">
-            {displayName
-              ? <>Welcome back, <span className="text-indigo-600">{displayName}</span></>
-              : "Welcome back"}
-          </h1>
-          <p className="mt-1.5 text-sm text-zinc-500">Here&apos;s what students have been sharing lately.</p>
-          <div className="mt-4">
-            <Link href="/courses/new">
-              <Button size="sm">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-1.5">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-                New course
-              </Button>
-            </Link>
+        /* Logged-in: full-width greeting row */
+        <div className="animate-fade-up mb-8 flex items-start justify-between gap-6">
+          <div>
+            <p className="mb-1 font-mono text-xs text-zinc-400">{dateStr}</p>
+            <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl">
+              {displayName
+                ? <>Welcome back, <span className="text-indigo-600">{displayName}</span></>
+                : "Welcome back"}
+            </h1>
+            <p className="mt-1.5 text-sm text-zinc-500">Here&apos;s what students have been sharing lately.</p>
           </div>
+          <Link href="/courses/new" className="shrink-0 mt-1">
+            <Button size="md">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-1.5">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              New course
+            </Button>
+          </Link>
         </div>
       ) : (
         /* Guest: full hero */
