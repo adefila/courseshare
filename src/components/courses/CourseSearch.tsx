@@ -107,7 +107,7 @@ export function CourseSearch({
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search courses…"
-          className="w-full rounded-full border border-indigo-200 bg-indigo-50/40 py-2.5 pl-10 pr-9 text-sm text-zinc-800 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100"
+          className="w-full rounded-full border border-indigo-200 bg-white py-2.5 pl-10 pr-9 text-sm text-zinc-800 transition placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
         />
         {q && (
           <button type="button" onClick={() => { setQ(""); navigate("", semester, sort, university); }}
