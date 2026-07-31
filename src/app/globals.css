@@ -10,6 +10,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-instrument-sans);
   --font-mono: var(--font-dm-mono);
+
+  /* CourseDeck brand blue — replaces Tailwind indigo across the whole app */
+  --color-indigo-50:  #eff5ff;
+  --color-indigo-100: #d6eaff;
+  --color-indigo-200: #aad0ff;
+  --color-indigo-300: #70b3ff;
+  --color-indigo-400: #3d95ff;
+  --color-indigo-500: #1480ff;
+  --color-indigo-600: #006cfb;
+  --color-indigo-700: #0057d4;
+  --color-indigo-800: #0045ab;
+  --color-indigo-900: #003382;
+  --color-indigo-950: #002159;
 }
 
 body {
@@ -21,8 +34,8 @@ body {
 }
 
 ::selection {
-  background: #c7d2fe;
-  color: #312e81;
+  background: #aad0ff;
+  color: #003382;
 }
 
 /* ─── Keyframes ─────────────────────────────────────────── */

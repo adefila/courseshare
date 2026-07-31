@@ -54,9 +54,8 @@ function NavContent({
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex h-14 shrink-0 items-center px-5" style={{ borderBottom: "0.5px solid #ebebf0" }}>
-        <Link href="/" onClick={onNavClick} className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
-          <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseDeck</span>
+        <Link href="/" onClick={onNavClick} className="flex items-center">
+          <img src="/logo.svg" alt="CourseDeck" className="h-6 w-auto" />
         </Link>
       </div>
 
@@ -297,9 +296,8 @@ export function Sidebar() {
     <>
       {/* Mobile top bar */}
       <div className="fixed inset-x-0 top-0 z-50 flex h-12 items-center justify-between bg-white/90 px-4 backdrop-blur-sm sm:hidden" style={{ borderBottom: "0.5px solid #e8e8f0" }}>
-        <Link href="/" className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
-          <span className="font-mono text-[13px] font-bold uppercase tracking-widest text-zinc-900">CourseDeck</span>
+        <Link href="/" className="flex items-center">
+          <img src="/logo.svg" alt="CourseDeck" className="h-6 w-auto" />
         </Link>
         <button
           onClick={() => setMobileOpen((o) => !o)}
