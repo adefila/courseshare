@@ -80,26 +80,42 @@ export default async function DashboardPage() {
         </div>
       ) : (
         /* Guest: full hero */
-        <div className="animate-fade-up mb-8 overflow-hidden rounded-3xl bg-indigo-600 px-8 py-10 sm:px-12 sm:py-14" style={{ background: "linear-gradient(135deg, #006cfb 0%, #0045ab 100%)" }}>
-          <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 font-mono text-xs text-white/80">
-            <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
-            {platformStats.totalCourses} courses · {platformStats.totalResources} resources
-          </p>
-          <h1 className="mb-3 max-w-lg text-3xl font-bold text-white sm:text-4xl">
-            Every note, slide, and past paper — in one place
-          </h1>
-          <p className="mb-8 max-w-md text-sm text-white/70">
-            CourseDeck is a student-built archive of course materials. Browse free, upload with an account.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/courses">
-              <Button variant="secondary" size="md">Browse courses</Button>
-            </Link>
-            <Link href="/signup">
-              <button className="rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20">
-                Sign up free
-              </button>
-            </Link>
+        <div className="animate-fade-up mb-8 relative overflow-hidden rounded-3xl px-7 py-8 sm:px-10 sm:py-10" style={{ background: "linear-gradient(135deg, #006cfb 0%, #0045ab 100%)" }}>
+
+          {/* Tiled logo mark pattern */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 95.34 109.03'%3E%3Cpolygon fill='white' points='68.16 81.67 54.49 109.03 40.87 82.02 27.26 108.98 0 54.47 27.25 .04 40.85 27.03 54.44 0 68.17 27.24 54.46 54.73 40.87 27.52 27.33 54.47 40.83 81.45 54.46 54.45 68.16 81.67'/%3E%3Cpolygon fill='%23ff6315' points='81.63 81.7 67.95 54.48 81.64 27.28 95.34 54.48 81.63 81.7'/%3E%3C/svg%3E")`,
+              backgroundSize: "72px 83px",
+              backgroundRepeat: "repeat",
+              opacity: 0.08,
+              filter: "blur(1.5px)",
+            }}
+          />
+
+          {/* Content sits above the pattern */}
+          <div className="relative">
+            <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 font-mono text-xs text-white/80">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
+              {platformStats.totalCourses} courses · {platformStats.totalResources} resources
+            </p>
+            <h1 className="mb-3 max-w-lg text-3xl font-bold text-white sm:text-4xl">
+              Every note, slide, and past paper — in one place
+            </h1>
+            <p className="mb-8 max-w-md text-sm text-white/70">
+              CourseDeck is a student-built archive of course materials. Browse free, upload with an account.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/courses">
+                <Button variant="secondary" size="md">Browse courses</Button>
+              </Link>
+              <Link href="/signup">
+                <button className="rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20">
+                  Sign up free
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       )}
@@ -117,7 +133,7 @@ export default async function DashboardPage() {
       {/* ── Recently added ───────────────────────────────────────── */}
       <div className="animate-fade-up-delay-2">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-semibold text-zinc-900">Recently added</h2>
+          <h2 className="font-semibold text-zinc-900 [font-family:var(--font-bricolage)]">Recently added</h2>
           <Link href="/courses" className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-500">
             View all
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
