@@ -24,17 +24,6 @@ function deptColor(code: string) {
   return DEPT_COLORS[prefix] ?? { bg: "#f4f4f5", text: "#52525b" };
 }
 
-const STAT_ICONS = [
-  <svg key="courses" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
-  </svg>,
-  <svg key="resources" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" />
-  </svg>,
-  <svg key="universities" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 21h18M9 8h1m4 0h1M9 12h1m4 0h1M5 21V7l7-4 7 4v14" />
-  </svg>,
-];
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -77,24 +66,24 @@ export default async function DashboardPage() {
       {/* ── Hero ─────────────────────────────────────────────────── */}
       {user ? (
         /* Logged-in: compact greeting */
-        <div className="animate-fade-up mb-8 flex items-end justify-between gap-4">
-          <div>
-            <p className="mb-1 font-mono text-xs text-zinc-400">{dateStr}</p>
-            <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl">
-              {displayName
-                ? <>Welcome back, <span className="text-indigo-600">{displayName}</span></>
-                : "Welcome back"}
-            </h1>
-            <p className="mt-1.5 text-sm text-zinc-500">Here&apos;s what students have been sharing lately.</p>
+        <div className="animate-fade-up mb-8">
+          <p className="mb-1 font-mono text-xs text-zinc-400">{dateStr}</p>
+          <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl">
+            {displayName
+              ? <>Welcome back, <span className="text-indigo-600">{displayName}</span></>
+              : "Welcome back"}
+          </h1>
+          <p className="mt-1.5 text-sm text-zinc-500">Here&apos;s what students have been sharing lately.</p>
+          <div className="mt-4">
+            <Link href="/courses/new">
+              <Button size="sm">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-1.5">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+                New course
+              </Button>
+            </Link>
           </div>
-          <Link href="/courses/new">
-            <Button size="sm">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-1.5">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
-              New course
-            </Button>
-          </Link>
         </div>
       ) : (
         /* Guest: full hero */
@@ -124,15 +113,10 @@ export default async function DashboardPage() {
 
       {/* ── Stats ────────────────────────────────────────────────── */}
       <div className="animate-fade-up-delay-1 mb-8 grid grid-cols-3 gap-3">
-        {stats.map(({ label, value }, i) => (
-          <div key={label} className="flex items-center gap-3 rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
-              {STAT_ICONS[i]}
-            </div>
-            <div>
-              <p className="font-mono text-2xl font-bold leading-none text-zinc-900">{value}</p>
-              <p className="mt-0.5 text-[11px] text-zinc-400">{label}</p>
-            </div>
+        {stats.map(({ label, value }) => (
+          <div key={label} className="rounded-2xl bg-white px-5 py-4" style={{ border: "0.5px solid #e8e8f0" }}>
+            <p className="font-mono text-3xl font-bold leading-none text-zinc-900">{value}</p>
+            <p className="mt-2 text-[11px] text-zinc-400">{label}</p>
           </div>
         ))}
       </div>
