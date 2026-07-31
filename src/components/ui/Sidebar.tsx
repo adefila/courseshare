@@ -93,7 +93,7 @@ function NavContent({
               onClick={onNavClick}
               className={`cursor-pointer flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors ${
                 pathname === "/courses/new"
-                  ? "bg-zinc-100 font-semibold text-zinc-900"
+                  ? "bg-indigo-50 font-semibold text-indigo-700"
                   : "text-zinc-500 hover:bg-indigo-50 hover:text-indigo-700"
               }`}
             >

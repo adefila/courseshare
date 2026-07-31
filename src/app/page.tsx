@@ -111,7 +111,7 @@ export default async function DashboardPage() {
                 <Button variant="secondary" size="md">Browse courses</Button>
               </Link>
               <Link href="/signup">
-                <button className="rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20">
+                <button className="cursor-pointer rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20">
                   Sign up free
                 </button>
               </Link>
