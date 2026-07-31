@@ -59,7 +59,7 @@ export default async function DashboardPage() {
       {/* ── Hero ─────────────────────────────────────────────────── */}
       {user ? (
         /* Logged-in: full-width greeting row */
-        <div className="animate-fade-up mb-8 flex items-start justify-between gap-6">
+        <div className="animate-fade-up mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
           <div>
             <p className="mb-1 font-mono text-xs text-zinc-400">{dateStr}</p>
             <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl">
@@ -69,8 +69,8 @@ export default async function DashboardPage() {
             </h1>
             <p className="mt-1.5 text-sm text-zinc-500">Here&apos;s what students have been sharing lately.</p>
           </div>
-          <Link href="/courses/new" className="shrink-0 mt-1">
-            <Button size="md">
+          <Link href="/courses/new" className="shrink-0 sm:mt-1">
+            <Button size="md" className="w-full sm:w-auto">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="mr-1.5">
                 <path d="M12 5v14M5 12h14" />
               </svg>
@@ -186,13 +186,13 @@ export default async function DashboardPage() {
 
       {/* ── Guest CTA ────────────────────────────────────────────── */}
       {!user && (
-        <div className="animate-fade-up-delay-3 mt-6 flex items-center justify-between rounded-2xl bg-white px-6 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
+        <div className="animate-fade-up-delay-3 mt-6 flex flex-col gap-4 rounded-2xl bg-white px-6 py-5 sm:flex-row sm:items-center sm:justify-between" style={{ border: "0.5px solid #e8e8f0" }}>
           <div>
             <p className="font-semibold text-zinc-900">Ready to contribute?</p>
             <p className="text-sm text-zinc-500">Sign up free to upload and manage course resources.</p>
           </div>
-          <Link href="/signup">
-            <Button size="sm">Sign up free</Button>
+          <Link href="/signup" className="shrink-0">
+            <Button size="sm" className="w-full sm:w-auto">Sign up free</Button>
           </Link>
         </div>
       )}
