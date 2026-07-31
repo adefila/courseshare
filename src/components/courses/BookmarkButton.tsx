@@ -58,7 +58,7 @@ export function BookmarkButton({ courseId, courseName, size = "md" }: Props) {
   const icon = size === "sm" ? 12 : 14;
   const mdStyle = size === "md"
     ? `border ${saved ? "border-indigo-300 bg-indigo-50 text-indigo-600" : "border-zinc-200 bg-white text-zinc-400 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"}`
-    : saved ? "bg-indigo-100 text-indigo-600" : "text-zinc-300 hover:bg-indigo-50 hover:text-indigo-500";
+    : `border ${saved ? "border-indigo-300 bg-indigo-50 text-indigo-600" : "border-zinc-200 bg-white/80 text-zinc-400 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"}`;
 
   return (
     <button

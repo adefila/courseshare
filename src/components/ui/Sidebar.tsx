@@ -112,8 +112,14 @@ function NavContent({
             <div className="mb-1 flex items-center justify-between px-3">
               <p className="font-mono text-[10px] font-medium uppercase tracking-wide text-zinc-400">Saved</p>
               {bookmarks.length > 0 && (
-                <Link href="/saved" onClick={onNavClick} className="font-mono text-[9px] text-zinc-400 hover:text-indigo-600 transition-colors">
-                  View all
+                <Link
+                  href="/saved"
+                  onClick={onNavClick}
+                  className="group relative overflow-hidden font-mono text-[9px] text-zinc-400 hover:text-indigo-600 transition-colors"
+                  style={{ height: "1em", display: "inline-flex", flexDirection: "column" }}
+                >
+                  <span className="transition-transform duration-200 ease-in-out group-hover:-translate-y-full">View all</span>
+                  <span className="absolute transition-transform duration-200 ease-in-out translate-y-full group-hover:translate-y-0" aria-hidden>View all</span>
                 </Link>
               )}
             </div>
