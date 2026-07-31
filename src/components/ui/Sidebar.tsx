@@ -109,31 +109,47 @@ function NavContent({
         {/* Saved courses */}
         {user && (
           <div className="mt-4">
-            <p className="mb-1 px-3 font-mono text-[10px] font-medium uppercase tracking-wide text-zinc-400">
-              Saved
-            </p>
+            <div className="mb-1 flex items-center justify-between px-3">
+              <p className="font-mono text-[10px] font-medium uppercase tracking-wide text-zinc-400">Saved</p>
+              {bookmarks.length > 0 && (
+                <Link href="/saved" onClick={onNavClick} className="font-mono text-[9px] text-zinc-400 hover:text-indigo-600 transition-colors">
+                  View all
+                </Link>
+              )}
+            </div>
             <div className="space-y-0.5">
               {bookmarks.length === 0 ? (
                 <p className="px-3 py-1.5 text-[11px] text-zinc-400">No saved courses yet.</p>
               ) : (
-                bookmarks.map((b) => (
-                  <Link
-                    key={b.id}
-                    href={`/courses/${b.id}`}
-                    onClick={onNavClick}
-                    className={`cursor-pointer flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors ${
-                      pathname === `/courses/${b.id}`
-                        ? "bg-indigo-50 font-semibold text-indigo-700"
-                        : "text-zinc-500 hover:bg-indigo-50 hover:text-indigo-700"
-                    }`}
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill={pathname === `/courses/${b.id}` ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                    </svg>
-                    <span className="min-w-0 truncate">{b.course_name}</span>
-                    <span className="ml-auto shrink-0 font-mono text-[9px] text-zinc-400">{b.course_code}</span>
-                  </Link>
-                ))
+                <>
+                  {bookmarks.slice(0, 5).map((b) => (
+                    <Link
+                      key={b.id}
+                      href={`/courses/${b.id}`}
+                      onClick={onNavClick}
+                      className={`cursor-pointer flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors ${
+                        pathname === `/courses/${b.id}`
+                          ? "bg-indigo-50 font-semibold text-indigo-700"
+                          : "text-zinc-500 hover:bg-indigo-50 hover:text-indigo-700"
+                      }`}
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill={pathname === `/courses/${b.id}` ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                      </svg>
+                      <span className="min-w-0 truncate">{b.course_name}</span>
+                      <span className="ml-auto shrink-0 font-mono text-[9px] text-zinc-400">{b.course_code}</span>
+                    </Link>
+                  ))}
+                  {bookmarks.length > 5 && (
+                    <Link
+                      href="/saved"
+                      onClick={onNavClick}
+                      className="cursor-pointer flex items-center gap-2 rounded-full px-3 py-2 text-[11px] text-zinc-400 transition-colors hover:bg-indigo-50 hover:text-indigo-600"
+                    >
+                      +{bookmarks.length - 5} more saved
+                    </Link>
+                  )}
+                </>
               )}
             </div>
           </div>
