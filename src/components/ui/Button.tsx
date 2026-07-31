@@ -35,7 +35,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       )}
       {...props}
     >
-      <span className="flex items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-[110%] group-disabled:transition-none">
+      <span className="flex w-full items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-[110%] group-disabled:transition-none">
         {children}
       </span>
       <span className="absolute inset-0 flex items-center justify-center translate-y-[110%] transition-transform duration-300 ease-out group-hover:translate-y-0 group-disabled:transition-none" aria-hidden>
