@@ -67,9 +67,10 @@ function NavContent({
         </p>
         <div className="space-y-0.5">
           {NAV.map((item) => {
+            const isBookmarkedCourse = bookmarks.some((b) => pathname === `/courses/${b.id}`);
             const active =
               pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href + "/") && pathname !== "/courses/new");
+              (item.href !== "/" && pathname.startsWith(item.href + "/") && pathname !== "/courses/new" && !isBookmarkedCourse);
             return (
               <Link
                 key={item.href}
