@@ -32,7 +32,6 @@ export default async function DashboardPage() {
     { data: { user } },
     platformStats,
     { data: recentCourses },
-    { data: topCourses },
   ] = await Promise.all([
     supabase.auth.getUser(),
     getPlatformStats(),
@@ -41,12 +40,6 @@ export default async function DashboardPage() {
       .select("id, course_name, course_code, university, created_at, resource_count")
       .order("created_at", { ascending: false })
       .limit(8),
-    supabase
-      .from("courses")
-      .select("id, course_name, course_code, university, resource_count")
-      .order("resource_count", { ascending: false })
-      .gt("resource_count", 0)
-      .limit(6),
   ]);
 
   const displayName = user?.user_metadata?.display_name as string | undefined;
@@ -121,149 +114,88 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* ── Two-column content ───────────────────────────────────── */}
-      <div className="animate-fade-up-delay-2 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_340px]">
-
-        {/* Recently added */}
-        <div>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-semibold text-zinc-900">Recently added</h2>
-            <Link href="/courses" className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-              View all
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-
-          {(recentCourses ?? []).length === 0 ? (
-            <div className="rounded-2xl bg-white py-10 text-center" style={{ border: "0.5px solid #e8e8f0" }}>
-              <p className="text-sm text-zinc-500">No courses yet — be the first to add one.</p>
-              {user && (
-                <Link href="/courses/new" className="mt-3 inline-block">
-                  <Button size="sm">Create a course</Button>
-                </Link>
-              )}
-            </div>
-          ) : (
-            <div className="list-stagger flex flex-col gap-2">
-              {(recentCourses ?? []).map((course) => {
-                const color = deptColor(course.course_code);
-                const rc = (course as unknown as { resource_count?: number }).resource_count;
-                return (
-                  <Link
-                    key={course.id}
-                    href={`/courses/${course.id}`}
-                    className="group flex items-center gap-4 rounded-xl bg-white px-4 py-3 transition-all hover:bg-zinc-50"
-                    style={{ border: "0.5px solid #e8e8f0" }}
-                  >
-                    <div
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-mono text-[10px] font-bold"
-                      style={{ background: color.bg, color: color.text }}
-                    >
-                      {course.course_code?.replace(/\d/g, "").slice(0, 3).toUpperCase()}
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-zinc-900 transition-colors group-hover:text-indigo-700">
-                        {course.course_name}
-                      </p>
-                      <p className="truncate text-[11px] text-zinc-400">{course.university}</p>
-                    </div>
-
-                    <div className="hidden shrink-0 items-center gap-2 sm:flex">
-                      <span className="rounded-full px-2 py-0.5 font-mono text-[10px] font-medium" style={{ background: color.bg, color: color.text }}>
-                        {course.course_code}
-                      </span>
-                      {rc != null && rc > 0 && (
-                        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] text-zinc-500">
-                          {rc} {rc === 1 ? "file" : "files"}
-                        </span>
-                      )}
-                    </div>
-
-                    <span className="hidden shrink-0 text-[11px] text-zinc-400 sm:block">{formatDate(course.created_at)}</span>
-
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-zinc-300 transition-colors group-hover:text-indigo-400">
-                      <path d="M9 18l6-6-6-6" />
-                    </svg>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+      {/* ── Recently added ───────────────────────────────────────── */}
+      <div className="animate-fade-up-delay-2">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="font-semibold text-zinc-900">Recently added</h2>
+          <Link href="/courses" className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+            View all
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
 
-        {/* Right column */}
-        <div className="flex flex-col gap-6">
+        {(recentCourses ?? []).length === 0 ? (
+          <div className="rounded-2xl bg-white py-10 text-center" style={{ border: "0.5px solid #e8e8f0" }}>
+            <p className="text-sm text-zinc-500">No courses yet — be the first to add one.</p>
+            {user && (
+              <Link href="/courses/new" className="mt-3 inline-block">
+                <Button size="sm">Create a course</Button>
+              </Link>
+            )}
+          </div>
+        ) : (
+          <div className="list-stagger flex flex-col gap-2">
+            {(recentCourses ?? []).map((course) => {
+              const color = deptColor(course.course_code);
+              const rc = (course as unknown as { resource_count?: number }).resource_count;
+              return (
+                <Link
+                  key={course.id}
+                  href={`/courses/${course.id}`}
+                  className="group flex items-center gap-4 rounded-xl bg-white px-4 py-3 transition-all hover:bg-zinc-50"
+                  style={{ border: "0.5px solid #e8e8f0" }}
+                >
+                  <div
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-mono text-[10px] font-bold"
+                    style={{ background: color.bg, color: color.text }}
+                  >
+                    {course.course_code?.replace(/\d/g, "").slice(0, 3).toUpperCase()}
+                  </div>
 
-          {/* Top courses */}
-          {(topCourses ?? []).length > 0 && (
-            <div>
-              <h2 className="mb-4 font-semibold text-zinc-900">Most resources</h2>
-              <div className="flex flex-col gap-2">
-                {(topCourses ?? []).map((course, idx) => {
-                  const color = deptColor(course.course_code);
-                  const rc = (course as unknown as { resource_count?: number }).resource_count ?? 0;
-                  return (
-                    <Link
-                      key={course.id}
-                      href={`/courses/${course.id}`}
-                      className="group flex items-center gap-3 rounded-xl bg-white px-4 py-3 transition-all hover:bg-zinc-50"
-                      style={{ border: "0.5px solid #e8e8f0" }}
-                    >
-                      <span className="w-5 shrink-0 font-mono text-xs font-medium text-zinc-300">
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-zinc-900 transition-colors group-hover:text-indigo-700">
-                          {course.course_name}
-                        </p>
-                        <p className="truncate text-[10px]" style={{ color: color.text }}>{course.course_code}</p>
-                      </div>
-                      <span className="shrink-0 rounded-full bg-indigo-50 px-2.5 py-1 font-mono text-[10px] font-semibold text-indigo-600">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-zinc-900 transition-colors group-hover:text-indigo-700">
+                      {course.course_name}
+                    </p>
+                    <p className="truncate text-[11px] text-zinc-400">{course.university}</p>
+                  </div>
+
+                  <div className="hidden shrink-0 items-center gap-2 sm:flex">
+                    <span className="rounded-full px-2 py-0.5 font-mono text-[10px] font-medium" style={{ background: color.bg, color: color.text }}>
+                      {course.course_code}
+                    </span>
+                    {rc != null && rc > 0 && (
+                      <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] text-zinc-500">
                         {rc} {rc === 1 ? "file" : "files"}
                       </span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+                    )}
+                  </div>
 
-          {/* Universities */}
-          {platformStats.universities.length > 0 && (
-            <div>
-              <h2 className="mb-4 font-semibold text-zinc-900">Universities</h2>
-              <div className="rounded-2xl bg-white p-4" style={{ border: "0.5px solid #e8e8f0" }}>
-                <div className="flex flex-wrap gap-2">
-                  {platformStats.universities.slice(0, 12).map((uni) => (
-                    <Link
-                      key={uni}
-                      href={`/courses?university=${encodeURIComponent(uni)}`}
-                      className="rounded-full bg-zinc-50 px-3 py-1.5 text-[11px] font-medium text-zinc-600 transition-colors hover:bg-indigo-50 hover:text-indigo-700"
-                      style={{ border: "0.5px solid #e8e8f0" }}
-                    >
-                      {uni}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
+                  <span className="hidden shrink-0 text-[11px] text-zinc-400 sm:block">{formatDate(course.created_at)}</span>
 
-          {/* Guest CTA */}
-          {!user && (
-            <div className="rounded-2xl bg-zinc-900 px-5 py-6 text-center">
-              <p className="mb-1 font-semibold text-white">Ready to contribute?</p>
-              <p className="mb-4 text-xs text-zinc-400">Upload your notes and help the next student.</p>
-              <Link href="/signup">
-                <Button size="sm">Sign up free</Button>
-              </Link>
-            </div>
-          )}
-        </div>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-zinc-300 transition-colors group-hover:text-indigo-400">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
+
+      {/* ── Guest CTA ────────────────────────────────────────────── */}
+      {!user && (
+        <div className="animate-fade-up-delay-3 mt-6 flex items-center justify-between rounded-2xl bg-white px-6 py-5" style={{ border: "0.5px solid #e8e8f0" }}>
+          <div>
+            <p className="font-semibold text-zinc-900">Ready to contribute?</p>
+            <p className="text-sm text-zinc-500">Sign up free to upload and manage course resources.</p>
+          </div>
+          <Link href="/signup">
+            <Button size="sm">Sign up free</Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
