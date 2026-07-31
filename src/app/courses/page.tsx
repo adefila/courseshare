@@ -6,6 +6,7 @@ import { CourseCard } from "@/components/courses/CourseCard";
 import { CourseSearch } from "@/components/courses/CourseSearch";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
+import type { Course } from "@/types/database";
 
 const PAGE_SIZE = 12;
 
@@ -107,7 +108,7 @@ async function CourseResults({
       }
     }
     const dbCount = (c as unknown as { resource_count?: number }).resource_count;
-    const base = c as unknown as Record<string, unknown>;
+    const base = c as unknown as Course;
     return { ...base, resource_count: dbCount ?? resources.length, contributors };
   });
 
