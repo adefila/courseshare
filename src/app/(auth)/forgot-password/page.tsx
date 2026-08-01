@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/client";
+import { createImplicitClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
@@ -42,10 +42,10 @@ export default function ForgotPasswordPage() {
     if (!email.trim()) { setError("Email is required"); return; }
     if (!/\S+@\S+\.\S+/.test(email)) { setError("Enter a valid email address"); return; }
     startTransition(async () => {
-      const supabase = createClient();
+      const supabase = createImplicitClient();
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${siteUrl}/api/auth/callback?next=/reset-password`,
+        redirectTo: `${siteUrl}/reset-password`,
       });
       if (error) setError(error.message);
       else setSent(true);

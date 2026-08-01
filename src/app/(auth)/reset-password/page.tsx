@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
@@ -38,35 +38,28 @@ export default function ResetPasswordPage() {
   const [linkError, setLinkError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isPending, startTransition] = useTransition();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
 
-    // Listen for the PASSWORD_RECOVERY event — fires after Supabase processes
-    // the recovery token or code from the URL (may take a moment client-side)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY" || (event === "SIGNED_IN" && session)) {
+    // Show error if no PASSWORD_RECOVERY event fires within 5 seconds
+    timerRef.current = setTimeout(() => {
+      setLinkError("This reset link is invalid or has expired.");
+    }, 5000);
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") {
+        if (timerRef.current) clearTimeout(timerRef.current);
         setReady(true);
         setLinkError("");
       }
     });
 
-    // Also check immediately in case the session is already established
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setReady(true);
-      } else {
-        // Give the client time to exchange the token before showing an error
-        const timer = setTimeout(() => {
-          supabase.auth.getSession().then(({ data: { session } }) => {
-            if (!session) setLinkError("This reset link is invalid or has expired.");
-          });
-        }, 2500);
-        return () => clearTimeout(timer);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      subscription.unsubscribe();
+    };
   }, []);
 
   function handleSubmit(e: React.FormEvent) {
