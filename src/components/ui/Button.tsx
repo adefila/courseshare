@@ -28,17 +28,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     <button
       ref={ref}
       className={cn(
-        "group relative inline-flex cursor-pointer overflow-hidden rounded-full font-semibold tracking-normal transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
+        "inline-flex cursor-pointer items-center justify-center rounded-full font-semibold tracking-normal transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
         variantClasses[variant],
         sizeClasses[size],
         className
       )}
       {...props}
     >
-      <span className="flex w-full items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-[110%] group-disabled:transition-none">
-        {children}
-      </span>
-      <span className="absolute inset-0 flex items-center justify-center translate-y-[110%] transition-transform duration-300 ease-out group-hover:translate-y-0 group-disabled:transition-none" aria-hidden>
+      <span className="flex w-full items-center justify-center">
         {children}
       </span>
     </button>
