@@ -41,10 +41,32 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) setReady(true);
-      else setLinkError("This reset link is invalid or has expired.");
+
+    // Listen for the PASSWORD_RECOVERY event — fires after Supabase processes
+    // the recovery token or code from the URL (may take a moment client-side)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" || (event === "SIGNED_IN" && session)) {
+        setReady(true);
+        setLinkError("");
+      }
     });
+
+    // Also check immediately in case the session is already established
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setReady(true);
+      } else {
+        // Give the client time to exchange the token before showing an error
+        const timer = setTimeout(() => {
+          supabase.auth.getSession().then(({ data: { session } }) => {
+            if (!session) setLinkError("This reset link is invalid or has expired.");
+          });
+        }, 2500);
+        return () => clearTimeout(timer);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   function handleSubmit(e: React.FormEvent) {
