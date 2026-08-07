@@ -20,7 +20,7 @@ export default async function UploadPage({
   if (!course) notFound();
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-6 py-12">
+    <div className="w-full px-6 py-12">
       <div className="mx-auto max-w-xl">
       <Link
         href={`/courses/${courseId}`}

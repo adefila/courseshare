@@ -54,7 +54,7 @@ export default async function DashboardPage() {
   const dateStr = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
 
   return (
-    <div className="mx-auto w-full max-w-[1100px] px-6 py-8 sm:pr-10">
+    <div className="w-full px-6 py-8 sm:pr-10">
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
       {user ? (

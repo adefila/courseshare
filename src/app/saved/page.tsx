@@ -21,7 +21,7 @@ export default async function SavedPage() {
   }).filter((c): c is NonNullable<typeof c> => c !== null);
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-6 py-10">
+    <div className="w-full px-6 py-10">
       <div className="mb-6 flex items-center gap-3">
         <Link
           href="/courses"

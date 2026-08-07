@@ -39,7 +39,7 @@ export default async function CourseDetailPage({
   const { gradient, glow, pill } = getCourseColor(course.course_code);
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-6 py-10">
+    <div className="w-full px-6 py-10">
       <div className="mx-auto max-w-4xl">
         <Link
           href="/courses"
